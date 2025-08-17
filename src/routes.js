@@ -5,15 +5,22 @@ import CartPage from "./pages/CartPage/CartPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
+import AppLayout from "./pages/AppLayout/AppLayout";
 
 const routes = [
-  { path: "/", Component: ProductsPage },
-  { path: "/login", Component: LoginPage },
-  { path: "/register", Component: RegisterPage },
-  // private routes
-  { Component: PrivateRoute, children: [{ path: "/cart", Component: CartPage }] },
-
-  { path: "*", Component: NotFoundPage },
+  // layout route
+  {
+    Component: AppLayout,
+    children: [
+      { path: "/", Component: ProductsPage },
+      { path: "/login", Component: LoginPage },
+      { path: "/register", Component: RegisterPage },
+      // private route
+      { Component: PrivateRoute, children: [{ path: "/cart", Component: CartPage }] },
+      // 404 page
+      { path: "*", Component: NotFoundPage },
+    ],
+  },
 ];
 
 export default routes;

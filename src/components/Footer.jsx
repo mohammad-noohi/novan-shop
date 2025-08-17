@@ -1,8 +1,14 @@
 import { Link } from "react-router";
 
+// icons
+import { FiInstagram } from "react-icons/fi";
+import { FiSend } from "react-icons/fi";
+import { FiTwitter } from "react-icons/fi";
+import { FiThumbsUp } from "react-icons/fi";
+
 export default function Footer() {
   return (
-    <footer className="py-10.5 border-t border-slate-200 bg-white dark:bg-app-dark dark:border-slate-800">
+    <footer className="mt-auto py-10.5 border-t border-slate-200 bg-white dark:bg-app-dark dark:border-slate-800">
       <div className="container">
         <div className="grid grid-cols-4 gap-20">
           <div>
@@ -60,8 +66,9 @@ export default function Footer() {
                   placeholder="Enter your email"
                   className="p-3 bg-white rounded-lg border border-slate-200 outline-none w-full dark:text-white dark:bg-suface-dark dark:border-slate-800"
                 />
-                <button type="submit" className="bg-brand text-white py-3 px-6.5  rounded-lg cursor-pointer dark:bg-indigo-500">
-                  Subscribe
+                <button type="submit" className="flex items-center gap-3 bg-brand text-white py-3 px-6.5  rounded-lg cursor-pointer dark:bg-indigo-500">
+                  <span> Subscribe</span>
+                  <FiThumbsUp className="size-4" />
                 </button>
               </div>
             </form>
@@ -71,16 +78,19 @@ export default function Footer() {
 
             <ul className="mt-5 flex items-center gap-3">
               <li>
-                <Link className="flex size-10 rounded-full bg-brand text-white justify-center items-center">icon</Link>
+                <Link className="flex size-10 rounded-full bg-brand text-white justify-center items-center">
+                  <FiInstagram />
+                </Link>
               </li>
               <li>
-                <Link className="flex size-10 rounded-full bg-brand text-white justify-center items-center">icon</Link>
+                <Link className="flex size-10 rounded-full bg-brand text-white justify-center items-center">
+                  <FiSend />
+                </Link>
               </li>
               <li>
-                <Link className="flex size-10 rounded-full bg-brand text-white justify-center items-center">icon</Link>
-              </li>
-              <li>
-                <Link className="flex size-10 rounded-full bg-brand text-white justify-center items-center">icon</Link>
+                <Link className="flex size-10 rounded-full bg-brand text-white justify-center items-center">
+                  <FiTwitter />
+                </Link>
               </li>
             </ul>
           </div>
