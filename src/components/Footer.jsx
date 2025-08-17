@@ -57,7 +57,7 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="text-2xl font-semibold dark:text-white">Quick Links</h3>
+            <h3 className="text-2xl font-semibold dark:text-white">Newsletter</h3>
 
             <form className="mt-5">
               <div className="flex gap-2 flex-wrap">
