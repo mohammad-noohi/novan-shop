@@ -8,7 +8,7 @@ export default function Header() {
           {/* left header */}
           <nav className="flex items-center gap-5">
             {/* logo */}
-            <Link className="">
+            <Link to="/">
               <h1 className="text-2xl text-brand font-bold dark:text-indigo-500">Novan Shop</h1>
             </Link>
             <ul className="flex items-center gap-4">
@@ -40,10 +40,14 @@ export default function Header() {
 
             {/* if user not login show this */}
             <div className="flex items-center gap-3">
-              <button className=" bg-brand border border-brand dark:border-indigo-500 text-slate-50 py-1 px-5 rounded-lg capitalize  cursor-pointer dark:bg-indigo-500">login</button>
-              <button className=" bg-slate-50  text-brand py-1 px-5 rounded-lg capitalize cursor-pointer dark:bg-suface-dark dark:text-indigo-500 border border-slate-200 dark:border-slate-800">
+              <Link to="/login" className=" bg-brand border border-brand dark:border-indigo-500 text-slate-50 py-1 px-5 rounded-lg capitalize  cursor-pointer dark:bg-indigo-500">
+                login
+              </Link>
+              <Link
+                to="/register"
+                className=" bg-slate-50  text-brand py-1 px-5 rounded-lg capitalize cursor-pointer dark:bg-suface-dark dark:text-indigo-500 border border-slate-200 dark:border-slate-800">
                 register
-              </button>
+              </Link>
             </div>
 
             {/* if user login show this */}
