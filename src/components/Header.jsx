@@ -1,21 +1,14 @@
 import { Link, NavLink } from "react-router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 // icons
 import { FiSun } from "react-icons/fi";
 import { FiMoon } from "react-icons/fi";
 import { FiShoppingBag } from "react-icons/fi";
 import { FiLogOut } from "react-icons/fi";
+import { useThemeContext } from "../contexts/ThemeContext/useThemeContext";
 
 export default function Header() {
-  // Theme state herer just for test
-  const [theme, setTheme] = useState("light");
-
-  function toggleTheme() {
-    setTheme(theme => {
-      if (theme === "light") return "dark";
-      if (theme === "dark") return "light";
-    });
-  }
+  const { theme, toggleTheme } = useThemeContext();
 
   useEffect(() => {
     if (theme === "light") document.documentElement.classList.add("dark");
