@@ -1,7 +1,7 @@
 // icons
-import { FiPlus } from "react-icons/fi";
-import { FiMinus } from "react-icons/fi";
-import { FiTrash } from "react-icons/fi";
+import { Plus } from "lucide-react";
+import { Minus } from "lucide-react";
+import { Trash } from "lucide-react";
 
 export default function CartPage() {
   return (
@@ -28,13 +28,13 @@ export default function CartPage() {
                   </p>
                   <div className="mt-8 flex items-center gap-3">
                     <button className="size-8 flex justify-center items-center rounded-lg bg-brand  cursor-pointer dark:bg-indigo-500">
-                      <FiPlus className="size-4 text-white" />
+                      <Plus className="size-4 text-white" />
                     </button>
                     <button className="size-8 flex justify-center items-center rounded-lg bg-brand  cursor-pointer dark:bg-indigo-500">
-                      <FiMinus className="size-4 text-white" />
+                      <Minus className="size-4 text-white" />
                     </button>
                     <button className="size-8 flex justify-center items-center rounded-lg bg-red-600 ms-auto cursor-pointer dark:bg-red-800">
-                      <FiTrash className="size-4 text-white" />
+                      <Trash className="size-4 text-white" />
                     </button>
                   </div>
                 </div>

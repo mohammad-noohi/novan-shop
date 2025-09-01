@@ -1,10 +1,10 @@
 import { Link } from "react-router";
 
 // icons
-import { FiInstagram } from "react-icons/fi";
-import { FiSend } from "react-icons/fi";
-import { FiTwitter } from "react-icons/fi";
-import { FiThumbsUp } from "react-icons/fi";
+import { Instagram } from "lucide-react";
+import { Send } from "lucide-react";
+import { Twitter } from "lucide-react";
+import { ThumbsUp } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -68,7 +68,7 @@ export default function Footer() {
                 />
                 <button type="submit" className="flex items-center gap-3 bg-brand text-white py-3 px-6.5  rounded-lg cursor-pointer dark:bg-indigo-500">
                   <span> Subscribe</span>
-                  <FiThumbsUp className="size-4" />
+                  <ThumbsUp className="size-4" />
                 </button>
               </div>
             </form>
@@ -79,17 +79,17 @@ export default function Footer() {
             <ul className="mt-5 flex items-center gap-3">
               <li>
                 <Link className="flex size-10 rounded-full bg-brand text-white justify-center items-center">
-                  <FiInstagram />
+                  <Instagram className="size-4" />
                 </Link>
               </li>
               <li>
                 <Link className="flex size-10 rounded-full bg-brand text-white justify-center items-center">
-                  <FiSend />
+                  <Send className="size-4" />
                 </Link>
               </li>
               <li>
                 <Link className="flex size-10 rounded-full bg-brand text-white justify-center items-center">
-                  <FiTwitter />
+                  <Twitter className="size-4" />
                 </Link>
               </li>
             </ul>

@@ -1,5 +1,6 @@
 import { Link } from "react-router";
-import { FiArrowRight } from "react-icons/fi";
+// icons
+import { ArrowRight } from "lucide-react";
 
 export default function NotFoundPage() {
   return (
@@ -9,7 +10,7 @@ export default function NotFoundPage() {
         <p className="text-2xl text-slate-600 dark:text-muted-dark">Sorry, the page you’re looking for doesn’t exist.</p>
         <Link to="/" className="flex items-center gap-3 capitalize py-3 px-6 rounded-lg bg-brand cursor-pointer text-white">
           <span> Go Home</span>
-          <FiArrowRight className="size-6" />
+          <ArrowRight className="size-6" />
         </Link>
       </div>
     </>

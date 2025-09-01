@@ -1,11 +1,11 @@
 import { Link, NavLink } from "react-router";
 import { useEffect } from "react";
-// icons
-import { FiSun } from "react-icons/fi";
-import { FiMoon } from "react-icons/fi";
-import { FiShoppingBag } from "react-icons/fi";
-import { FiLogOut } from "react-icons/fi";
 import { useThemeContext } from "../contexts/ThemeContext/useThemeContext";
+// icons
+import { Sun } from "lucide-react";
+import { Moon } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
+import { LogOut } from "lucide-react";
 
 export default function Header() {
   const { theme, toggleTheme } = useThemeContext();
@@ -44,15 +44,15 @@ export default function Header() {
             <div className="flex items-center gap-2">
               {/* cart toggle */}
               <div className="relative bg-slate-50 size-10 cursor-pointer rounded-full flex items-center justify-center border border-slate-200 dark:border-slate-800 dark:bg-suface-dark dark:text-white">
-                <FiShoppingBag className="size-4" />
+                <ShoppingBag className="size-4" />
                 <span className="flex absolute size-5  -translate-y-1/2 translate-x-1/2 rounded-full bg-brand text-white  justify-center items-center top-0 right-0 text-xs">3</span>
               </div>
               {/* theme toggle */}
               <div
                 className="bg-slate-50 size-10 cursor-pointer rounded-full flex items-center justify-center border border-slate-200 dark:border-slate-800 dark:bg-suface-dark dark:text-white"
                 onClick={toggleTheme}>
-                {theme === "light" && <FiSun className="size-4" />}
-                {theme === "dark" && <FiMoon className="size-4" />}
+                {theme === "light" && <Sun className="size-4" />}
+                {theme === "dark" && <Moon className="size-4" />}
               </div>
             </div>
 
@@ -77,7 +77,7 @@ export default function Header() {
             </div>
             {/* logout button */}
             <div className=" bg-slate-50 size-10 flex items-center justify-center rounded-full dark:bg-suface-dark dark:text-muted-dark border border-slate-200 dark:border-slate-800 cursor-pointer">
-              <FiLogOut className="size-4" />
+              <LogOut className="size-4" />
             </div>
           </div>
         </div>

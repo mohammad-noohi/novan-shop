@@ -1,0 +1,204 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "firstname": "mohammad",
+      "lastname": "noohi",
+      "username": "noohi1998",
+      "password": "1111",
+      "role": "admin"
+    }
+  ],
+
+  "products": [
+    {
+      "id": 101,
+      "title": "Apple MacBook Pro 16 M2 Pro",
+      "category": "laptop",
+      "brand": "Apple",
+      "price": 1199234,
+      "discount": 5,
+      "stock": 5,
+      "rate": 3,
+      "colors": ["space gray", "silver"],
+      "mainImage": "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
+      "gallery": [
+        "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
+      "specs": {
+        "cpu": "Apple M2 Pro",
+        "ram": "32 GB",
+        "storage": "1 TB SSD",
+        "display": "16.2-inch Liquid Retina XDR",
+        "gpu": "Integrated 19-core",
+        "battery": "100 Wh",
+        "os": "macOS Ventura"
+      },
+      "caption": "Professional Apple laptop for developers and designers."
+    },
+    {
+      "id": 102,
+      "title": "Dell XPS 15 9520",
+      "category": "laptop",
+      "brand": "Dell",
+      "price": 899,
+      "discount": 10,
+      "stock": 7,
+      "rate": 3,
+      "colors": ["silver", "black"],
+      "mainImage": "https://images.unsplash.com/photo-1621635186925-7d07c0f7d01c",
+      "gallery": [
+        "https://images.unsplash.com/photo-1621635186925-7d07c0f7d01c",
+        "https://images.unsplash.com/photo-1621635186926-7d07c0f7d01d",
+        "https://images.unsplash.com/photo-1621635186927-7d07c0f7d01e"
+      ],
+      "specs": {
+        "cpu": "Intel Core i7-12700H",
+        "ram": "16 GB",
+        "storage": "512 GB SSD",
+        "display": "15.6-inch 4K OLED",
+        "gpu": "NVIDIA GeForce RTX 3050 Ti",
+        "battery": "86 Wh",
+        "os": "Windows 11"
+      },
+      "caption": "Slim and powerful Dell laptop for professional work."
+    },
+    {
+      "id": 103,
+      "title": "HP Spectre x360 16",
+      "category": "laptop",
+      "brand": "HP",
+      "price": 799,
+      "discount": 12,
+      "stock": 8,
+      "rate": 3,
+      "colors": ["nightfall black", "poseidon blue"],
+      "mainImage": "https://images.unsplash.com/photo-1622772443923-d2bb7c0f9c3b",
+      "gallery": [
+        "https://images.unsplash.com/photo-1622772443923-d2bb7c0f9c3b",
+        "https://images.unsplash.com/photo-1622772443924-d2bb7c0f9c3c",
+        "https://images.unsplash.com/photo-1622772443925-d2bb7c0f9c3d"
+      ],
+      "specs": {
+        "cpu": "Intel Core i7-1255U",
+        "ram": "16 GB",
+        "storage": "1 TB SSD",
+        "display": "16-inch OLED Touch",
+        "gpu": "Intel Iris Xe",
+        "battery": "80 Wh",
+        "os": "Windows 11"
+      },
+      "caption": "HP 2-in-1 laptop with touchscreen for professional and creative work."
+    },
+    {
+      "id": 104,
+      "title": "Lenovo ThinkPad X1 Carbon Gen 11",
+      "category": "laptop",
+      "brand": "Lenovo",
+      "price": 849,
+      "discount": 8,
+      "stock": 10,
+      "rate": 3,
+      "colors": ["black"],
+      "mainImage": "https://images.unsplash.com/photo-1616480145678-3d2f8c0f7f4b",
+      "gallery": [
+        "https://images.unsplash.com/photo-1616480145678-3d2f8c0f7f4b",
+        "https://images.unsplash.com/photo-1616480145679-3d2f8c0f7f4c",
+        "https://images.unsplash.com/photo-1616480145680-3d2f8c0f7f4d"
+      ],
+      "specs": {
+        "cpu": "Intel Core i7-1360P",
+        "ram": "16 GB",
+        "storage": "512 GB SSD",
+        "display": "14-inch IPS FHD",
+        "gpu": "Intel Iris Xe",
+        "battery": "57 Wh",
+        "os": "Windows 11 Pro"
+      },
+      "caption": "Durable Lenovo laptop with professional keyboard for business use."
+    },
+    {
+      "id": 105,
+      "title": "Asus ROG Zephyrus G14",
+      "category": "laptop",
+      "brand": "Asus",
+      "price": 949,
+      "discount": 10,
+      "stock": 6,
+      "rate": 3,
+      "colors": ["moonlight white", "esports black"],
+      "mainImage": "https://images.unsplash.com/photo-1625567890123-1a2b3c0f4d5e",
+      "gallery": [
+        "https://images.unsplash.com/photo-1625567890123-1a2b3c0f4d5e",
+        "https://images.unsplash.com/photo-1625567890124-1a2b3c0f4d5f",
+        "https://images.unsplash.com/photo-1625567890125-1a2b3c0f4d60"
+      ],
+      "specs": {
+        "cpu": "AMD Ryzen 9 6900HS",
+        "ram": "32 GB",
+        "storage": "1 TB SSD",
+        "display": "14-inch QHD 120Hz",
+        "gpu": "NVIDIA RTX 3060",
+        "battery": "76 Wh",
+        "os": "Windows 11"
+      },
+      "caption": "Asus gaming laptop with lightweight design and exceptional performance."
+    },
+    {
+      "id": 106,
+      "title": "MSI Creator Z16",
+      "category": "laptop",
+      "brand": "MSI",
+      "price": 1059,
+      "discount": 7,
+      "stock": 4,
+      "rate": 3,
+      "colors": ["carbon gray"],
+      "mainImage": "https://images.unsplash.com/photo-1625567891123-2b3c4d0f5e6f",
+      "gallery": [
+        "https://images.unsplash.com/photo-1625567891123-2b3c4d0f5e6f",
+        "https://images.unsplash.com/photo-1625567891124-2b3c4d0f5e70",
+        "https://images.unsplash.com/photo-1625567891125-2b3c4d0f5e71"
+      ],
+      "specs": {
+        "cpu": "Intel Core i9-12900H",
+        "ram": "32 GB",
+        "storage": "2 TB SSD",
+        "display": "16-inch QHD+ Touch",
+        "gpu": "NVIDIA RTX 3080",
+        "battery": "90 Wh",
+        "os": "Windows 11 Pro"
+      },
+      "caption": "MSI laptop for content creators and professional designers."
+    },
+    {
+      "id": 107,
+      "title": "Razer Blade 15 Advanced",
+      "category": "laptop",
+      "brand": "Razer",
+      "price": 1249,
+      "discount": 12,
+      "stock": 5,
+      "rate": 3,
+      "colors": ["black"],
+      "mainImage": "https://images.unsplash.com/photo-1625567892123-3c4d5e0f6f7g",
+      "gallery": [
+        "https://images.unsplash.com/photo-1625567892123-3c4d5e0f6f7g",
+        "https://images.unsplash.com/photo-1625567892124-3c4d5e0f6f7h",
+        "https://images.unsplash.com/photo-1625567892125-3c4d5e0f6f7i"
+      ],
+      "specs": {
+        "cpu": "Intel Core i7-12800H",
+        "ram": "32 GB",
+        "storage": "1 TB SSD",
+        "display": "15.6-inch 4K OLED",
+        "gpu": "NVIDIA RTX 3070 Ti",
+        "battery": "80 Wh",
+        "os": "Windows 11"
+      },
+      "caption": "Razer gaming laptop with ultra-slim design and high performance."
+    }
+  ]
+}
