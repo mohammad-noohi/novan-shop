@@ -1,10 +1,18 @@
 // icons
 import { Star } from "lucide-react";
 
+const NO_IMAGE_URL = "images/products/No-Image-Placeholder.png";
+
 export default function ProductCard({ product }) {
+  function handleNoImageError(e) {
+    e.currentTarget.src = NO_IMAGE_URL; // set to no image
+    e.currentTarget.alt = "No image available"; // set alt text
+    e.currentTarget.onerror = null; // برای جلوگیری از لوپ بی‌نهایت
+  }
   return (
     <div className="pt-4 pl-4 pr-4 pb-6 rounded-lg border border-slate-200 bg-slate-50 dark:bg-suface-dark dark:border-slate-800">
-      <img src={product.mainImage} alt="" className="h-40 rounded-lg" />
+      <img src={product.mainImage ? product.mainImage : NO_IMAGE_URL} alt={product.title} className="h-40 rounded-lg mx-auto" onError={handleNoImageError} />
+
       <div className="pt-4 pb-8 flex flex-col gap-2.5">
         <h5 className="font-bold dark:text-slate-200">{product.title}</h5>
         <div className="flex items-center justify-between">

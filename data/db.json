@@ -4,9 +4,19 @@
       "id": 1,
       "firstname": "mohammad",
       "lastname": "noohi",
+      "email": "noohi.m98@gmail.com",
       "username": "noohi1998",
       "password": "1111",
       "role": "admin"
+    },
+    {
+      "id": 2,
+      "firstname": "hatef",
+      "lastname": "karimi",
+      "email": "prolord@gmail.com",
+      "username": "prolord",
+      "password": "2222",
+      "role": "user"
     }
   ],
 
@@ -75,7 +85,7 @@
       "stock": 8,
       "rate": 3,
       "colors": ["nightfall black", "poseidon blue"],
-      "mainImage": "https://images.unsplash.com/photo-1622772443923-d2bb7c0f9c3b",
+      "mainImage": "images/products/hp-spectre-x360-16.png",
       "gallery": [
         "https://images.unsplash.com/photo-1622772443923-d2bb7c0f9c3b",
         "https://images.unsplash.com/photo-1622772443924-d2bb7c0f9c3c",
@@ -102,7 +112,7 @@
       "stock": 10,
       "rate": 3,
       "colors": ["black"],
-      "mainImage": "https://images.unsplash.com/photo-1616480145678-3d2f8c0f7f4b",
+      "mainImage": "images/products/Lenovo-ThinkPad-X1-Carbon-Gen-11.png",
       "gallery": [
         "https://images.unsplash.com/photo-1616480145678-3d2f8c0f7f4b",
         "https://images.unsplash.com/photo-1616480145679-3d2f8c0f7f4c",
@@ -129,7 +139,7 @@
       "stock": 6,
       "rate": 3,
       "colors": ["moonlight white", "esports black"],
-      "mainImage": "https://images.unsplash.com/photo-1625567890123-1a2b3c0f4d5e",
+      "mainImage": "images/products/Asus-ROG-Zephyrus-G14.png",
       "gallery": [
         "https://images.unsplash.com/photo-1625567890123-1a2b3c0f4d5e",
         "https://images.unsplash.com/photo-1625567890124-1a2b3c0f4d5f",
@@ -156,7 +166,7 @@
       "stock": 4,
       "rate": 3,
       "colors": ["carbon gray"],
-      "mainImage": "https://images.unsplash.com/photo-1625567891123-2b3c4d0f5e6f",
+      "mainImage": "images/products/MSI-Creator-Z16.png",
       "gallery": [
         "https://images.unsplash.com/photo-1625567891123-2b3c4d0f5e6f",
         "https://images.unsplash.com/photo-1625567891124-2b3c4d0f5e70",
