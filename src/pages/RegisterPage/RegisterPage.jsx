@@ -111,8 +111,9 @@ export default function RegisterPage() {
             </label>
           </div>
 
-          <button className="w-full mt-8 bg-brand text-white rounded-lg py-3 px-6 cursor-pointer hover:bg-indigo-500 transition-colors" type="submit">
-            sign up
+          <button className="flex items-center justify-center gap-3 w-full mt-8 bg-brand text-white rounded-lg py-3 px-6 cursor-pointer hover:bg-indigo-500 transition-colors" type="submit">
+            {loading && <span className="block size-4 rounded-full border-2 border-white border-t-transparent animate-spin"></span>}
+            {loading ? "loading..." : "sign up"}
           </button>
         </form>
       </div>

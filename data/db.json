@@ -80,6 +80,15 @@
       "username": "rocexo",
       "role": "user",
       "id": 19
+    },
+    {
+      "email": "zysop@mailinator.com",
+      "password": "$2a$10$nNqp0XWBEvlUb/fRxLQWw.FGEDtY5162KW8NqwTeqv/4rsGw9jxq2",
+      "firstname": "Alyssa",
+      "lastname": "Faulkner",
+      "username": "qovit",
+      "role": "user",
+      "id": 20
     }
   ],
   "products": [

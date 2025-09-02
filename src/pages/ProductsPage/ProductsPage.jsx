@@ -77,7 +77,7 @@ export default function ProductsPage() {
         <div className="flex items-center gap-3 mt-5">
           <button
             disabled={currentPage === 1}
-            className="size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-50 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white disabled:opacity-30"
+            className="size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-50 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white disabled:opacity-30 disabled:cursor-not-allowed"
             onClick={prevPage}>
             <ChevronLeft className="size-4" />
           </button>
@@ -97,7 +97,7 @@ export default function ProductsPage() {
 
           <button
             disabled={currentPage === pagesCount}
-            className="size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-50 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white disabled:opacity-30"
+            className="size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-50 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white disabled:opacity-30 disabled:cursor-not-allowed"
             onClick={nextPage}>
             <ChevronRight className="size-4" />
           </button>

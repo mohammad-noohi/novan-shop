@@ -21,7 +21,7 @@ export default function LoginPage() {
     // when login finish redirect to home page
     if (!loading) {
       clearForm();
-      alert("login sucessfully");
+      // alert("login sucessfully");
       navigate("/");
     }
   }
@@ -70,8 +70,9 @@ export default function LoginPage() {
             </label>
           </div>
 
-          <button className="w-full mt-8 bg-brand text-white rounded-lg py-3 px-6 cursor-pointer hover:bg-indigo-500 transition-colors" type="submit">
-            sign in
+          <button className="flex items-center justify-center gap-3 w-full mt-8 bg-brand text-white rounded-lg py-3 px-6 cursor-pointer hover:bg-indigo-500 transition-colors" type="submit">
+            {loading && <span className="block size-4 rounded-full border-2 border-white border-t-transparent animate-spin"></span>}
+            {loading ? "loading..." : "sign in"}
           </button>
         </form>
       </div>

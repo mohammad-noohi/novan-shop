@@ -22,6 +22,30 @@
   @apply mx-auto px-2.5;
 }
 
+/* Global Styles of Scrollbar ( can use tailwind scrollbar plugin instead ) */
+
+/* لایت مود */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-400;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+.dark ::-webkit-scrollbar-track {
+  @apply bg-suface-dark;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  @apply bg-muted-dark;
+}
 /* 
 
 success => green-500
