@@ -1,25 +1,87 @@
 {
   "users": [
     {
-      "id": 1,
-      "firstname": "mohammad",
-      "lastname": "noohi",
-      "email": "noohi.m98@gmail.com",
-      "username": "noohi1998",
-      "password": "1111",
-      "role": "admin"
-    },
-    {
-      "id": 2,
+      "email": "prolord@gmail.com",
+      "password": "$2a$10$9Y8ya7Tbdsi2VND1Hc.KkeZ1qJMU.KNgprDsBcu4INX52DSAHzcFK",
       "firstname": "hatef",
       "lastname": "karimi",
-      "email": "prolord@gmail.com",
       "username": "prolord",
-      "password": "2222",
-      "role": "user"
+      "role": "user",
+      "id": 2
+    },
+    {
+      "email": "maralnoohi@gmail.com",
+      "password": "$2a$10$YgWeuBQBMwndnDGFl8NEnO5jdmCqN6Ln.S3Fmivne5B3iHAw/ntSm",
+      "firstname": "maral",
+      "lastname": "noohi",
+      "username": "maral",
+      "role": "user",
+      "id": 3
+    },
+    {
+      "email": "noohi@gmail.com",
+      "password": "$2a$10$HtdT3JnFxt93LEa0XWJKuuQpJDV1a/flIl6rM2.EkiDX3q/etOCnK",
+      "firstname": "mohammad",
+      "lastname": "noohi",
+      "username": "noohi1998",
+      "role": "admin",
+      "id": 13
+    },
+    {
+      "email": "taqa@mailinator.com",
+      "password": "$2a$10$R8qvg7ghHrbW/7ZL2JatRO6iGpifdTaFiUlbtFdL5yUpnGMdb2Cjy",
+      "firstname": "Ria",
+      "lastname": "Oneill",
+      "username": "relypuza",
+      "role": "user",
+      "id": 14
+    },
+    {
+      "email": "hanytawav@mailinator.com",
+      "password": "$2a$10$V8j4os9f0qkU/ARnE8xrTeNSbI4cjNn.RHkSh7VzCaLUSk.9z2Vse",
+      "firstname": "India",
+      "lastname": "Roy",
+      "username": "dalitex",
+      "role": "user",
+      "id": 15
+    },
+    {
+      "email": "fezzehebz@gmail.com",
+      "password": "$2a$10$zVyDTld2ZnKWF.GNLZ7Osed7X2jPAB6NsPup5w/CVTSpWZTBUpd5S",
+      "firstname": "fezeh",
+      "lastname": "ebrahimzadeh",
+      "username": "fezeh",
+      "role": "user",
+      "id": 16
+    },
+    {
+      "email": "hatef@gmail.com",
+      "password": "$2a$10$rd1uliW0d.A9fq7e70A8a.x2ZgcNR.kOF3Axu.jAxS.Nq2e0HTq/S",
+      "firstname": "hatef",
+      "lastname": "karimi",
+      "username": "hatef98",
+      "role": "user",
+      "id": 17
+    },
+    {
+      "email": "gyjul@mailinator.com",
+      "password": "$2a$10$6aHTSs11ADDHtE3Q7vOFPeCp3/8ucrA422bIHITf8wi65Dz4D.ieK",
+      "firstname": "Dara",
+      "lastname": "Ball",
+      "username": "wewupo",
+      "role": "user",
+      "id": 18
+    },
+    {
+      "email": "gemiseriba@mailinator.com",
+      "password": "$2a$10$UgH4cT1YE74EhUHk06gQqueC4lTnzpIuKYiHW1aC.7T5Q87m.fgGG",
+      "firstname": "Kimberly",
+      "lastname": "Wyatt",
+      "username": "rocexo",
+      "role": "user",
+      "id": 19
     }
   ],
-
   "products": [
     {
       "id": 101,
@@ -29,8 +91,11 @@
       "price": 1199234,
       "discount": 5,
       "stock": 5,
-      "rate": 3,
-      "colors": ["space gray", "silver"],
+      "rate": 1,
+      "colors": [
+        "space gray",
+        "silver"
+      ],
       "mainImage": "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
       "gallery": [
         "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
@@ -56,8 +121,11 @@
       "price": 899,
       "discount": 10,
       "stock": 7,
-      "rate": 3,
-      "colors": ["silver", "black"],
+      "rate": 4,
+      "colors": [
+        "silver",
+        "black"
+      ],
       "mainImage": "https://images.unsplash.com/photo-1621635186925-7d07c0f7d01c",
       "gallery": [
         "https://images.unsplash.com/photo-1621635186925-7d07c0f7d01c",
@@ -84,7 +152,10 @@
       "discount": 12,
       "stock": 8,
       "rate": 3,
-      "colors": ["nightfall black", "poseidon blue"],
+      "colors": [
+        "nightfall black",
+        "poseidon blue"
+      ],
       "mainImage": "images/products/hp-spectre-x360-16.png",
       "gallery": [
         "https://images.unsplash.com/photo-1622772443923-d2bb7c0f9c3b",
@@ -111,7 +182,9 @@
       "discount": 8,
       "stock": 10,
       "rate": 3,
-      "colors": ["black"],
+      "colors": [
+        "black"
+      ],
       "mainImage": "images/products/Lenovo-ThinkPad-X1-Carbon-Gen-11.png",
       "gallery": [
         "https://images.unsplash.com/photo-1616480145678-3d2f8c0f7f4b",
@@ -137,8 +210,11 @@
       "price": 949,
       "discount": 10,
       "stock": 6,
-      "rate": 3,
-      "colors": ["moonlight white", "esports black"],
+      "rate": 2,
+      "colors": [
+        "moonlight white",
+        "esports black"
+      ],
       "mainImage": "images/products/Asus-ROG-Zephyrus-G14.png",
       "gallery": [
         "https://images.unsplash.com/photo-1625567890123-1a2b3c0f4d5e",
@@ -164,8 +240,10 @@
       "price": 1059,
       "discount": 7,
       "stock": 4,
-      "rate": 3,
-      "colors": ["carbon gray"],
+      "rate": 5,
+      "colors": [
+        "carbon gray"
+      ],
       "mainImage": "images/products/MSI-Creator-Z16.png",
       "gallery": [
         "https://images.unsplash.com/photo-1625567891123-2b3c4d0f5e6f",
@@ -191,8 +269,10 @@
       "price": 1249,
       "discount": 12,
       "stock": 5,
-      "rate": 3,
-      "colors": ["black"],
+      "rate": 1,
+      "colors": [
+        "black"
+      ],
       "mainImage": "https://images.unsplash.com/photo-1625567892123-3c4d5e0f6f7g",
       "gallery": [
         "https://images.unsplash.com/photo-1625567892123-3c4d5e0f6f7g",

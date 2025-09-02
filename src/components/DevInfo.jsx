@@ -1,9 +1,6 @@
 import { Link } from "react-router";
 
 // icons
-// import { FiInstagram } from "react-icons/fi";
-// import { FiSend } from "react-icons/fi";
-// import { FiGithub } from "react-icons/fi";
 import { Instagram } from "lucide-react";
 import { Send } from "lucide-react";
 import { Github } from "lucide-react";
@@ -15,15 +12,21 @@ export default function DevInfo() {
         <div className="flex items-center justify-between text-sm">
           <p>Developed & Designed by Mohammad Noohi — Frontend Developer</p>
           <div className="flex items-center gap-3">
-            <a className="size-10 flex items-center justify-center bg-white border border-slate-200 rounded-full dark:bg-suface-dark dark:border-slate-800 dark:text-white cursor-pointer">
+            <a
+              href="https://instagram.com/noohi1998 "
+              className="size-10 flex items-center justify-center bg-white border border-slate-200 rounded-full dark:bg-suface-dark dark:border-slate-800 dark:text-white cursor-pointer">
               <Instagram className="size-4" />
             </a>
 
-            <a className="size-10 flex items-center justify-center bg-white border border-slate-200 rounded-full dark:bg-suface-dark dark:border-slate-800 dark:text-white cursor-pointer">
+            <a
+              href="https://t.me/noohi1998"
+              className="size-10 flex items-center justify-center bg-white border border-slate-200 rounded-full dark:bg-suface-dark dark:border-slate-800 dark:text-white cursor-pointer">
               <Send className="size-4" />
             </a>
 
-            <a className="size-10 flex items-center justify-center bg-white border border-slate-200 rounded-full dark:bg-suface-dark dark:border-slate-800 dark:text-white cursor-pointer">
+            <a
+              href="https://github.com/mohammad-noohi"
+              className="size-10 flex items-center justify-center bg-white border border-slate-200 rounded-full dark:bg-suface-dark dark:border-slate-800 dark:text-white cursor-pointer">
               <Github className="size-4" />
             </a>
           </div>

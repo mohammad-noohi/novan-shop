@@ -43,8 +43,6 @@ export default function ProductsPage() {
     setCurrentPage(num);
   }
 
-  if (products.length > 0) console.log(products.slice(startIndex, endIndex));
-
   useEffect(() => {
     async function getAllProducts() {
       try {
@@ -69,7 +67,7 @@ export default function ProductsPage() {
   return (
     <main className="py-10 bg-white dark:bg-app-dark">
       <div className="container">
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
           {paginatedProducts.map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
@@ -86,6 +84,7 @@ export default function ProductsPage() {
 
           {Array.from({ length: pagesCount }, (_, i) => (
             <button
+              key={i}
               className={`size-9 font-bold flex justify-center items-center rounded-lg border ${
                 i + 1 === currentPage ? "bg-brand text-white border-brand" : " border-slate-200 bg-slate-50 dark:bg-suface-dark dark:border-slate-800 dark:text-white"
               } cursor-pointer dark:bg-indigo-500`}
