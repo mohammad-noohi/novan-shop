@@ -99,7 +99,7 @@
       "brand": "Apple",
       "price": 1199234,
       "discount": 5,
-      "stock": 5,
+      "stock": 0,
       "rate": 1,
       "colors": [
         "space gray",
@@ -129,7 +129,7 @@
       "brand": "Dell",
       "price": 899,
       "discount": 10,
-      "stock": 7,
+      "stock": 3,
       "rate": 4,
       "colors": [
         "silver",
@@ -159,7 +159,7 @@
       "brand": "HP",
       "price": 799,
       "discount": 12,
-      "stock": 8,
+      "stock": 3,
       "rate": 3,
       "colors": [
         "nightfall black",
@@ -189,7 +189,7 @@
       "brand": "Lenovo",
       "price": 849,
       "discount": 8,
-      "stock": 10,
+      "stock": 3,
       "rate": 3,
       "colors": [
         "black"
@@ -218,7 +218,7 @@
       "brand": "Asus",
       "price": 949,
       "discount": 10,
-      "stock": 6,
+      "stock": 3,
       "rate": 2,
       "colors": [
         "moonlight white",
@@ -248,7 +248,7 @@
       "brand": "MSI",
       "price": 1059,
       "discount": 7,
-      "stock": 4,
+      "stock": 7,
       "rate": 5,
       "colors": [
         "carbon gray"
@@ -277,7 +277,7 @@
       "brand": "Razer",
       "price": 1249,
       "discount": 12,
-      "stock": 5,
+      "stock": 7,
       "rate": 1,
       "colors": [
         "black"

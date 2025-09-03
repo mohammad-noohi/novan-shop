@@ -10,11 +10,15 @@ import { useAuthContext } from "../contexts/AuthContext/useAuthContext";
 import { Menu } from "lucide-react";
 import CartDrawer from "./CartDrawer";
 import Overlay from "./Overlay";
+import { useCartContext } from "../contexts/CartContext/useCartContext";
 
 export default function Header() {
+  const { cart } = useCartContext();
   const { user, logout } = useAuthContext();
   const { theme, toggleTheme } = useThemeContext();
   const [showCartDrawer, setShowCartDrawer] = useState(false);
+  /* Derived States */
+  const cartItemsCount = cart.length;
 
   useEffect(() => {
     if (theme === "light") document.documentElement.classList.add("dark");
@@ -57,7 +61,7 @@ export default function Header() {
                   className="relative bg-slate-50 size-10 cursor-pointer rounded-full flex items-center justify-center border border-slate-200 dark:border-slate-800 dark:bg-suface-dark dark:text-white"
                   onClick={() => setShowCartDrawer(true)}>
                   <ShoppingBag className="size-4" />
-                  <span className="flex absolute size-5  -translate-y-1/2 translate-x-1/2 rounded-full bg-brand text-white  justify-center items-center top-0 right-0 text-xs">3</span>
+                  <span className="flex absolute size-5  -translate-y-1/2 translate-x-1/2 rounded-full bg-brand text-white  justify-center items-center top-0 right-0 text-xs">{cartItemsCount}</span>
                 </div>
               )}
 

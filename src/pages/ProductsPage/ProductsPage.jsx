@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ProductCard from "../../components/ProductCard";
 
 // icons
 import { ChevronRight } from "lucide-react";
 import { ChevronLeft } from "lucide-react";
+import { useCartContext } from "../../contexts/CartContext/useCartContext";
 
 // change this value to manage amount of items to show in UI.
 const ITEMS_PER_PAGE = 5;
 
 export default function ProductsPage() {
-  const [loading, setLoading] = useState(false);
-  const [products, setProducts] = useState([]);
+  const { products } = useCartContext();
   const [currentPage, setCurrentPage] = useState(1);
   const pagesCount = Math.ceil(products.length / ITEMS_PER_PAGE);
   const endIndex = currentPage * ITEMS_PER_PAGE;
@@ -43,33 +43,15 @@ export default function ProductsPage() {
     setCurrentPage(num);
   }
 
-  useEffect(() => {
-    async function getAllProducts() {
-      try {
-        setLoading(true);
-        const resp = await fetch("http://localhost:3000/products");
-        const data = await resp.json();
-        setProducts(data);
-      } catch (err) {
-        console.log("Something went wrong on get products data");
-        throw new Error(err.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    getAllProducts();
-  }, []);
-
   // loading effect
-  if (loading && products.length > 0) return "loading";
+  // if (productsLoading && products.length > 0) return "loading";
 
   return (
     <main className="py-10 bg-white dark:bg-app-dark">
       <div className="container">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
           {paginatedProducts.map(product => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard initial={{ y: 10, opacity: 0.8 }} animate={{ y: 0, opacity: 1 }} key={product.id} product={product} />
           ))}
         </div>
 
