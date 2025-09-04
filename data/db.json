@@ -99,12 +99,9 @@
       "brand": "Apple",
       "price": 1199234,
       "discount": 5,
-      "stock": 0,
+      "stock": 20,
       "rate": 1,
-      "colors": [
-        "space gray",
-        "silver"
-      ],
+      "colors": ["space gray", "silver"],
       "mainImage": "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
       "gallery": [
         "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
@@ -129,12 +126,9 @@
       "brand": "Dell",
       "price": 899,
       "discount": 10,
-      "stock": 0,
+      "stock": 19,
       "rate": 4,
-      "colors": [
-        "silver",
-        "black"
-      ],
+      "colors": ["silver", "black"],
       "mainImage": "https://images.unsplash.com/photo-1621635186925-7d07c0f7d01c",
       "gallery": [
         "https://images.unsplash.com/photo-1621635186925-7d07c0f7d01c",
@@ -159,12 +153,9 @@
       "brand": "HP",
       "price": 799,
       "discount": 12,
-      "stock": 3,
+      "stock": 20,
       "rate": 3,
-      "colors": [
-        "nightfall black",
-        "poseidon blue"
-      ],
+      "colors": ["nightfall black", "poseidon blue"],
       "mainImage": "images/products/hp-spectre-x360-16.png",
       "gallery": [
         "https://images.unsplash.com/photo-1622772443923-d2bb7c0f9c3b",
@@ -189,11 +180,9 @@
       "brand": "Lenovo",
       "price": 849,
       "discount": 8,
-      "stock": 1,
+      "stock": 20,
       "rate": 3,
-      "colors": [
-        "black"
-      ],
+      "colors": ["black"],
       "mainImage": "images/products/Lenovo-ThinkPad-X1-Carbon-Gen-11.png",
       "gallery": [
         "https://images.unsplash.com/photo-1616480145678-3d2f8c0f7f4b",
@@ -218,12 +207,9 @@
       "brand": "Asus",
       "price": 949,
       "discount": 10,
-      "stock": 2,
+      "stock": 20,
       "rate": 2,
-      "colors": [
-        "moonlight white",
-        "esports black"
-      ],
+      "colors": ["moonlight white", "esports black"],
       "mainImage": "images/products/Asus-ROG-Zephyrus-G14.png",
       "gallery": [
         "https://images.unsplash.com/photo-1625567890123-1a2b3c0f4d5e",
@@ -248,11 +234,9 @@
       "brand": "MSI",
       "price": 1059,
       "discount": 7,
-      "stock": 7,
+      "stock": 20,
       "rate": 5,
-      "colors": [
-        "carbon gray"
-      ],
+      "colors": ["carbon gray"],
       "mainImage": "images/products/MSI-Creator-Z16.png",
       "gallery": [
         "https://images.unsplash.com/photo-1625567891123-2b3c4d0f5e6f",
@@ -277,11 +261,9 @@
       "brand": "Razer",
       "price": 1249,
       "discount": 12,
-      "stock": 5,
+      "stock": 20,
       "rate": 1,
-      "colors": [
-        "black"
-      ],
+      "colors": ["black"],
       "mainImage": "https://images.unsplash.com/photo-1625567892123-3c4d5e0f6f7g",
       "gallery": [
         "https://images.unsplash.com/photo-1625567892123-3c4d5e0f6f7g",

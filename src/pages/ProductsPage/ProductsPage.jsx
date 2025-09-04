@@ -51,7 +51,7 @@ export default function ProductsPage() {
       <div className="container">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {paginatedProducts.map(product => (
-            <ProductCard initial={{ y: 10, opacity: 0.8 }} animate={{ y: 0, opacity: 1 }} key={product.id} product={product} />
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
 

@@ -2,6 +2,7 @@
 import { Star } from "lucide-react";
 import { useCartContext } from "../contexts/CartContext/useCartContext";
 import { useState } from "react";
+import { motion } from "motion/react";
 
 const NO_IMAGE_URL = "images/products/No-Image-Placeholder.png";
 
@@ -45,14 +46,16 @@ export default function ProductCard({ product }) {
         <p className="text-slate-600 text-sm dark:text-muted-dark line-clamp-3">{product.caption}</p>
         <p className="text-slate-600 font-bold dark:text-muted-dark">Stock : {product.stock}</p>
       </div>
-      <button
+      <motion.button
+        initial={{ scale: 1 }}
+        whileTap={{ scale: 0.9 }}
         disabled={product.stock === 0}
         onClick={() => addToCart(product)}
         className="flex mt-8 items-center justify-center gap-3 bg-brand text-white py-3 w-full rounded-lg cursor-pointer dark:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-70
        disabled:grayscale-100">
         {cartLoading && product.id === loadingProductId && <span className="block size-4 rounded-full border-2 border-white border-t-transparent animate-spin"></span>}
         {cartLoading && product.id === loadingProductId ? "loading..." : "Add To Cart"}
-      </button>
+      </motion.button>
 
       {product.stock === 0 ? <span className="absolute border border-red-500 text-red-500 px-2 rounded-lg bg-slate-50 ">out of stock</span> : null}
     </div>
