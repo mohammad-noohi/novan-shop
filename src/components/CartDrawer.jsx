@@ -58,8 +58,8 @@ export default function CartDrawer({ show, onClose }) {
           {/* cart header */}
           <div className="flex items-center justify-between p-2 border-b border-slate-200 dark:border-slate-800">
             <h5 className="text-2xl dark:text-white">cart</h5>
-            <button>
-              <X className="size-6 cursor-pointer hover:text-red-500 transition-colors dark:text-white dark:hover:text-red-800" onClick={onClose} />
+            <button onClick={onClose}>
+              <X className="size-6 cursor-pointer hover:text-red-500 transition-colors dark:text-white dark:hover:text-red-800" />
             </button>
           </div>
           {/* cart body */}

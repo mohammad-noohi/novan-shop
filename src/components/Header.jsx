@@ -1,24 +1,27 @@
 import { Link, NavLink } from "react-router";
 import { useEffect, useState } from "react";
 import { useThemeContext } from "../contexts/ThemeContext/useThemeContext";
-// icons
-import { Sun } from "lucide-react";
-import { Moon } from "lucide-react";
-import { ShoppingBag } from "lucide-react";
-import { LogOut } from "lucide-react";
 import { useAuthContext } from "../contexts/AuthContext/useAuthContext";
-import { Menu } from "lucide-react";
 import CartDrawer from "./CartDrawer";
 import Overlay from "./Overlay";
 import { useCartContext } from "../contexts/CartContext/useCartContext";
+import MobileMenuDrawer from "./MobileMenuDrawer";
+// icons
+import { Sun, Moon, ShoppingBag, LogOut, Menu } from "lucide-react";
 
 export default function Header() {
   const { cart } = useCartContext();
   const { user, logout } = useAuthContext();
   const { theme, toggleTheme } = useThemeContext();
-  const [showCartDrawer, setShowCartDrawer] = useState(false);
+  const [showCartDrawer, setShowCartDrawer] = useState(false); // handle show cart drawer
+  const [showMobileMenu, setShowMobileMenu] = useState(true);
   /* Derived States */
   const cartItemsCount = cart.length;
+
+  function closeAllDrawers() {
+    setShowCartDrawer(false);
+    setShowMobileMenu(false);
+  }
 
   useEffect(() => {
     if (theme === "light") document.documentElement.classList.add("dark");
@@ -105,14 +108,17 @@ export default function Header() {
                 </>
               )}
 
-              <Menu className="md:hidden size-8 cursor-pointer dark:text-white" />
+              <button onClick={() => setShowMobileMenu(true)}>
+                <Menu className="md:hidden size-8 cursor-pointer dark:text-white" />
+              </button>
             </div>
           </div>
         </div>
       </header>
 
       <CartDrawer show={showCartDrawer} onClose={() => setShowCartDrawer(false)} />
-      <Overlay show={showCartDrawer} onClose={() => setShowCartDrawer(false)} />
+      <Overlay show={showCartDrawer || showMobileMenu} onClose={closeAllDrawers} />
+      <MobileMenuDrawer show={showMobileMenu} onClose={() => setShowMobileMenu(false)} />
     </>
   );
 }
