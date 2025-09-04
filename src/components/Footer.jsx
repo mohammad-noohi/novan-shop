@@ -10,7 +10,7 @@ export default function Footer() {
   return (
     <footer className="mt-auto py-10.5 border-t border-slate-200 bg-white dark:bg-app-dark dark:border-slate-800">
       <div className="container">
-        <div className="grid grid-cols-4 gap-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-20">
           <div>
             <h3 className="text-2xl font-semibold dark:text-white">Shop Categories</h3>
 
@@ -64,7 +64,7 @@ export default function Footer() {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="p-3 bg-white rounded-lg border border-slate-200 outline-none w-full dark:text-white dark:bg-suface-dark dark:border-slate-800"
+                  className="p-3 max-w-2xs bg-white rounded-lg border border-slate-200 outline-none w-full dark:text-white dark:bg-suface-dark dark:border-slate-800 focus:ring focus:ring-brand caret-brand transition-all"
                 />
                 <button type="submit" className="flex items-center gap-3 bg-brand text-white py-3 px-6.5  rounded-lg cursor-pointer dark:bg-indigo-500">
                   <span> Subscribe</span>
