@@ -1,4 +1,1 @@
-Motion Document
-
-initial={{}} => enter animation
-animate={{}} => end animation
+تغییر تم یه باگی داره که باید بعدا درستش کنم

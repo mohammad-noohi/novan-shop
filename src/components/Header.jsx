@@ -14,7 +14,7 @@ export default function Header() {
   const { user, logout } = useAuthContext();
   const { theme, toggleTheme } = useThemeContext();
   const [showCartDrawer, setShowCartDrawer] = useState(false); // handle show cart drawer
-  const [showMobileMenu, setShowMobileMenu] = useState(true);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
   /* Derived States */
   const cartItemsCount = cart.length;
 

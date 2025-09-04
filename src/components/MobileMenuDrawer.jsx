@@ -21,9 +21,9 @@ export default function MobileMenuDrawer({ show, onClose }) {
           className="fixed flex flex-col top-0 right-0 w-xs bg-white h-screen dark:bg-suface-dark border-l border-slate-200 dark:border-slate-800 z-20">
           {/* mobile menu header */}
           <div className="p-4 flex items-center justify-between border-b border-slate-200 dark:border-slate-800">
-            <p className="text-sm dark:text-muted-dark line-clamp-1" title={`welcome ${user.firstname} ${user.lastname}`}>
+            <p className="text-sm dark:text-muted-dark line-clamp-1">
               <span>🎉 Welcome, </span>
-              <span>{user.firstname}</span>
+              <span>{user?.firstname}</span>
             </p>
             <button onClick={onClose}>
               <X className="size-6 cursor-pointer hover:text-red-500 transition-colors dark:text-white dark:hover:text-red-800" />

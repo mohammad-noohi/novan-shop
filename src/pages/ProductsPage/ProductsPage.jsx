@@ -49,7 +49,7 @@ export default function ProductsPage() {
   return (
     <main className="py-10 bg-white dark:bg-app-dark">
       <div className="container">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {paginatedProducts.map(product => (
             <ProductCard initial={{ y: 10, opacity: 0.8 }} animate={{ y: 0, opacity: 1 }} key={product.id} product={product} />
           ))}

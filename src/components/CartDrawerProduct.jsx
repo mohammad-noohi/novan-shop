@@ -1,12 +1,32 @@
 import { Trash, Plus, Minus } from "lucide-react";
 import { useCartContext } from "../contexts/CartContext/useCartContext";
+import { useState } from "react";
+
+const NO_IMAGE_URL = "images/products/No-Image-Placeholder.png";
 
 export default function CartDrawerProduct({ product }) {
   const { addToCart, minusFromCart, removeFromCart } = useCartContext();
+  const [imgLoading, setImgLoading] = useState(true);
+
+  function imgLoadHandler() {
+    setImgLoading(false);
+  }
+
+  function imgErrorHandler(e) {
+    e.currentTarget.src = NO_IMAGE_URL;
+    e.currentTarget.alt = "No image available";
+    e.currentTarget.onerror = null; // void inifinite loop
+    setImgLoading(false);
+  }
 
   return (
     <aside className="flex gap-4 border border-slate-200 dark:border-slate-800 rounded-lg p-2">
-      <img src={product.mainImage} alt="" className="size-20 " />
+      <div className="size-20 flex items-center justify-center">
+        <img src={product.mainImage} alt={product.title} className={`size-full ${imgLoading ? "hidden" : "block"}`} onError={imgErrorHandler} onLoad={imgLoadHandler} />
+
+        {imgLoading && <span className="block size-4 rounded-full border-2 border-brand border-t-transparent animate-spin"></span>}
+      </div>
+
       <div className="flex flex-col w-full">
         <h5 title={product.title} className="text-sm line-clamp-1  dark:text-muted-dark font-semibold">
           {product.title}
