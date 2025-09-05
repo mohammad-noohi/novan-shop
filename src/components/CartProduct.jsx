@@ -1,4 +1,4 @@
-import { Plus, Minus, Trash } from "lucide-react";
+import { Plus, Minus, Trash, TriangleAlert } from "lucide-react";
 import { useCartContext } from "../contexts/CartContext/useCartContext";
 import { useState } from "react";
 
@@ -29,23 +29,43 @@ export default function CartProduct({ product }) {
       {/* prodcut info */}
       <div className="grow">
         <div className=" lg:flex items-center justify-between">
-          <h6 className=" lg:text-lg font-semibold dark:text-white line-clamp-1" title="product title 1">
+          <h6 className={` lg:text-lg font-semibold dark:text-white line-clamp-1 ${product.stock === 0 ? "grayscale-50 opacity-50" : ""}`} title="product title 1">
             {product.title}
           </h6>
-          <span className="text-brand font-bold lg:text-lg dark:text-indigo-500">${product.price.toLocaleString()}</span>
+          <span className={`text-brand font-bold lg:text-lg dark:text-indigo-500 ${product.stock === 0 ? "grayscale-50 opacity-50" : ""}`}>${product.price.toLocaleString()}</span>
         </div>
-        <p className="text-sm text-slate-600 mt-2.5">
+        <p className={`text-sm text-slate-600 mt-2.5 ${product.stock === 0 ? "grayscale-50 opacity-50" : ""}`}>
           <span>Quantity : </span>
           <span>{product.count}</span>
         </p>
-        <div className="mt-8 flex items-center gap-3">
-          <button onClick={() => addToCart(product)} className="size-8 flex justify-center items-center rounded-lg bg-brand  cursor-pointer dark:bg-indigo-500">
+        {product.stock === 0 && (
+          <p className="text-red-500 flex items-center gap-2 mt-2">
+            <TriangleAlert className="size-4" />
+            out of stock please delete this item
+          </p>
+        )}
+        {product.count > product.stock && product.stock !== 0 && (
+          <p className="text-amber-500 flex items-center gap-2 mt-2">
+            <TriangleAlert className="size-4" />
+            Availbel only {product.stock} items. please reduce the quantity
+          </p>
+        )}
+        <div className="mt-6 flex items-center gap-3">
+          <button
+            disabled={product.count >= product.stock || product.stock === 0}
+            onClick={() => addToCart(product.id)}
+            className="size-8 flex justify-center items-center rounded-lg bg-brand  cursor-pointer dark:bg-indigo-500 disabled:grayscale-100 disabled:opacity-50 disabled:cursor-not-allowed">
             <Plus className="size-4 text-white" />
           </button>
-          <button onClick={() => minusFromCart(product)} className="size-8 flex justify-center items-center rounded-lg bg-brand  cursor-pointer dark:bg-indigo-500">
+          <button
+            onClick={() => {
+              if (product.count > 1) minusFromCart(product.id);
+            }}
+            disabled={product.stock === 0}
+            className="size-8 flex justify-center items-center rounded-lg bg-brand  cursor-pointer dark:bg-indigo-500 disabled:grayscale-100 disabled:opacity-50 disabled:cursor-not-allowed">
             <Minus className="size-4 text-white" />
           </button>
-          <button onClick={() => removeFromCart(product)} className="size-8 flex justify-center items-center rounded-lg bg-red-600 ms-auto cursor-pointer dark:bg-red-800">
+          <button onClick={() => removeFromCart(product.id)} className="size-8 flex justify-center items-center rounded-lg bg-red-600 ms-auto cursor-pointer dark:bg-red-800">
             <Trash className="size-4 text-white" />
           </button>
         </div>

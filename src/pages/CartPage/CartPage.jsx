@@ -2,12 +2,15 @@
 import { ArrowRight } from "lucide-react";
 import { useCartContext } from "../../contexts/CartContext/useCartContext";
 import CartProduct from "../../components/CartProduct";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import ProductCard from "../../components/ProductCard";
+import { useAuthContext } from "../../contexts/AuthContext/useAuthContext";
 
 export default function CartPage() {
   /*------------- States -------------*/
-  const { cart, products } = useCartContext();
+  const { cart, products, purchase } = useCartContext();
+  const { user } = useAuthContext();
+  const navigate = useNavigate();
 
   const cartProducts = cart.map(item => {
     const product = products.find(p => p.id === item.productId);
@@ -18,6 +21,11 @@ export default function CartPage() {
     };
   });
 
+  // باید قبل از خرید اطلاعات چک بشه
+  // این فعلا تستی هست در اصل باید توی کانتکس پیاده سازی بشه
+  const isCartValid = cartProducts.every(p => p.count <= p.stock);
+  console.log("cart page(cart valid:) =>", isCartValid);
+
   const categoriesSet = new Set(cartProducts.map(p => p.category));
   const categories = Array.from(categoriesSet);
   const relatedProducts = products.filter(p => {
@@ -26,7 +34,10 @@ export default function CartPage() {
     }
   });
 
-  const cartItemsCount = cartProducts.length;
+  const uniqeItems = cartProducts.length;
+  const totalItems = cartProducts.reduce((acc, p) => {
+    return acc + p.count;
+  }, 0);
   const totalPrice = cartProducts.reduce((acc, p) => {
     return acc + p.price * p.count;
   }, 0);
@@ -67,8 +78,13 @@ export default function CartPage() {
                 <h3 className="text-xl font-bold dark:text-white">Order Summary</h3>
                 <div className="mt-3">
                   <p className="text-slate-600 dark:text-muted-dark">
+                    <span>uniqe items: </span>
+                    <span>{uniqeItems}</span>
+                  </p>
+
+                  <p className="text-slate-600 dark:text-muted-dark">
                     <span>total items: </span>
-                    <span>{cartItemsCount}</span>
+                    <span>{totalItems}</span>
                   </p>
 
                   <p className="text-slate-600 dark:text-muted-dark">
@@ -89,10 +105,15 @@ export default function CartPage() {
                 <div className="flex flex-col gap-2.5 mt-10">
                   <p className="flex items-center justify-between">
                     <span className="text-lg font-bold dark:text-white">Total</span>
-                    <span className="text-lg font-bold text-brand dark:text-indigo-500">${totalPrice}</span>
+                    <span className="text-lg font-bold text-brand dark:text-indigo-500">${totalPrice.toLocaleString()}</span>
                   </p>
 
-                  <button className="bg-brand text-white py-3 px-6 rounded-lg cursor-pointer w-full hover:bg-indigo-500 transition  font-semibold dark:bg-indigo-500">purchase</button>
+                  <button
+                    disabled={!isCartValid}
+                    onClick={purchase}
+                    className="bg-brand text-white py-3 px-6 rounded-lg cursor-pointer w-full hover:bg-indigo-500 transition  font-semibold dark:bg-indigo-500 disabled:grayscale-50 disabled:opacity-50 disabled:cursor-not-allowed">
+                    purchase
+                  </button>
                 </div>
               </aside>
             )}

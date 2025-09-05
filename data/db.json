@@ -99,7 +99,7 @@
       "brand": "Apple",
       "price": 1199234,
       "discount": 5,
-      "stock": 19,
+      "stock": 10,
       "rate": 1,
       "colors": [
         "space gray",
@@ -129,7 +129,7 @@
       "brand": "Dell",
       "price": 899,
       "discount": 10,
-      "stock": 18,
+      "stock": 14,
       "rate": 4,
       "colors": [
         "silver",
@@ -159,7 +159,7 @@
       "brand": "HP",
       "price": 799,
       "discount": 12,
-      "stock": 19,
+      "stock": 16,
       "rate": 3,
       "colors": [
         "nightfall black",
@@ -189,7 +189,7 @@
       "brand": "Lenovo",
       "price": 849,
       "discount": 8,
-      "stock": 19,
+      "stock": 0,
       "rate": 3,
       "colors": [
         "black"
@@ -218,7 +218,7 @@
       "brand": "Asus",
       "price": 949,
       "discount": 10,
-      "stock": 19,
+      "stock": 12,
       "rate": 2,
       "colors": [
         "moonlight white",
@@ -302,7 +302,6 @@
   ],
   "carts": [
     {
-      "id": 1,
       "userId": 13,
       "items": [
         {
@@ -312,13 +311,37 @@
         {
           "productId": 102,
           "count": 1
+        }
+      ],
+      "id": 1
+    },
+    {
+      "userId": 3,
+      "items": [
+        {
+          "productId": 105,
+          "count": 2
         },
         {
-          "productId": 104,
+          "productId": 107,
           "count": 1
         }
-      ]
+      ],
+      "id": 2
     }
   ],
-  "orders": []
+  "orders": [
+    {
+      "userId": 13,
+      "items": [
+        {
+          "productId": 101,
+          "count": 1
+        }
+      ],
+      "status": "paid",
+      "createdAt": "2025-09-05T16:27:30.532Z",
+      "id": 1
+    }
+  ]
 }

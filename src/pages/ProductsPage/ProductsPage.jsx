@@ -1,10 +1,9 @@
 import { useState } from "react";
 import ProductCard from "../../components/ProductCard";
+import { useCartContext } from "../../contexts/CartContext/useCartContext";
 
 // icons
-import { ChevronRight } from "lucide-react";
-import { ChevronLeft } from "lucide-react";
-import { useCartContext } from "../../contexts/CartContext/useCartContext";
+import { ChevronRight, ChevronLeft } from "lucide-react";
 
 // change this value to manage amount of items to show in UI.
 const ITEMS_PER_PAGE = 5;
@@ -42,9 +41,6 @@ export default function ProductsPage() {
   function changePage(num) {
     setCurrentPage(num);
   }
-
-  // loading effect
-  // if (productsLoading && products.length > 0) return "loading";
 
   return (
     <main className="py-10 bg-white dark:bg-app-dark">
