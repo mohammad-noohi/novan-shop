@@ -8,7 +8,17 @@ import ProductCard from "../../components/ProductCard";
 export default function CartPage() {
   /*------------- States -------------*/
   const { cart, products } = useCartContext();
-  const categoriesSet = new Set(cart.map(p => p.category));
+
+  const cartProducts = cart.map(item => {
+    const product = products.find(p => p.id === item.productId);
+
+    return {
+      ...item,
+      ...product,
+    };
+  });
+
+  const categoriesSet = new Set(cartProducts.map(p => p.category));
   const categories = Array.from(categoriesSet);
   const relatedProducts = products.filter(p => {
     if (categories.includes(p.category)) {
@@ -16,10 +26,9 @@ export default function CartPage() {
     }
   });
 
-  console.log(relatedProducts);
-  const cartItemsCount = cart.length;
-  const totalPrice = cart.reduce((acc, p) => {
-    return acc + p.price;
+  const cartItemsCount = cartProducts.length;
+  const totalPrice = cartProducts.reduce((acc, p) => {
+    return acc + p.price * p.count;
   }, 0);
 
   /*----------------- UI -----------------*/
@@ -31,10 +40,10 @@ export default function CartPage() {
           <div className="mt-5 flex flex-col lg:flex-row items-start gap-5 ">
             <article
               className="w-full lg:w-[70%] grow bg-slate-50 border border-slate-200 rounded-lg p-3 lg:p-5 dark:bg-suface-dark dark:border-slate-800"
-              style={{ width: cart.length === 0 && "100%" }}>
+              style={{ width: cartProducts.length === 0 && "100%" }}>
               {/* products list */}
               <div className="flex flex-col gap-y-3 lg:gap-y-6">
-                {cart.length === 0 ? (
+                {cartProducts.length === 0 ? (
                   <div className="flex flex-col items-center">
                     <h3 className="dark:text-red-700 text-3xl capitalize ">your cart is empty</h3>
 
@@ -48,12 +57,12 @@ export default function CartPage() {
                     </Link>
                   </div>
                 ) : (
-                  cart.map(p => <CartProduct key={p.id} product={p} />)
+                  cartProducts.map(p => <CartProduct key={p.id} product={p} />)
                 )}
               </div>
             </article>
             {/* cart sidebar */}
-            {cart.length !== 0 && (
+            {cartProducts.length !== 0 && (
               <aside className="w-full lg:w-[30%] bg-slate-50 border border-slate-200 rounded-lg p-3 lg:p-5 dark:bg-suface-dark dark:border-slate-800">
                 <h3 className="text-xl font-bold dark:text-white">Order Summary</h3>
                 <div className="mt-3">

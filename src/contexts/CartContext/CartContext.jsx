@@ -1,111 +1,19 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useCallback } from "react";
+import { useAuthContext } from "../AuthContext/useAuthContext";
 
 const CartContext = createContext();
 
 function CartProvider({ children }) {
+  const { user } = useAuthContext();
   const [products, setProducts] = useState([]);
   const [productsLoading, setProductsLoading] = useState(false);
-  const [cart, setCart] = useState([]);
+
+  const [cart, setCart] = useState([]); // { productId: 101, count: 2 }
+  const [cartId, setCartId] = useState(null);
   const [cartLoading, setCartLoading] = useState(false);
   const [loadingProductId, setLoadingProductId] = useState(null); // ایدی محصولی که داره به سبد خرید اضافه میشه
 
-  /*----------------- Functions & Handlers -----------------*/
-  async function addToCart(product) {
-    // set id of product to adding to cart
-    setLoadingProductId(product.id);
-
-    try {
-      // 1. چک کردن stock از API
-      const resp = await fetch(`http://localhost:3000/products/${product.id}`);
-      const freshProduct = await resp.json();
-
-      if (freshProduct.stock > 0) {
-        // 2. کم کردن موجودی در API
-        await decreaseStock(product.id);
-
-        // 3. آپدیت محصولات در state
-        await getAllProducts();
-
-        // 4. آپدیت cart در state
-        setCart(prevCart => {
-          const hasProduct = prevCart.some(p => p.id === product.id);
-
-          if (!hasProduct) {
-            return [...prevCart, { ...freshProduct, count: 1 }];
-          } else {
-            return prevCart.map(p => (p.id === product.id ? { ...p, count: p.count + 1 } : p));
-          }
-        });
-      } else {
-        alert("Out of stock!");
-      }
-    } catch (err) {
-      console.log("Add to cart error:", err.message);
-    }
-  }
-
-  async function minusFromCart(product) {
-    try {
-      await increaseStock(product.id);
-      await getAllProducts();
-
-      setCart(prevCart => {
-        return prevCart.map(p => {
-          if (p.id === product.id) {
-            return { ...p, count: p.count - 1 };
-          } else {
-            return p;
-          }
-        });
-      });
-    } catch (err) {
-      console.log("minus product error", err.message);
-    }
-  }
-
-  async function decreaseStock(productID) {
-    try {
-      setCartLoading(true);
-
-      // 1. get product data
-      const resp = await fetch(`http://localhost:3000/products/${productID}`);
-      const productData = await resp.json();
-
-      if (productData.stock > 0) {
-        // 2. calc new stock
-        const updatedStock = productData.stock - 1;
-
-        // 3. update product in API
-        await fetch(`http://localhost:3000/products/${productID}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ stock: updatedStock }),
-        });
-      }
-    } catch (err) {
-      console.log("Decrease stock error:", err.message);
-      throw err;
-    } finally {
-      setCartLoading(false);
-    }
-  }
-
-  async function increaseStock(productID) {
-    const resp = await fetch(`http://localhost:3000/products/${productID}`);
-    const freshProduct = await resp.json();
-
-    const updatedStock = freshProduct.stock + 1;
-
-    await fetch(`http://localhost:3000/products/${productID}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ stock: updatedStock }),
-    });
-  }
+  /*----------------- Fetchers -----------------*/
 
   async function getAllProducts() {
     try {
@@ -120,30 +28,97 @@ function CartProvider({ children }) {
     }
   }
 
-  async function removeFromCart(product) {
-    console.log("product remove =>", product.title);
-    setCart(prevCart => {
-      return prevCart.filter(p => p.id !== product.id);
-    });
-
-    // update product stock in API
-    const resp = await fetch(`http://localhost:3000/products/${product.id}`);
-    const freshProduct = await resp.json();
-
-    const updatedStock = freshProduct.stock + product.count;
-
-    await fetch(`http://localhost:3000/products/${product.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ stock: updatedStock }),
-    });
-
-    await getAllProducts();
+  async function fetchCart() {
+    try {
+      setCartLoading(true);
+      const resp = await fetch(`http://localhost:3000/carts?userId=${user.id}`);
+      const data = await resp.json();
+      setCart(data[0]?.items || []);
+      setCartId(data[0].id);
+    } catch (err) {
+      console.log("faild fetch cart", err.message);
+    } finally {
+      setCartLoading(false);
+    }
   }
 
-  /*--------------- Effects ---------------*/
+  async function fetchProduct(ID) {
+    const resp = await fetch(`http://localhost:3000/products/${ID}`);
+    const data = await resp.json();
+    return data;
+  }
+
+  /*----------------- Cart Handlers -----------------*/
+
+  async function addToCart(ID) {
+    setLoadingProductId(ID);
+
+    try {
+      const product = await fetchProduct(ID); // get product info from API
+      const cartItem = cart.find(p => p.productId === ID); // undefined or object
+
+      // Handle out of stock error
+      if (!product.stock) {
+        alert("Out of stock");
+        return;
+      }
+
+      // Handle stock is not enough error
+      if (cartItem && cartItem.count >= product.stock) {
+        alert("Stock is not enough!");
+        return;
+      }
+
+      // update cart state
+      setCart(prevCart => {
+        if (!cartItem) {
+          // add new one
+          return [...prevCart, { productId: ID, count: 1 }];
+        } else {
+          return prevCart.map(p => (p.productId === ID ? { ...p, count: p.count + 1 } : p));
+        }
+      });
+    } catch (err) {
+      console.log("Add to cart error", err.message);
+    } finally {
+      setLoadingProductId(null);
+    }
+  }
+
+  function minusFromCart(ID) {
+    setCart(prevCart => {
+      return prevCart.map(p => (p.productId === ID ? { ...p, count: p.count - 1 } : p));
+    });
+  }
+
+  function removeFromCart(ID) {
+    setCart(prevCart => prevCart.filter(p => p.productId !== ID));
+  }
+
+  /*--------------- Sync With API ---------------*/
+  useEffect(() => {
+    if (user) {
+      fetchCart();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user && cartId) {
+      try {
+        fetch(`http://localhost:3000/carts/${cartId}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ items: cart }),
+        });
+      } catch (err) {
+        console.log("sync cart error", err.message);
+      }
+    }
+  }, [cart, user, cartId]);
+
+  /*--------------- Init ---------------*/
   useEffect(() => {
     getAllProducts();
   }, []);

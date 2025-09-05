@@ -50,7 +50,7 @@ export default function ProductCard({ product }) {
         initial={{ scale: 1 }}
         whileTap={{ scale: 0.9 }}
         disabled={product.stock === 0}
-        onClick={() => addToCart(product)}
+        onClick={() => addToCart(product.id)}
         className="flex mt-8 items-center justify-center gap-3 bg-brand text-white py-3 w-full rounded-lg cursor-pointer dark:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-70
        disabled:grayscale-100">
         {cartLoading && product.id === loadingProductId && <span className="block size-4 rounded-full border-2 border-white border-t-transparent animate-spin"></span>}

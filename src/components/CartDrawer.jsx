@@ -8,9 +8,18 @@ import { useCartContext } from "../contexts/CartContext/useCartContext";
 
 export default function CartDrawer({ show, onClose }) {
   const navigate = useNavigate();
-  const { cart } = useCartContext();
-  /* Drived States */
-  const totalPrice = cart.reduce((acc, product) => {
+  const { products, cart } = useCartContext();
+
+  const cartProducts = cart.map(item => {
+    const product = products.find(p => p.id === item.productId);
+
+    return {
+      ...item,
+      ...product,
+    };
+  });
+
+  const totalPrice = cartProducts.reduce((acc, product) => {
     return acc + product.price * product.count;
   }, 0);
 
@@ -64,12 +73,12 @@ export default function CartDrawer({ show, onClose }) {
           </div>
           {/* cart body */}
           <div className="p-2 grow overflow-y-auto ">
-            {cart.length === 0 && (
+            {cartProducts?.length === 0 && (
               <div className="border rounded-lg bg-white border-red-500 p-2 text-red-500 text-center capitalize dark:bg-app-dark dark:text-red-800 dark:border-red-800">your cart is empty</div>
             )}
-            {cart.length > 0 && (
+            {cartProducts?.length > 0 && (
               <div className="flex flex-col gap-3 ">
-                {cart.map(p => (
+                {cartProducts.map(p => (
                   <CartDrawerProduct key={p.id} product={p} />
                 ))}
               </div>

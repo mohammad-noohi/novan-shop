@@ -16,7 +16,7 @@ export default function Header() {
   const [showCartDrawer, setShowCartDrawer] = useState(false); // handle show cart drawer
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   /* Derived States */
-  const cartItemsCount = cart.length;
+  const cartItemsCount = cart?.length;
 
   function closeAllDrawers() {
     setShowCartDrawer(false);
