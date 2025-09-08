@@ -120,3 +120,27 @@ export default function RegisterPage() {
     </div>
   );
 }
+
+/* 
+
+to implement later
+
+// password validation
+    if (!form.password) {
+      newErrors.password = "Password is required";
+    }
+    if (!/^.{8,}$/.test(form.password)) {
+      newErrors.password = "Password must be at least 8 characters long";
+    }
+    if (!/[A-Z]/.test(form.password)) {
+      newErrors.password = "Password must contain at least one uppercase letter.";
+    }
+    if (!/[a-z]/.test(form.password)) {
+      newErrors.password = "Password must contain at least one lowercase letter.";
+    }
+    if (!/[0-9]/.test(form.password)) {
+      newErrors.password = "Password must contain at least one number.";
+    }
+
+
+*/

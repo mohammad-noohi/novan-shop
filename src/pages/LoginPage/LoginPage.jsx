@@ -1,14 +1,50 @@
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { useAuthContext } from "../../contexts/AuthContext/useAuthContext";
 
 const intialState = { email: "", password: "" };
+
 export default function LoginPage() {
   const navigate = useNavigate();
   const { login, loading } = useAuthContext();
   const [form, setForm] = useState(intialState);
+  const [errors, setErrors] = useState({});
 
-  /* Functions & Handlers */
+  /*--------------- Functions & Handlers ---------------*/
+
+  function validate() {
+    const newErrors = {};
+    setErrors({});
+
+    const emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    // Email validation
+    if (!form.email) {
+      newErrors.email = "Email is required";
+    } else if (!emailRegEx.test(form.email)) {
+      newErrors.email = "Email is not valid";
+    }
+
+    // password validation
+    if (!form.password) {
+      newErrors.password = "Password is required";
+    }
+
+    // if (!/^.{8,}$/.test(form.password)) {
+    //   newErrors.password = "Password must be at least 8 characters long";
+    // }
+    // if (!/[A-Z]/.test(form.password)) {
+    //   newErrors.password = "Password must contain at least one uppercase letter.";
+    // }
+    // if (!/[a-z]/.test(form.password)) {
+    //   newErrors.password = "Password must contain at least one lowercase letter.";
+    // }
+    // if (!/[0-9]/.test(form.password)) {
+    //   newErrors.password = "Password must contain at least one number.";
+    // }
+
+    return newErrors;
+  }
 
   function clearForm() {
     setForm(intialState);
@@ -17,9 +53,23 @@ export default function LoginPage() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    await login(form);
-    // when login finish redirect to home page
+    const validationErrors = validate();
+
+    if (Object.keys(validationErrors).length) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    const result = await login(form);
+
+    // نمیدونم این چرا اجرا نمیشه ؟
+    if (!result.success) {
+      alert(result.message);
+      return;
+    }
+
     if (!loading) {
+      // when login finish redirect to home page
       clearForm();
       // alert("login sucessfully");
       navigate("/");
@@ -30,22 +80,7 @@ export default function LoginPage() {
     <div className="h-screen bg-white dark:bg-app-dark flex justify-center items-center">
       <div className="p-6 bg-slate-50 w-110 border border-slate-200 rounded-lg dark:bg-suface-dark dark:border-slate-800">
         <h5 className="text-xl font-bold text-center dark:text-white">Login</h5>
-        <div className="mt-4 flex justify-center  ">
-          {/* <div className="border border-slate-200 rounded-lg dark:border-slate-800">
-            <NavLink
-              to="/login"
-              className={({ isActive }) =>
-                isActive
-                  ? "py-1 px-2 inline-block bg-brand text-white rounded-s-lg font-semibold dark:bg-indigo-500 dark:text-white"
-                  : "inline-block py-1 px-2 font-semibold text-slate-600 dark:text-muted-dark"
-              }>
-              login
-            </NavLink>
-            <NavLink to="/register" className="inline-block py-1 px-2 font-semibold text-slate-600 dark:text-muted-dark">
-              register
-            </NavLink>
-          </div> */}
-        </div>
+        <div className="mt-4 flex justify-center  "></div>
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-3.5">
             <label htmlFor="email">
@@ -58,6 +93,8 @@ export default function LoginPage() {
               />
             </label>
 
+            <span className="text-xs text-red-500 font-bold dark:text-red-800">{errors.email}</span>
+
             <label htmlFor="password">
               <p className="text-slate-600 capitalize text-sm dark:text-muted-dark">password</p>
               <input
@@ -68,9 +105,14 @@ export default function LoginPage() {
                 className="mt-2.5 w-full border border-slate-200 bg-white py-2 px-6 rounded-lg outline-none focus:ring  focus:ring-brand transition-all dark:bg-app-dark dark:border-slate-800 dark:text-white"
               />
             </label>
+
+            <span className="text-xs text-red-500 font-bold dark:text-red-800">{errors.password}</span>
           </div>
 
-          <button className="flex items-center justify-center gap-3 w-full mt-8 bg-brand text-white rounded-lg py-3 px-6 cursor-pointer hover:bg-indigo-500 transition-colors" type="submit">
+          {/* به جای این باید یه نوتیف نمایش بدیم */}
+          {/* <span className="text-xs text-red-500 font-bold dark:text-red-800">{loginError}</span> */}
+
+          <button className="flex items-center justify-center gap-3 w-full mt-8 bg-brand text-white rounded-lg py-3 px-6 cursor-pointer hover:bg-indigo-500 transition-colors " type="submit">
             {loading && <span className="block size-4 rounded-full border-2 border-white border-t-transparent animate-spin"></span>}
             {loading ? "loading..." : "sign in"}
           </button>

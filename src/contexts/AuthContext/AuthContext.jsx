@@ -6,6 +6,7 @@ const AuthContext = createContext();
 function AuthProvider({ children }) {
   /*------------ States ------------*/
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
 
@@ -44,16 +45,17 @@ function AuthProvider({ children }) {
         body: JSON.stringify(credentials),
       });
 
-      if (!resp.ok) throw new Error("login failed");
+      if (!resp.ok) throw new Error("The information entered is incorrect.");
 
       const data = await resp.json();
 
       // save user token in localStorage after success login
       localStorage.setItem("novan-user-token", data.accessToken);
       setUser(data.user);
+      return { success: true, message: "Logged in successfully" };
     } catch (err) {
-      console.log(err.message);
-      throw err;
+      setError(err.message);
+      return { success: false, message: err.message };
     } finally {
       setLoading(false);
     }
@@ -87,7 +89,7 @@ function AuthProvider({ children }) {
         const data = await resp.json();
         setUser(data);
       } catch (err) {
-        console.log(err.message);
+        setError(err.message);
         throw err;
       } finally {
         setLoading(false);
@@ -97,7 +99,7 @@ function AuthProvider({ children }) {
     fetchUser();
   }, [token]);
 
-  return <AuthContext.Provider value={{ register, login, logout, user, loading, token }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ register, login, logout, user, error, loading, token }}>{children}</AuthContext.Provider>;
 }
 
 export { AuthContext, AuthProvider };
