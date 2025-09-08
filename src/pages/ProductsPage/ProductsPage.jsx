@@ -6,7 +6,7 @@ import { useCartContext } from "../../contexts/CartContext/useCartContext";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 
 // change this value to manage amount of items to show in UI.
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 10;
 
 export default function ProductsPage() {
   const { products } = useCartContext();

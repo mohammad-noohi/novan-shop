@@ -1,9 +1,11 @@
 import { createContext, useState, useEffect } from "react";
 import { useAuthContext } from "../AuthContext/useAuthContext";
+import { useDiscountContext } from "../DiscountContext/useDiscountContext";
 
 const CartContext = createContext();
 
 function CartProvider({ children }) {
+  const { discountsList } = useDiscountContext();
   const { user } = useAuthContext();
   const [products, setProducts] = useState([]);
   const [productsLoading, setProductsLoading] = useState(false);
@@ -11,7 +13,37 @@ function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [cartId, setCartId] = useState(null);
   const [cartLoading, setCartLoading] = useState(false);
-  const [loadingProductId, setLoadingProductId] = useState(null); // ایدی محصولی که داره به سبد خرید اضافه میشه
+  // ایدی محصولی که داره به سبد خرید اضافه میشه
+  const [loadingProductId, setLoadingProductId] = useState(null);
+
+  const cartProducts = cart.map(item => {
+    const product = products.find(p => p.id === item.productId);
+
+    return {
+      ...item,
+      ...product,
+    };
+  });
+
+  const totalPrice = cartProducts.reduce((acc, p) => {
+    return acc + p.price * p.count;
+  }, 0);
+
+  // calc final price after apply discount
+  let finalPrice = totalPrice;
+
+  if (discountsList.length) {
+    discountsList.forEach(item => {
+      if (item.type === "percent") {
+        finalPrice = finalPrice - (finalPrice * item.value) / 100;
+      } else if (item.type === "fixed") {
+        finalPrice = finalPrice - item.value;
+      }
+    });
+
+    // check if discount more than price so the final price must be zero not negetive value.
+    if (finalPrice < 0) finalPrice = 0;
+  }
 
   /*----------------- Fetchers -----------------*/
 
@@ -123,48 +155,61 @@ function CartProvider({ children }) {
   async function purchase() {
     setCartLoading(true);
     try {
-      // 1️⃣ fetch latest products and cart data
+      //  update latest products and cart data
       await getAllProducts();
       await fetchCart();
 
-      // 2️⃣ Prepare order data
+      //  Prepare order data
       const orderData = {
         userId: user.id,
         items: cart,
         status: "paid",
         createdAt: new Date().toISOString(),
+        totalPrice: totalPrice,
+        // discount: discount.length ? discount.code : null,
+        finalPrice: finalPrice,
       };
 
-      // 3️⃣ Check if user already has an order
-      const prevOrderResp = await fetch(`http://localhost:3000/orders?userId=${user.id}`);
+      // update discount data in API
+      if (discountsList.length) {
+        await Promise.all(
+          discountsList.map(async discount => {
+            const resp = await fetch(`http://localhost:3000/discounts/${discount.id}`, {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ usedCount: discount.usedCount + 1 }),
+            });
 
-      const [prevOrderData] = await prevOrderResp.json(); // object or undefined
-
-      // 4️⃣ Update Orders
-      if (prevOrderData) {
-        await fetch(`http://localhost:3000/orders/${prevOrderData.id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ ...prevOrderData, items: cart, createdAt: new Date().toISOString() }),
-        });
-      } else {
-        const resp = await fetch(`http://localhost:3000/orders`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(orderData),
-        });
-
-        console.log("post order response", resp);
-
-        const data = await resp.json();
-        console.log("post order data", data);
+            return resp.json();
+          })
+        );
       }
 
-      // 5️⃣ Update Products Stock in API & State
+      // save used discount for current user
+      if (discountsList.length) {
+        const newUsedDiscounts = discountsList.filter(d => !d.allowMultipleUse).map(item => item.code);
+
+        await fetch(`http://localhost:3000/users/${user.id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ usedDiscounts: [...user.usedDiscounts, ...newUsedDiscounts] }),
+        });
+      }
+
+      //  Post New Order
+      await fetch(`http://localhost:3000/orders`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      //  Update Products Stock in API & State
       await Promise.all(
         cart.map(async item => {
           const product = products.find(p => p.id === item.productId);
@@ -180,7 +225,7 @@ function CartProvider({ children }) {
             body: JSON.stringify({ stock: newStock }),
           });
 
-          return await resp.json();
+          return await resp.json(); // return a promise
         })
       );
 
@@ -233,7 +278,11 @@ function CartProvider({ children }) {
     getAllProducts();
   }, []);
 
-  return <CartContext.Provider value={{ products, productsLoading, cart, cartLoading, loadingProductId, addToCart, minusFromCart, removeFromCart, purchase }}>{children}</CartContext.Provider>;
+  return (
+    <CartContext.Provider value={{ products, productsLoading, cart, cartLoading, loadingProductId, cartProducts, totalPrice, finalPrice, addToCart, minusFromCart, removeFromCart, purchase }}>
+      {children}
+    </CartContext.Provider>
+  );
 }
 
 export { CartContext, CartProvider };

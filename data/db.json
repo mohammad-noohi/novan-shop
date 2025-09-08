@@ -7,7 +7,8 @@
       "lastname": "karimi",
       "username": "prolord",
       "role": "user",
-      "id": 2
+      "id": 2,
+      "usedDiscounts": []
     },
     {
       "email": "maralnoohi@gmail.com",
@@ -16,7 +17,8 @@
       "lastname": "noohi",
       "username": "maral",
       "role": "user",
-      "id": 3
+      "id": 3,
+      "usedDiscounts": []
     },
     {
       "email": "noohi@gmail.com",
@@ -25,7 +27,11 @@
       "lastname": "noohi",
       "username": "noohi1998",
       "role": "admin",
-      "id": 13
+      "id": 13,
+      "usedDiscounts": [
+        "FREESHIP",
+        "FREESHIP"
+      ]
     },
     {
       "email": "taqa@mailinator.com",
@@ -34,7 +40,8 @@
       "lastname": "Oneill",
       "username": "relypuza",
       "role": "user",
-      "id": 14
+      "id": 14,
+      "usedDiscounts": []
     },
     {
       "email": "hanytawav@mailinator.com",
@@ -43,7 +50,8 @@
       "lastname": "Roy",
       "username": "dalitex",
       "role": "user",
-      "id": 15
+      "id": 15,
+      "usedDiscounts": []
     },
     {
       "email": "fezzehebz@gmail.com",
@@ -52,7 +60,8 @@
       "lastname": "ebrahimzadeh",
       "username": "fezeh",
       "role": "user",
-      "id": 16
+      "id": 16,
+      "usedDiscounts": []
     },
     {
       "email": "hatef@gmail.com",
@@ -61,7 +70,8 @@
       "lastname": "karimi",
       "username": "hatef98",
       "role": "user",
-      "id": 17
+      "id": 17,
+      "usedDiscounts": []
     },
     {
       "email": "gyjul@mailinator.com",
@@ -70,7 +80,8 @@
       "lastname": "Ball",
       "username": "wewupo",
       "role": "user",
-      "id": 18
+      "id": 18,
+      "usedDiscounts": []
     },
     {
       "email": "gemiseriba@mailinator.com",
@@ -79,7 +90,8 @@
       "lastname": "Wyatt",
       "username": "rocexo",
       "role": "user",
-      "id": 19
+      "id": 19,
+      "usedDiscounts": []
     },
     {
       "email": "zysop@mailinator.com",
@@ -88,7 +100,8 @@
       "lastname": "Faulkner",
       "username": "qovit",
       "role": "user",
-      "id": 20
+      "id": 20,
+      "usedDiscounts": []
     }
   ],
   "products": [
@@ -129,7 +142,7 @@
       "brand": "Dell",
       "price": 899,
       "discount": 10,
-      "stock": 14,
+      "stock": 17,
       "rate": 4,
       "colors": [
         "silver",
@@ -159,7 +172,7 @@
       "brand": "HP",
       "price": 799,
       "discount": 12,
-      "stock": 16,
+      "stock": 13,
       "rate": 3,
       "colors": [
         "nightfall black",
@@ -189,7 +202,7 @@
       "brand": "Lenovo",
       "price": 849,
       "discount": 8,
-      "stock": 0,
+      "stock": 14,
       "rate": 3,
       "colors": [
         "black"
@@ -303,34 +316,25 @@
   "carts": [
     {
       "userId": 13,
+      "items": [],
+      "id": 1
+    }
+  ],
+  "orders": [
+    {
+      "userId": 13,
       "items": [
-        {
-          "productId": 101,
-          "count": 2
-        },
         {
           "productId": 102,
           "count": 1
         }
       ],
+      "status": "paid",
+      "createdAt": "2025-09-08T21:10:50.977Z",
+      "totalPrice": 899,
+      "finalPrice": 0,
       "id": 1
     },
-    {
-      "userId": 3,
-      "items": [
-        {
-          "productId": 105,
-          "count": 2
-        },
-        {
-          "productId": 107,
-          "count": 1
-        }
-      ],
-      "id": 2
-    }
-  ],
-  "orders": [
     {
       "userId": 13,
       "items": [
@@ -340,8 +344,77 @@
         }
       ],
       "status": "paid",
-      "createdAt": "2025-09-05T16:27:30.532Z",
-      "id": 1
+      "createdAt": "2025-09-08T21:12:37.966Z",
+      "totalPrice": 1199234,
+      "finalPrice": 0,
+      "id": 2
+    }
+  ],
+  "discounts": [
+    {
+      "id": 1,
+      "code": "OFF10",
+      "type": "percent",
+      "value": 10,
+      "expiresAt": "2025-12-31T23:59:59.000Z",
+      "usageLimit": 100,
+      "usedCount": 5,
+      "minPurchase": 500000,
+      "stackable": true,
+      "userId": null,
+      "allowMultipleUse": true
+    },
+    {
+      "id": 2,
+      "code": "FIX50",
+      "type": "fixed",
+      "value": 50000,
+      "expiresAt": "2025-09-30T23:59:59.000Z",
+      "usageLimit": 10,
+      "usedCount": 0,
+      "minPurchase": 200000,
+      "stackable": false,
+      "userId": null,
+      "allowMultipleUse": true
+    },
+    {
+      "id": 3,
+      "code": "WELCOME100",
+      "type": "fixed",
+      "value": 100000,
+      "expiresAt": "2026-01-01T23:59:59.000Z",
+      "usageLimit": 1,
+      "usedCount": 0,
+      "minPurchase": 0,
+      "stackable": false,
+      "userId": 1,
+      "allowMultipleUse": false
+    },
+    {
+      "id": 4,
+      "code": "FREESHIP",
+      "type": "percent",
+      "value": 100,
+      "expiresAt": "2025-12-31T23:59:59.000Z",
+      "usageLimit": 1000,
+      "usedCount": 51,
+      "minPurchase": 0,
+      "stackable": true,
+      "userId": null,
+      "allowMultipleUse": true
+    },
+    {
+      "id": 5,
+      "code": "VIP20",
+      "type": "percent",
+      "value": 20,
+      "expiresAt": "2025-10-31T23:59:59.000Z",
+      "usageLimit": 50,
+      "usedCount": 3,
+      "minPurchase": 1000000,
+      "stackable": false,
+      "userId": 2,
+      "allowMultipleUse": false
     }
   ]
 }

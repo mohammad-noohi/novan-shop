@@ -24,7 +24,7 @@ export default function RegisterPage() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const userData = { ...form, role: "user" };
+    const userData = { ...form, role: "user", usedDiscounts: [] };
     await register(userData);
     // when register finished clear form and show an alert
     if (!loading) {

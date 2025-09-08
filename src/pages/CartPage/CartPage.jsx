@@ -1,31 +1,21 @@
-// icons
-import { ArrowRight } from "lucide-react";
+import { useState } from "react";
 import { useCartContext } from "../../contexts/CartContext/useCartContext";
 import CartProduct from "../../components/CartProduct";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import ProductCard from "../../components/ProductCard";
-import { useAuthContext } from "../../contexts/AuthContext/useAuthContext";
+// icons
+import { ArrowRight, TriangleAlert } from "lucide-react";
+import { useDiscountContext } from "../../contexts/DiscountContext/useDiscountContext";
 
 export default function CartPage() {
   /*------------- States -------------*/
-  const { cart, products, purchase } = useCartContext();
-  const { user } = useAuthContext();
-  const navigate = useNavigate();
+  const { products, purchase, cartProducts, totalPrice, finalPrice } = useCartContext();
+  const { applyDiscount, discountError } = useDiscountContext();
+  const [input, setInput] = useState("");
+  const [discountApplied, setDiscountApplied] = useState(false);
 
-  const cartProducts = cart.map(item => {
-    const product = products.find(p => p.id === item.productId);
-
-    return {
-      ...item,
-      ...product,
-    };
-  });
-
-  // باید قبل از خرید اطلاعات چک بشه
-  // این فعلا تستی هست در اصل باید توی کانتکس پیاده سازی بشه
+  // Drived States
   const isCartValid = cartProducts.every(p => p.count <= p.stock);
-  console.log("cart page(cart valid:) =>", isCartValid);
-
   const categoriesSet = new Set(cartProducts.map(p => p.category));
   const categories = Array.from(categoriesSet);
   const relatedProducts = products.filter(p => {
@@ -33,13 +23,9 @@ export default function CartPage() {
       return p;
     }
   });
-
   const uniqeItems = cartProducts.length;
   const totalItems = cartProducts.reduce((acc, p) => {
     return acc + p.count;
-  }, 0);
-  const totalPrice = cartProducts.reduce((acc, p) => {
-    return acc + p.price * p.count;
   }, 0);
 
   /*----------------- UI -----------------*/
@@ -86,26 +72,46 @@ export default function CartPage() {
                     <span>total items: </span>
                     <span>{totalItems}</span>
                   </p>
-
-                  <p className="text-slate-600 dark:text-muted-dark">
-                    <span>discount value: </span>
-                    <span>$10</span>
-                  </p>
                 </div>
 
                 <div className="flex gap-3 mt-2.5">
                   <input
                     type="text"
+                    value={input}
+                    onChange={e => setInput(e.target.value)}
                     placeholder="discount code"
                     className="border border-slate-200 rounded-lg p-3 w-full outline-none focus:ring focus:ring-brand caret-brand transition-all dark:bg-app-dark dark:border-slate-800"
                   />
-                  <button className="capitalize bg-brand text-white py-3 px-6 rounded-lg cursor-pointer hover:bg-indigo-500 dark:bg-indigo-500">apply</button>
+                  <button
+                    className="capitalize bg-brand text-white py-3 px-6 rounded-lg cursor-pointer hover:bg-indigo-500 dark:bg-indigo-500"
+                    onClick={() => {
+                      applyDiscount(input, totalPrice);
+                      setDiscountApplied(true);
+                    }}>
+                    apply
+                  </button>
                 </div>
+                {input && discountApplied && discountError && (
+                  <p className="text-red-500 mt-2 line-clamp-1 flex items-center gap-2">
+                    <TriangleAlert className="size-4" />
+                    <span>{discountError}</span>
+                  </p>
+                )}
+
+                {input && discountApplied && !discountError && (
+                  <p className="text-green-500 mt-2 line-clamp-1 flex items-center gap-2">
+                    <span>code applied successfully</span>
+                  </p>
+                )}
 
                 <div className="flex flex-col gap-2.5 mt-10">
                   <p className="flex items-center justify-between">
-                    <span className="text-lg font-bold dark:text-white">Total</span>
+                    <span className="text-lg font-bold dark:text-white">sub total:</span>
                     <span className="text-lg font-bold text-brand dark:text-indigo-500">${totalPrice.toLocaleString()}</span>
+                  </p>
+                  <p className="flex items-center justify-between">
+                    <span className="text-lg font-bold dark:text-white">final price:</span>
+                    <span className="text-lg font-bold text-brand dark:text-indigo-500">${finalPrice}</span>
                   </p>
 
                   <button
