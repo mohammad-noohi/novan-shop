@@ -3,6 +3,9 @@ import { NavLink, useNavigate } from "react-router";
 import { useAuthContext } from "../../contexts/AuthContext/useAuthContext";
 import Loader from "../../components/Loader";
 
+/* Icons */
+import { Circle, CircleCheckBig, CircleX } from "lucide-react";
+
 const intialState = {
   firstname: "",
   lastname: "",
@@ -15,8 +18,27 @@ export default function RegisterPage() {
   const navigate = useNavigate();
   const { register, loading } = useAuthContext();
   const [form, setForm] = useState(intialState);
+  const [errors, setErros] = useState({});
+  const [passwordRules, setPasswordRules] = useState({
+    hasUppercase: null,
+    hasLowercase: null,
+    hasNumber: null,
+    minLength: null,
+  });
 
   /* Functions & Handlers */
+
+  function handlePasswordChange(e) {
+    const value = e.target.value;
+    setForm(prev => ({ ...prev, password: value }));
+
+    setPasswordRules({
+      minLength: value.length >= 8 ? true : value.length > 0 ? false : null,
+      hasUppercase: /[A-Z]/.test(value) ? true : value.length > 0 ? false : null,
+      hasLowercase: /[a-z]/.test(value) ? true : value.length > 0 ? false : null,
+      hasNumber: /\d/.test(value) ? true : value.length > 0 ? false : null,
+    });
+  }
 
   function clearForm() {
     setForm(intialState);
@@ -24,6 +46,16 @@ export default function RegisterPage() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    // چک کنم اگر فقط یه مورد از قوانین پسورد صحیح  نبود نذارم فرم رو ارسال کنه
+    const rules = Array.from(Object.values(passwordRules));
+    const passIsValid = rules.every(item => Boolean(item)); // check all rules be true
+
+    if (!passIsValid) {
+      alert("password is not valid");
+      return;
+    }
+
     const userData = { ...form, role: "user", usedDiscounts: [] };
     await register(userData);
     // when register finished clear form and show an alert
@@ -35,23 +67,10 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="h-screen bg-white dark:bg-app-dark flex justify-center items-center">
+    <div className="min-h-screen py-6 bg-white dark:bg-app-dark flex justify-center items-center">
       <div className="p-6 bg-slate-50 w-110 border border-slate-200 rounded-lg dark:bg-suface-dark dark:border-slate-800">
         <h5 className="text-xl font-bold text-center dark:text-white">Registeration</h5>
-        <div className="mt-4 flex justify-center  ">
-          {/* <div className="border border-slate-200 rounded-lg dark:border-slate-800">
-            <NavLink to="/login" className="inline-block py-1 px-2 font-semibold text-slate-600 dark:text-muted-dark">
-              login
-            </NavLink>
-            <NavLink
-              to="/register"
-              className={({ isActive }) =>
-                isActive ? "py-1 px-2 inline-block bg-brand text-white rounded-e-lg font-semibold dark:bg-indigo-500 dark:text-white" : "inline-block py-1 px-2 font-semibold text-slate-600"
-              }>
-              register
-            </NavLink>
-          </div> */}
-        </div>
+
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-3.5">
             <label htmlFor="firstname">
@@ -61,10 +80,10 @@ export default function RegisterPage() {
                 id="firstname"
                 value={form.firstname}
                 type="text"
+                required
                 className="mt-2.5 w-full border border-slate-200 bg-white py-2 px-6 rounded-lg outline-none focus:ring  focus:ring-brand transition-all dark:bg-app-dark dark:border-slate-800 dark:text-white"
               />
             </label>
-
             <label htmlFor="lastname">
               <p className="text-slate-600 capitalize text-sm dark:text-muted-dark">lastname</p>
               <input
@@ -72,10 +91,10 @@ export default function RegisterPage() {
                 onChange={e => setForm({ ...form, lastname: e.target.value })}
                 id="lastname"
                 type="text"
+                required
                 className="mt-2.5 w-full border border-slate-200 bg-white py-2 px-6 rounded-lg outline-none focus:ring  focus:ring-brand transition-all  dark:bg-app-dark dark:border-slate-800 dark:text-white"
               />
             </label>
-
             <label htmlFor="username">
               <p className="text-slate-600 capitalize text-sm dark:text-muted-dark">username</p>
               <input
@@ -83,10 +102,10 @@ export default function RegisterPage() {
                 id="username"
                 value={form.username}
                 type="text"
+                required
                 className="mt-2.5 w-full border border-slate-200 bg-white py-2 px-6 rounded-lg outline-none focus:ring  focus:ring-brand transition-all  dark:bg-app-dark dark:border-slate-800 dark:text-white"
               />
             </label>
-
             <label htmlFor="email">
               <p className="text-slate-600 capitalize text-sm dark:text-muted-dark">email</p>
               <input
@@ -94,6 +113,7 @@ export default function RegisterPage() {
                 id="email"
                 type="email"
                 value={form.email}
+                required
                 className="mt-2.5 w-full border border-slate-200 bg-white py-2 px-6 rounded-lg outline-none focus:ring  focus:ring-brand transition-all  dark:bg-app-dark dark:border-slate-800 dark:text-white"
               />
             </label>
@@ -101,14 +121,45 @@ export default function RegisterPage() {
             <label htmlFor="password">
               <p className="text-slate-600 capitalize text-sm dark:text-muted-dark">password</p>
               <input
-                onChange={e => setForm({ ...form, password: e.target.value })}
+                onChange={handlePasswordChange}
                 id="password"
                 type="password"
                 value={form.password}
                 autoComplete="true"
+                required
                 className="mt-2.5 w-full border border-slate-200 bg-white py-2 px-6 rounded-lg outline-none focus:ring  focus:ring-brand transition-all  dark:bg-app-dark dark:border-slate-800 dark:text-white"
               />
             </label>
+            <ul className="  text-slate-600 dark:text-muted-dark">
+              {/* <li className={`flex items-center gap-2 `}>
+                <span>password is required</span>
+              </li> */}
+
+              <li className={`flex items-center gap-2 ${passwordRules.minLength === true && "text-green-500"} ${passwordRules.minLength === false && "text-red-500"}`}>
+                {passwordRules.minLength === null && <Circle className="size-4" />}
+                {passwordRules.minLength === true && <CircleCheckBig className="size-4" />}
+                {passwordRules.minLength === false && <CircleX className="size-4" />}
+                <span>at least 8 characters long</span>
+              </li>
+              <li className={`flex items-center gap-2 ${passwordRules.hasUppercase === true && "text-green-500"} ${passwordRules.hasUppercase === false && "text-red-500"}`}>
+                {passwordRules.hasUppercase === null && <Circle className="size-4" />}
+                {passwordRules.hasUppercase === true && <CircleCheckBig className="size-4" />}
+                {passwordRules.hasUppercase === false && <CircleX className="size-4" />}
+                <span>at least one uppercase letter</span>
+              </li>
+              <li className={`flex items-center gap-2 ${passwordRules.hasLowercase === true && "text-green-500"} ${passwordRules.hasLowercase === false && "text-red-500"}`}>
+                {passwordRules.hasLowercase === null && <Circle className="size-4" />}
+                {passwordRules.hasLowercase === true && <CircleCheckBig className="size-4" />}
+                {passwordRules.hasLowercase === false && <CircleX className="size-4" />}
+                <span>at least one lowercase letter</span>
+              </li>
+              <li className={`flex items-center gap-2 ${passwordRules.hasNumber === true && "text-green-500"} ${passwordRules.hasNumber === false && "text-red-500"}`}>
+                {passwordRules.hasNumber === null && <Circle className="size-4" />}
+                {passwordRules.hasNumber === true && <CircleCheckBig className="size-4" />}
+                {passwordRules.hasNumber === false && <CircleX className="size-4" />}
+                <span>at least one number</span>
+              </li>
+            </ul>
           </div>
 
           <button className="flex items-center justify-center gap-3 w-full mt-8 bg-brand text-white rounded-lg py-3 px-6 cursor-pointer hover:bg-indigo-500 transition-colors" type="submit">
@@ -120,27 +171,3 @@ export default function RegisterPage() {
     </div>
   );
 }
-
-/* 
-
-to implement later
-
-// password validation
-    if (!form.password) {
-      newErrors.password = "Password is required";
-    }
-    if (!/^.{8,}$/.test(form.password)) {
-      newErrors.password = "Password must be at least 8 characters long";
-    }
-    if (!/[A-Z]/.test(form.password)) {
-      newErrors.password = "Password must contain at least one uppercase letter.";
-    }
-    if (!/[a-z]/.test(form.password)) {
-      newErrors.password = "Password must contain at least one lowercase letter.";
-    }
-    if (!/[0-9]/.test(form.password)) {
-      newErrors.password = "Password must contain at least one number.";
-    }
-
-
-*/
