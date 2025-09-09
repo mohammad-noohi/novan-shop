@@ -61,6 +61,7 @@ export default function LoginPage() {
           clearForm();
           navigate("/");
         },
+        duration: 1000,
       }),
       error: () => ({
         message: "login failed",
@@ -69,7 +70,6 @@ export default function LoginPage() {
           title: "text-red-500! dark:text-red-600!",
         },
       }),
-      duration: 1000,
     });
   }
 

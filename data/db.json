@@ -122,6 +122,26 @@
       "role": "user",
       "usedDiscounts": [],
       "id": 22
+    },
+    {
+      "email": "wovusopa@mailinator.com",
+      "password": "$2a$10$axmMPomzDHUqKRHyhbD5a.kEdVVPM3TYeuT9hj5GIgoGCOCfGU/le",
+      "firstname": "Timon",
+      "lastname": "Dominguez",
+      "username": "foqewe",
+      "role": "user",
+      "usedDiscounts": [],
+      "id": 23
+    },
+    {
+      "email": "vibu@mailinator.com",
+      "password": "$2a$10$K2/VtqR4HNYQx0aZ.O94r.jNhDZobCI8mVlQK0IUwSnPtdK0qiz7W",
+      "firstname": "Mechelle",
+      "lastname": "Middleton",
+      "username": "fyfudosal",
+      "role": "user",
+      "usedDiscounts": [],
+      "id": 24
     }
   ],
   "products": [

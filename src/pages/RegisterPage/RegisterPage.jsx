@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router";
 import { useAuthContext } from "../../contexts/AuthContext/useAuthContext";
 import Loader from "../../components/Loader";
+import { toast } from "sonner";
 
 /* Icons */
 import { Circle, CircleCheckBig, CircleX } from "lucide-react";
@@ -118,18 +119,38 @@ export default function RegisterPage() {
     e.preventDefault();
 
     if (!isFormValid()) {
-      alert("form is not valid");
+      toast.error("form inputs are not valid", {
+        classNames: {
+          toast: "border-red-500! dark:border-red-600! dark:bg-app-dark!",
+          title: "text-red-500! dark:text-red-600!",
+        },
+      });
       return;
     }
 
     const userData = { ...form, role: "user", usedDiscounts: [] };
-    await register(userData);
-    // when register finished clear form and show an alert
-    if (!loading) {
-      clearForm();
-      alert("register success");
-      navigate("/");
-    }
+
+    toast.promise(register(userData), {
+      success: () => ({
+        message: "register successfully",
+        classNames: {
+          toast: "border-green-500! dark:border-green-600! dark:bg-app-dark!",
+          title: "text-green-500! dark:text-green-600!",
+        },
+        onAutoClose: () => {
+          clearForm();
+          navigate("/");
+        },
+        duration: 1000,
+      }),
+      error: () => ({
+        message: "login failed",
+        classNames: {
+          toast: "border-red-500! dark:border-red-600! dark:bg-app-dark!",
+          title: "text-red-500! dark:text-red-600!",
+        },
+      }),
+    });
   }
 
   return (
