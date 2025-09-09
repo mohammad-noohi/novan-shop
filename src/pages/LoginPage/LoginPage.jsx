@@ -1,7 +1,8 @@
 import { useState } from "react";
+
 import { useNavigate } from "react-router";
 import { useAuthContext } from "../../contexts/AuthContext/useAuthContext";
-
+import { toast } from "sonner";
 const intialState = { email: "", password: "" };
 
 export default function LoginPage() {
@@ -35,6 +36,7 @@ export default function LoginPage() {
 
   function clearForm() {
     setForm(intialState);
+    setErrors({});
   }
 
   async function handleSubmit(e) {
@@ -47,19 +49,28 @@ export default function LoginPage() {
       return;
     }
 
-    const result = await login(form);
-
-    if (!result.success) {
-      alert(result.message);
-      return;
-    }
-
-    if (!loading) {
-      // when login finish redirect to home page
-      clearForm();
-      alert("login sucessfully");
-      navigate("/");
-    }
+    toast.promise(login(form), {
+      // loading: "login...", // we can use it if need it to show toast in loading state
+      success: () => ({
+        message: "login successfully",
+        classNames: {
+          toast: "border-green-500! dark:border-green-600! dark:bg-app-dark!",
+          title: "text-green-500! dark:text-green-600!",
+        },
+        onAutoClose: () => {
+          clearForm();
+          navigate("/");
+        },
+      }),
+      error: () => ({
+        message: "login failed",
+        classNames: {
+          toast: "border-red-500! dark:border-red-600! dark:bg-app-dark!",
+          title: "text-red-500! dark:text-red-600!",
+        },
+      }),
+      duration: 1000,
+    });
   }
 
   return (

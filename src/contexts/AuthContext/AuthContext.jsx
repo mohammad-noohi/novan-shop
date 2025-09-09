@@ -52,10 +52,12 @@ function AuthProvider({ children }) {
       // save user token in localStorage after success login
       localStorage.setItem("novan-user-token", data.accessToken);
       setUser(data.user);
-      return { success: true, message: "Logged in successfully" };
+      return data;
+      // return { success: true, message: "Logged in successfully" };
     } catch (err) {
       setError(err.message);
-      return { success: false, message: err.message };
+      throw err;
+      // return { success: false, message: err.message };
     } finally {
       setLoading(false);
     }
