@@ -14,11 +14,13 @@ const intialState = {
   password: "",
 };
 
+const emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 export default function RegisterPage() {
   const navigate = useNavigate();
   const { register, loading } = useAuthContext();
   const [form, setForm] = useState(intialState);
-  const [errors, setErros] = useState({});
+  const [errors, setErrors] = useState({});
   const [passwordRules, setPasswordRules] = useState({
     hasUppercase: null,
     hasLowercase: null,
@@ -27,6 +29,67 @@ export default function RegisterPage() {
   });
 
   /* Functions & Handlers */
+
+  function validateForm(e) {
+    const { name, value } = e.target;
+
+    setErrors(prev => {
+      const newErrors = { ...prev };
+
+      if (name === "firstname") {
+        if (!value.trim()) {
+          newErrors.firstname = "Firstname is required";
+        } else {
+          delete newErrors.firstname;
+        }
+      }
+
+      if (name === "lastname") {
+        if (!value.trim()) {
+          newErrors.lastname = "Lastname is required";
+        } else {
+          delete newErrors.lastname;
+        }
+      }
+
+      if (name === "username") {
+        if (!value.trim()) {
+          newErrors.username = "Username is required";
+        } else {
+          delete newErrors.username;
+        }
+      }
+
+      if (name === "email") {
+        if (!value.trim()) {
+          newErrors.email = "Email is required";
+        } else if (!emailRegEx.test(value)) {
+          newErrors.email = "Email is not valid";
+        } else {
+          delete newErrors.email;
+        }
+      }
+
+      return newErrors;
+    });
+  }
+
+  function isFormValid() {
+    // all inputs must be filled
+    if (!form.firstname || !form.lastname || !form.username || !form.email) {
+      return false;
+    }
+
+    // email must be valid
+    if (!emailRegEx.test(form.email)) {
+      return false;
+    }
+
+    const passIsValid = Object.values(passwordRules).every(rule => rule === true);
+    if (!passIsValid) return false;
+
+    return true;
+  }
 
   function handlePasswordChange(e) {
     const value = e.target.value;
@@ -42,17 +105,20 @@ export default function RegisterPage() {
 
   function clearForm() {
     setForm(intialState);
+    setPasswordRules({
+      hasUppercase: null,
+      hasLowercase: null,
+      hasNumber: null,
+      minLength: null,
+    });
+    setErrors({});
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    // چک کنم اگر فقط یه مورد از قوانین پسورد صحیح  نبود نذارم فرم رو ارسال کنه
-    const rules = Array.from(Object.values(passwordRules));
-    const passIsValid = rules.every(item => Boolean(item)); // check all rules be true
-
-    if (!passIsValid) {
-      alert("password is not valid");
+    if (!isFormValid()) {
+      alert("form is not valid");
       return;
     }
 
@@ -80,10 +146,13 @@ export default function RegisterPage() {
                 id="firstname"
                 value={form.firstname}
                 type="text"
-                required
+                name="firstname"
+                onBlur={validateForm}
                 className="mt-2.5 w-full border border-slate-200 bg-white py-2 px-6 rounded-lg outline-none focus:ring  focus:ring-brand transition-all dark:bg-app-dark dark:border-slate-800 dark:text-white"
               />
             </label>
+            {errors.firstname && <p className="text-red-500 text-sm">{errors.firstname}</p>}
+
             <label htmlFor="lastname">
               <p className="text-slate-600 capitalize text-sm dark:text-muted-dark">lastname</p>
               <input
@@ -91,10 +160,14 @@ export default function RegisterPage() {
                 onChange={e => setForm({ ...form, lastname: e.target.value })}
                 id="lastname"
                 type="text"
-                required
+                name="lastname"
+                onBlur={validateForm}
                 className="mt-2.5 w-full border border-slate-200 bg-white py-2 px-6 rounded-lg outline-none focus:ring  focus:ring-brand transition-all  dark:bg-app-dark dark:border-slate-800 dark:text-white"
               />
             </label>
+
+            {errors.lastname && <p className="text-red-500 text-sm">{errors.lastname}</p>}
+
             <label htmlFor="username">
               <p className="text-slate-600 capitalize text-sm dark:text-muted-dark">username</p>
               <input
@@ -102,10 +175,14 @@ export default function RegisterPage() {
                 id="username"
                 value={form.username}
                 type="text"
-                required
+                name="username"
+                onBlur={validateForm}
                 className="mt-2.5 w-full border border-slate-200 bg-white py-2 px-6 rounded-lg outline-none focus:ring  focus:ring-brand transition-all  dark:bg-app-dark dark:border-slate-800 dark:text-white"
               />
             </label>
+
+            {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
+
             <label htmlFor="email">
               <p className="text-slate-600 capitalize text-sm dark:text-muted-dark">email</p>
               <input
@@ -113,10 +190,13 @@ export default function RegisterPage() {
                 id="email"
                 type="email"
                 value={form.email}
-                required
+                name="email"
+                onBlur={validateForm}
                 className="mt-2.5 w-full border border-slate-200 bg-white py-2 px-6 rounded-lg outline-none focus:ring  focus:ring-brand transition-all  dark:bg-app-dark dark:border-slate-800 dark:text-white"
               />
             </label>
+
+            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
 
             <label htmlFor="password">
               <p className="text-slate-600 capitalize text-sm dark:text-muted-dark">password</p>
@@ -126,7 +206,6 @@ export default function RegisterPage() {
                 type="password"
                 value={form.password}
                 autoComplete="true"
-                required
                 className="mt-2.5 w-full border border-slate-200 bg-white py-2 px-6 rounded-lg outline-none focus:ring  focus:ring-brand transition-all  dark:bg-app-dark dark:border-slate-800 dark:text-white"
               />
             </label>

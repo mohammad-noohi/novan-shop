@@ -102,6 +102,26 @@
       "role": "user",
       "id": 20,
       "usedDiscounts": []
+    },
+    {
+      "email": "reza@gmail.com",
+      "password": "$2a$10$DGx2owPnhkFQtV1VYwrnFOMlELwK5BdOFXfrq5HMPpdMwoxNHkWAS",
+      "firstname": "reza",
+      "lastname": "karami",
+      "username": "rezakarami",
+      "role": "user",
+      "usedDiscounts": [],
+      "id": 21
+    },
+    {
+      "email": "pysixo@mailinator.com",
+      "password": "$2a$10$HogQt4O61icGDVKXHxpVguIT3rUn5kaQvkwpZ9z1GPC8pSH9gY1Be",
+      "firstname": "Graiden",
+      "lastname": "Cabrera",
+      "username": "masakeq",
+      "role": "user",
+      "usedDiscounts": [],
+      "id": 22
     }
   ],
   "products": [
