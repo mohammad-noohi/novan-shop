@@ -30,19 +30,6 @@ export default function LoginPage() {
       newErrors.password = "Password is required";
     }
 
-    // if (!/^.{8,}$/.test(form.password)) {
-    //   newErrors.password = "Password must be at least 8 characters long";
-    // }
-    // if (!/[A-Z]/.test(form.password)) {
-    //   newErrors.password = "Password must contain at least one uppercase letter.";
-    // }
-    // if (!/[a-z]/.test(form.password)) {
-    //   newErrors.password = "Password must contain at least one lowercase letter.";
-    // }
-    // if (!/[0-9]/.test(form.password)) {
-    //   newErrors.password = "Password must contain at least one number.";
-    // }
-
     return newErrors;
   }
 
@@ -62,7 +49,6 @@ export default function LoginPage() {
 
     const result = await login(form);
 
-    // نمیدونم این چرا اجرا نمیشه ؟
     if (!result.success) {
       alert(result.message);
       return;
@@ -71,7 +57,7 @@ export default function LoginPage() {
     if (!loading) {
       // when login finish redirect to home page
       clearForm();
-      // alert("login sucessfully");
+      alert("login sucessfully");
       navigate("/");
     }
   }

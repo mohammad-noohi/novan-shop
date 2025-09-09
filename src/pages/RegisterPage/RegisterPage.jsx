@@ -151,7 +151,7 @@ export default function RegisterPage() {
                 className="mt-2.5 w-full border border-slate-200 bg-white py-2 px-6 rounded-lg outline-none focus:ring  focus:ring-brand transition-all dark:bg-app-dark dark:border-slate-800 dark:text-white"
               />
             </label>
-            {errors.firstname && <p className="text-red-500 text-sm">{errors.firstname}</p>}
+            {errors.firstname && <p className="text-red-500 dark:text-red-800 text-sm">{errors.firstname}</p>}
 
             <label htmlFor="lastname">
               <p className="text-slate-600 capitalize text-sm dark:text-muted-dark">lastname</p>
@@ -166,7 +166,7 @@ export default function RegisterPage() {
               />
             </label>
 
-            {errors.lastname && <p className="text-red-500 text-sm">{errors.lastname}</p>}
+            {errors.lastname && <p className="text-red-500 dark:text-red-800 text-sm">{errors.lastname}</p>}
 
             <label htmlFor="username">
               <p className="text-slate-600 capitalize text-sm dark:text-muted-dark">username</p>
@@ -181,7 +181,7 @@ export default function RegisterPage() {
               />
             </label>
 
-            {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
+            {errors.username && <p className="text-red-500 dark:text-red-800 text-sm">{errors.username}</p>}
 
             <label htmlFor="email">
               <p className="text-slate-600 capitalize text-sm dark:text-muted-dark">email</p>
@@ -196,7 +196,7 @@ export default function RegisterPage() {
               />
             </label>
 
-            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+            {errors.email && <p className="text-red-500 dark:text-red-800 text-sm">{errors.email}</p>}
 
             <label htmlFor="password">
               <p className="text-slate-600 capitalize text-sm dark:text-muted-dark">password</p>
@@ -210,29 +210,37 @@ export default function RegisterPage() {
               />
             </label>
             <ul className="  text-slate-600 dark:text-muted-dark">
-              {/* <li className={`flex items-center gap-2 `}>
-                <span>password is required</span>
-              </li> */}
-
-              <li className={`flex items-center gap-2 ${passwordRules.minLength === true && "text-green-500"} ${passwordRules.minLength === false && "text-red-500"}`}>
+              <li
+                className={`flex items-center gap-2 ${passwordRules.minLength === true && "text-green-500 dark:text-green-600"} ${
+                  passwordRules.minLength === false && "text-red-500 dark:text-red-800"
+                }`}>
                 {passwordRules.minLength === null && <Circle className="size-4" />}
                 {passwordRules.minLength === true && <CircleCheckBig className="size-4" />}
                 {passwordRules.minLength === false && <CircleX className="size-4" />}
                 <span>at least 8 characters long</span>
               </li>
-              <li className={`flex items-center gap-2 ${passwordRules.hasUppercase === true && "text-green-500"} ${passwordRules.hasUppercase === false && "text-red-500"}`}>
+              <li
+                className={`flex items-center gap-2 ${passwordRules.hasUppercase === true && "text-green-500 dark:text-green-600"} ${
+                  passwordRules.hasUppercase === false && "text-red-500 dark:text-red-800"
+                }`}>
                 {passwordRules.hasUppercase === null && <Circle className="size-4" />}
                 {passwordRules.hasUppercase === true && <CircleCheckBig className="size-4" />}
                 {passwordRules.hasUppercase === false && <CircleX className="size-4" />}
                 <span>at least one uppercase letter</span>
               </li>
-              <li className={`flex items-center gap-2 ${passwordRules.hasLowercase === true && "text-green-500"} ${passwordRules.hasLowercase === false && "text-red-500"}`}>
+              <li
+                className={`flex items-center gap-2 ${passwordRules.hasLowercase === true && "text-green-500 dark:text-green-600"} ${
+                  passwordRules.hasLowercase === false && "text-red-500 dark:text-red-800"
+                }`}>
                 {passwordRules.hasLowercase === null && <Circle className="size-4" />}
                 {passwordRules.hasLowercase === true && <CircleCheckBig className="size-4" />}
                 {passwordRules.hasLowercase === false && <CircleX className="size-4" />}
                 <span>at least one lowercase letter</span>
               </li>
-              <li className={`flex items-center gap-2 ${passwordRules.hasNumber === true && "text-green-500"} ${passwordRules.hasNumber === false && "text-red-500"}`}>
+              <li
+                className={`flex items-center gap-2 ${passwordRules.hasNumber === true && "text-green-500 dark:text-green-600"} ${
+                  passwordRules.hasNumber === false && "text-red-500 dark:text-red-800"
+                }`}>
                 {passwordRules.hasNumber === null && <Circle className="size-4" />}
                 {passwordRules.hasNumber === true && <CircleCheckBig className="size-4" />}
                 {passwordRules.hasNumber === false && <CircleX className="size-4" />}

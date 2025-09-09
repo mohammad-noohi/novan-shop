@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { useThemeContext } from "../contexts/ThemeContext/useThemeContext";
 import { useAuthContext } from "../contexts/AuthContext/useAuthContext";
-import { NavLink } from "react-router";
+import { NavLink, Link } from "react-router";
 
 export default function MobileMenuDrawer({ show, onClose }) {
   const { theme, toggleTheme } = useThemeContext();
@@ -21,10 +21,17 @@ export default function MobileMenuDrawer({ show, onClose }) {
           className="fixed flex flex-col top-0 right-0 w-xs bg-white h-screen dark:bg-suface-dark border-l border-slate-200 dark:border-slate-800 z-20">
           {/* mobile menu header */}
           <div className="p-4 flex items-center justify-between border-b border-slate-200 dark:border-slate-800">
-            <p className="text-sm dark:text-muted-dark line-clamp-1">
-              <span>🎉 Welcome, </span>
-              <span>{user?.firstname}</span>
-            </p>
+            <div className="text-sm dark:text-muted-dark line-clamp-1">
+              {user ? (
+                <p>
+                  <span>🎉 Welcome, </span>
+                  <span>{user?.firstname}</span>
+                </p>
+              ) : (
+                <p>please login first</p>
+              )}
+            </div>
+
             <button onClick={onClose}>
               <X className="size-6 cursor-pointer hover:text-red-500 transition-colors dark:text-white dark:hover:text-red-800" />
             </button>
@@ -63,11 +70,27 @@ export default function MobileMenuDrawer({ show, onClose }) {
           </div>
           {/* mobiel menu footer */}
           <div className="flex items-center justify-between p-4 mt-auto border-t border-slate-200 dark:border-slate-800">
-            <div
-              onClick={logout}
-              className=" bg-slate-50 size-10 flex items-center justify-center rounded-full dark:bg-suface-dark dark:text-muted-dark border-2 border-slate-200 dark:border-slate-800 cursor-pointer hover:text-red-500 hover:border-red-500 dark:hover:border-red-800 dark:hover:text-red-800 transition-colors">
-              <LogOut className="size-4 rotate-180" />
-            </div>
+            {user && (
+              <div
+                onClick={logout}
+                className=" bg-slate-50 size-10 flex items-center justify-center rounded-full dark:bg-suface-dark dark:text-muted-dark border-2 border-slate-200 dark:border-slate-800 cursor-pointer hover:text-red-500 hover:border-red-500 dark:hover:border-red-800 dark:hover:text-red-800 transition-colors">
+                <LogOut className="size-4 rotate-180" />
+              </div>
+            )}
+
+            {!user && (
+              <div className="flex items-center gap-3">
+                <Link onClick={onClose} to="/login" className=" bg-brand border border-brand dark:border-indigo-500 text-slate-50 py-1 px-5 rounded-lg capitalize  cursor-pointer dark:bg-indigo-500">
+                  login
+                </Link>
+                <Link
+                  onClick={onClose}
+                  to="/register"
+                  className=" bg-slate-50  text-brand py-1 px-5 rounded-lg capitalize cursor-pointer dark:bg-suface-dark dark:text-indigo-500 border border-slate-200 dark:border-slate-800">
+                  register
+                </Link>
+              </div>
+            )}
 
             <div
               className=" bg-slate-50 size-10 cursor-pointer rounded-full flex items-center justify-center border border-slate-200 dark:border-slate-800 dark:bg-suface-dark dark:text-muted-dark"
