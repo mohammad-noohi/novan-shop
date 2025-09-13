@@ -11,7 +11,7 @@ export default function PrivateRoute() {
     if (user === null) {
       navigate("/");
     }
-  }, []);
+  }, [navigate, user]);
 
   /* if condition be true return outlet if false return null */
   if (user === null) {

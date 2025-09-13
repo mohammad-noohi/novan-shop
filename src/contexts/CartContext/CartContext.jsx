@@ -14,6 +14,8 @@ function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [cartId, setCartId] = useState(null);
   const [cartLoading, setCartLoading] = useState(false);
+  const [purchaseLoading, setPurchaseLoading] = useState(false);
+
   // ایدی محصولی که داره به سبد خرید اضافه میشه
   const [loadingProductId, setLoadingProductId] = useState(null);
 
@@ -86,7 +88,11 @@ function CartProvider({ children }) {
 
   async function addToCart(ID) {
     if (!user) {
-      toast.info("please login first");
+      toast.info("please login first", {
+        classNames: {
+          toast: "dark:bg-suface-dark! dark:bg-suface-dark! dark:border-slate-800! dark:text-white!",
+        },
+      });
       return;
     }
 
@@ -99,13 +105,21 @@ function CartProvider({ children }) {
 
       // Handle out of stock error
       if (!product.stock) {
-        toast.error("Out of stock");
+        toast.error("Out of stock", {
+          classNames: {
+            toast: "dark:bg-suface-dark! dark:bg-suface-dark! dark:border-slate-800! dark:text-white!",
+          },
+        });
         return;
       }
 
       // Handle stock is not enough error
       if (cartItem && cartItem.count >= product.stock) {
-        toast.error("stock is not enough");
+        toast.error("stock is not enough", {
+          classNames: {
+            toast: "dark:bg-suface-dark! dark:bg-suface-dark! dark:border-slate-800! dark:text-white!",
+          },
+        });
         return;
       }
 
@@ -134,7 +148,11 @@ function CartProvider({ children }) {
           }
         });
       }
-      toast.success("product add successfully");
+      toast.success("product add successfully", {
+        classNames: {
+          toast: "dark:bg-suface-dark! dark:bg-suface-dark! dark:border-slate-800! dark:text-green-600!",
+        },
+      });
     } catch (err) {
       console.log("Add to cart error", err.message);
     } finally {
@@ -147,19 +165,20 @@ function CartProvider({ children }) {
     setCart(prevCart => {
       return prevCart.map(p => (p.productId === ID ? { ...p, count: p.count - 1 } : p));
     });
-    toast.success("mins product from cart");
+    toast.success("mins product from cart", {
+      classNames: {
+        toast: "dark:bg-suface-dark! dark:bg-suface-dark! dark:border-slate-800! dark:text-green-600!",
+      },
+    });
   }
 
   function removeFromCart(ID) {
-    const confirmResult = confirm("are you sure want remove this product from cart ?");
-    if (confirmResult) {
-      // later implement a confirm delete modal
-      setCart(prevCart => prevCart.filter(p => p.productId !== ID));
-    }
+    setCart(prevCart => prevCart.filter(p => p.productId !== ID));
   }
 
   // اینجا در واقع داری ساده سازی میکنیم و در اصل فقط باید سفارش کاربر به صورت در حال انتظار یا همون پندینگ ذخیره بشه و بعد کاربر میره توی صفحه ی تسویه حساب و یه سری اطلاعات رو وارد میکنه و بعد سفارش به صورت پرداخت شده یا همون پید در میاد و بعدش موجودی انبار اپدیت میشه
   async function purchase() {
+    setPurchaseLoading(true);
     setCartLoading(true);
     try {
       //  update latest products and cart data
@@ -249,6 +268,7 @@ function CartProvider({ children }) {
       throw err;
     } finally {
       setCartLoading(false);
+      setPurchaseLoading(false);
     }
   }
 
@@ -292,7 +312,8 @@ function CartProvider({ children }) {
   }, []);
 
   return (
-    <CartContext.Provider value={{ products, productsLoading, cart, cartLoading, loadingProductId, cartProducts, totalPrice, finalPrice, addToCart, minusFromCart, removeFromCart, purchase }}>
+    <CartContext.Provider
+      value={{ products, productsLoading, cart, cartLoading, purchaseLoading, loadingProductId, cartProducts, totalPrice, finalPrice, addToCart, minusFromCart, removeFromCart, purchase }}>
       {children}
     </CartContext.Provider>
   );

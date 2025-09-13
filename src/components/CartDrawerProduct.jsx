@@ -1,12 +1,14 @@
 import { Trash, Plus, Minus } from "lucide-react";
 import { useCartContext } from "../contexts/CartContext/useCartContext";
 import { useState } from "react";
+import DeleteModal from "./DeleteModal";
 
 const NO_IMAGE_URL = "images/products/No-Image-Placeholder.png";
 
 export default function CartDrawerProduct({ product }) {
   const { addToCart, minusFromCart, removeFromCart } = useCartContext();
   const [imgLoading, setImgLoading] = useState(true);
+  const [showDeleteProduceModal, setShowDeleteProductModal] = useState(false);
 
   function imgLoadHandler() {
     setImgLoading(false);
@@ -47,12 +49,14 @@ export default function CartDrawerProduct({ product }) {
           </div>
 
           <button
-            onClick={() => removeFromCart(product.id)}
+            onClick={() => setShowDeleteProductModal(true)}
             className="p-1 hover:bg-red-100 text-red-500 dark:text-red-800 dark:hover:text-red-200 rounded-sm transition-colors cursor-pointer dark:hover:bg-red-800">
             <Trash className="size-4" />
           </button>
         </div>
       </div>
+      {/* may not need this or may be not need trash and plus icon .... */}
+      <DeleteModal show={showDeleteProduceModal} onClose={() => setShowDeleteProductModal(false)} text="Are you sure to remove ?" onConfirm={() => removeFromCart(product.id)} />
     </aside>
   );
 }

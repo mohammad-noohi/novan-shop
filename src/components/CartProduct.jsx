@@ -1,12 +1,14 @@
 import { Plus, Minus, Trash, TriangleAlert } from "lucide-react";
 import { useCartContext } from "../contexts/CartContext/useCartContext";
 import { useState } from "react";
+import DeleteModal from "./DeleteModal";
 
 const NO_IMAGE_URL = "images/products/No-Image-Placeholder.png";
 
 export default function CartProduct({ product }) {
-  const { addToCart, minusFromCart, removeFromCart } = useCartContext();
+  const { purchaseLoading, addToCart, minusFromCart, removeFromCart } = useCartContext();
   const [imgLoading, setImgLoading] = useState(true);
+  const [showDeleteProduceModal, setShowDeleteProductModal] = useState(false);
 
   function imgLoadHandler() {
     setImgLoading(false);
@@ -22,7 +24,7 @@ export default function CartProduct({ product }) {
   return (
     <div className=" flex gap-3 bg-white border border-slate-200 rounded-lg p-3 lg:p-5 dark:bg-app-dark dark:border-slate-800">
       <div className="min-[400px]:size-35 flex items-center justify-center rounded-lg">
-        <img src={product.mainImage} alt={product.title} className={`size-full ${imgLoading ? "hidden" : "block"}`} onLoad={imgLoadHandler} onError={imgErrorHandler} />
+        <img src={product.mainImage} alt={product.title} className={`w-full ${imgLoading ? "hidden" : "block"}`} onLoad={imgLoadHandler} onError={imgErrorHandler} />
 
         {imgLoading && <span className="block size-4 rounded-full border-2 border-brand border-t-transparent animate-spin"></span>}
       </div>
@@ -38,13 +40,13 @@ export default function CartProduct({ product }) {
           <span>Quantity : </span>
           <span>{product.count}</span>
         </p>
-        {product.stock === 0 && (
+        {product.stock === 0 && !purchaseLoading && (
           <p className="text-red-500 flex items-center gap-2 mt-2">
             <TriangleAlert className="size-4" />
             out of stock please delete this item
           </p>
         )}
-        {product.count > product.stock && product.stock !== 0 && (
+        {product.count > product.stock && product.stock !== 0 && !purchaseLoading && (
           <p className="text-amber-500 flex items-center gap-2 mt-2">
             <TriangleAlert className="size-4" />
             Availbel only {product.stock} items. please reduce the quantity
@@ -65,11 +67,23 @@ export default function CartProduct({ product }) {
             className="size-8 flex justify-center items-center rounded-lg bg-brand  cursor-pointer dark:bg-indigo-500 disabled:grayscale-100 disabled:opacity-50 disabled:cursor-not-allowed">
             <Minus className="size-4 text-white" />
           </button>
-          <button onClick={() => removeFromCart(product.id)} className="size-8 flex justify-center items-center rounded-lg bg-red-600 ms-auto cursor-pointer dark:bg-red-800">
+          <button
+            onClick={() => {
+              setShowDeleteProductModal(true);
+            }}
+            className="size-8 flex justify-center items-center rounded-lg bg-red-600 ms-auto cursor-pointer dark:bg-red-800">
             <Trash className="size-4 text-white" />
           </button>
         </div>
       </div>
+
+      <DeleteModal
+        show={showDeleteProduceModal}
+        text="Are you sure you want to remove ?"
+        confirmText="remove"
+        onConfirm={() => removeFromCart(product.id)}
+        onClose={() => setShowDeleteProductModal(false)}
+      />
     </div>
   );
 }

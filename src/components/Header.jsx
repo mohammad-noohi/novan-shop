@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { useThemeContext } from "../contexts/ThemeContext/useThemeContext";
 import { useAuthContext } from "../contexts/AuthContext/useAuthContext";
 import CartDrawer from "./CartDrawer";
-import Overlay from "./Overlay";
 import { useCartContext } from "../contexts/CartContext/useCartContext";
 import MobileMenuDrawer from "./MobileMenuDrawer";
 // icons
 import { Sun, Moon, ShoppingBag, LogOut, Menu } from "lucide-react";
+import DeleteModal from "./DeleteModal";
 
 export default function Header() {
   const { cart } = useCartContext();
@@ -15,13 +15,10 @@ export default function Header() {
   const { theme, toggleTheme } = useThemeContext();
   const [showCartDrawer, setShowCartDrawer] = useState(false); // handle show cart drawer
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+
   /* Derived States */
   const cartItemsCount = cart?.length;
-
-  function closeAllDrawers() {
-    setShowCartDrawer(false);
-    setShowMobileMenu(false);
-  }
 
   useEffect(() => {
     if (theme === "light") document.documentElement.classList.add("dark");
@@ -101,7 +98,9 @@ export default function Header() {
                   </div>
 
                   <div
-                    onClick={() => logout()}
+                    onClick={() => {
+                      setShowLogoutModal(true);
+                    }}
                     className="hidden bg-slate-50 size-10 md:flex items-center justify-center rounded-full dark:bg-suface-dark dark:text-muted-dark border border-slate-200 dark:border-slate-800 cursor-pointer">
                     <LogOut className="size-4" />
                   </div>
@@ -117,8 +116,8 @@ export default function Header() {
       </header>
 
       <CartDrawer show={showCartDrawer} onClose={() => setShowCartDrawer(false)} />
-      <Overlay show={showCartDrawer || showMobileMenu} onClose={closeAllDrawers} />
       <MobileMenuDrawer show={showMobileMenu} onClose={() => setShowMobileMenu(false)} />
+      <DeleteModal show={showLogoutModal} onClose={() => setShowLogoutModal(false)} onConfirm={logout} text="Are you sure want to logout ?" confirmText="logout" cancelText="cancel" />
     </>
   );
 }
