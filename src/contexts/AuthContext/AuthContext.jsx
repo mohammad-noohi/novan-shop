@@ -64,9 +64,12 @@ function AuthProvider({ children }) {
   }
 
   function logout() {
-    localStorage.removeItem("novan-user-token");
-    setUser(null);
-    setToken(null);
+    const confirmResult = confirm("Are you sure want to logout ?");
+    if (confirmResult) {
+      localStorage.removeItem("novan-user-token");
+      setUser(null);
+      setToken(null);
+    }
   }
 
   /*---------------- Effects ----------------*/

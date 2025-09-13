@@ -25,7 +25,13 @@ export default function ProductCard({ product }) {
     <div className="relative flex flex-col justify-between pt-4 pl-4 pr-4 pb-6 rounded-lg border border-slate-200 bg-slate-50 dark:bg-suface-dark dark:border-slate-800">
       <div className="pt-4  flex flex-col gap-2.5">
         <div className="h-40  flex items-center justify-center ">
-          <img className={`w-full h-full object-contain ${imgLoading ? "hidden" : "block"}`} src={product.mainImage} alt={product.title} onLoad={imgLoadHandler} onError={imgErrorHandler} />
+          <img
+            className={`w-full h-full object-contain ${imgLoading ? "hidden" : "block"}`}
+            src={product.mainImage ? product.mainImage : "#"}
+            alt={product.title}
+            onLoad={imgLoadHandler}
+            onError={imgErrorHandler}
+          />
 
           {imgLoading && <span className="block size-4 rounded-full border-2 border-brand border-t-transparent animate-spin"></span>}
         </div>

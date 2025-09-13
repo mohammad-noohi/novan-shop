@@ -53,22 +53,15 @@ export default function LoginPage() {
       // loading: "login...", // we can use it if need it to show toast in loading state
       success: () => ({
         message: "login successfully",
-        classNames: {
-          toast: "border-green-500! dark:border-green-600! dark:bg-app-dark!",
-          title: "text-green-500! dark:text-green-600!",
-        },
+
         onAutoClose: () => {
           clearForm();
           navigate("/");
         },
-        duration: 1000,
+        duration: 1500,
       }),
       error: () => ({
         message: "login failed",
-        classNames: {
-          toast: "border-red-500! dark:border-red-600! dark:bg-app-dark!",
-          title: "text-red-500! dark:text-red-600!",
-        },
       }),
     });
   }

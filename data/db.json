@@ -142,6 +142,16 @@
       "role": "user",
       "usedDiscounts": [],
       "id": 24
+    },
+    {
+      "email": "jytykep@mailinator.com",
+      "password": "$2a$10$3/oTp97chlc57W0UjhviL.JqqxHlMfyBrG8lFisyHsPfCLidNUd1K",
+      "firstname": "Vernon",
+      "lastname": "Sharpe",
+      "username": "gewobynoqe",
+      "role": "user",
+      "usedDiscounts": [],
+      "id": 25
     }
   ],
   "products": [
@@ -182,7 +192,7 @@
       "brand": "Dell",
       "price": 899,
       "discount": 10,
-      "stock": 17,
+      "stock": 15,
       "rate": 4,
       "colors": [
         "silver",
@@ -351,13 +361,646 @@
         "os": "Windows 11"
       },
       "caption": "Razer gaming laptop with ultra-slim design and high performance."
+    },
+    {
+      "id": 211,
+      "title": "Samsung Galaxy A54 5G",
+      "category": "smartphone",
+      "brand": "Samsung",
+      "price": 14990000,
+      "discount": 8,
+      "stock": 30,
+      "rate": 4,
+      "colors": [
+        "lime",
+        "graphite",
+        "violet",
+        "white"
+      ],
+      "mainImage": "images/products/Galaxy-A54-5g.png",
+      "gallery": [
+        "images/products/Iphon_SE_2020.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
+      "specs": {
+        "cpu": "Exynos 1380",
+        "ram": "6 GB / 8 GB",
+        "storage": "128 GB / 256 GB",
+        "display": "6.4-inch Super AMOLED, 120Hz",
+        "camera": "50MP + 12MP + 5MP",
+        "battery": "5000 mAh",
+        "os": "Android 13, One UI 5.1"
+      },
+      "caption": "Popular mid-range with strong performance and AMOLED display."
+    },
+    {
+      "id": 212,
+      "title": "iPhone SE (2022)",
+      "category": "smartphone",
+      "brand": "Apple",
+      "price": 17990000,
+      "discount": 5,
+      "stock": 25,
+      "rate": 4,
+      "colors": [
+        "midnight",
+        "starlight",
+        "product red"
+      ],
+      "mainImage": "images/products/Iphon_SE_2020.png",
+      "gallery": [
+        "images/products/Iphon_SE_2020.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
+      "specs": {
+        "cpu": "Apple A15 Bionic",
+        "ram": "4 GB",
+        "storage": "64 GB / 128 GB / 256 GB",
+        "display": "4.7-inch Retina IPS LCD",
+        "camera": "12MP",
+        "battery": "2018 mAh",
+        "os": "iOS 16"
+      },
+      "caption": "Budget-friendly iPhone with flagship-level performance."
+    },
+    {
+      "id": 213,
+      "title": "Xiaomi Redmi Note 13 Pro+ 5G",
+      "category": "smartphone",
+      "brand": "Xiaomi",
+      "price": 12990000,
+      "discount": 7,
+      "stock": 35,
+      "rate": 4,
+      "colors": [
+        "black",
+        "blue",
+        "white"
+      ],
+      "mainImage": "images/products/Xiaomi_Redmi_Note_13_Pro_Plus_5G.png",
+      "gallery": [
+        "images/products/Xiaomi_Redmi_Note_13_Pro_Plus_5G.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
+      "specs": {
+        "cpu": "MediaTek Dimensity 7200-Ultra",
+        "ram": "8 GB / 12 GB",
+        "storage": "128 GB / 256 GB / 512 GB",
+        "display": "6.67-inch AMOLED, 120Hz",
+        "camera": "200MP + 8MP + 2MP",
+        "battery": "5000 mAh",
+        "os": "Android 13, MIUI"
+      },
+      "caption": "Affordable mid-ranger with 200MP flagship camera."
+    },
+    {
+      "id": 214,
+      "title": "Realme GT Neo 5",
+      "category": "smartphone",
+      "brand": "Realme",
+      "price": 11990000,
+      "discount": 6,
+      "stock": 28,
+      "rate": 4,
+      "colors": [
+        "purple",
+        "black",
+        "white"
+      ],
+      "mainImage": "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
+      "gallery": [
+        "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
+      "specs": {
+        "cpu": "Qualcomm Snapdragon 8+ Gen 1",
+        "ram": "8 GB / 12 GB / 16 GB",
+        "storage": "128 GB / 256 GB / 512 GB / 1 TB",
+        "display": "6.74-inch AMOLED, 144Hz",
+        "camera": "50MP + 8MP + 2MP",
+        "battery": "4600 mAh (240W charging)",
+        "os": "Android 13, Realme UI"
+      },
+      "caption": "Super-fast charging beast with flagship specs."
+    },
+    {
+      "id": 215,
+      "title": "Poco F5 Pro",
+      "category": "smartphone",
+      "brand": "Poco",
+      "price": 13990000,
+      "discount": 5,
+      "stock": 40,
+      "rate": 4,
+      "colors": [
+        "black",
+        "white"
+      ],
+      "mainImage": "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
+      "gallery": [
+        "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
+      "specs": {
+        "cpu": "Qualcomm Snapdragon 8+ Gen 1",
+        "ram": "8 GB / 12 GB",
+        "storage": "256 GB / 512 GB",
+        "display": "6.67-inch AMOLED, QHD+, 120Hz",
+        "camera": "64MP + 8MP + 2MP",
+        "battery": "5160 mAh",
+        "os": "Android 13, MIUI for Poco"
+      },
+      "caption": "Affordable flagship with Snapdragon 8+ Gen 1."
+    },
+    {
+      "id": 216,
+      "title": "Samsung Galaxy M14 5G",
+      "category": "smartphone",
+      "brand": "Samsung",
+      "price": 7990000,
+      "discount": 10,
+      "stock": 50,
+      "rate": 3,
+      "colors": [
+        "dark blue",
+        "light blue",
+        "silver"
+      ],
+      "mainImage": "images/products/Samsung_Galaxy_M14-removebg-preview.png",
+      "gallery": [
+        "images/products/Samsung_Galaxy_M14-removebg-preview.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
+      "specs": {
+        "cpu": "Exynos 1330",
+        "ram": "4 GB / 6 GB",
+        "storage": "64 GB / 128 GB",
+        "display": "6.6-inch PLS LCD, 90Hz",
+        "camera": "50MP + 2MP + 2MP",
+        "battery": "6000 mAh",
+        "os": "Android 13, One UI Core"
+      },
+      "caption": "Budget Samsung phone with big 6000 mAh battery."
+    },
+    {
+      "id": 217,
+      "title": "Infinix Note 30 Pro",
+      "category": "smartphone",
+      "brand": "Infinix",
+      "price": 6990000,
+      "discount": 12,
+      "stock": 60,
+      "rate": 3,
+      "colors": [
+        "magic black",
+        "variable gold"
+      ],
+      "mainImage": "images/products/Infinix_Note_30_Pro.png",
+      "gallery": [
+        "images/products/Infinix_Note_30_Pro.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
+      "specs": {
+        "cpu": "MediaTek Helio G99",
+        "ram": "8 GB",
+        "storage": "128 GB / 256 GB",
+        "display": "6.67-inch AMOLED, 120Hz",
+        "camera": "108MP + 2MP",
+        "battery": "5000 mAh",
+        "os": "Android 13"
+      },
+      "caption": "Value-for-money phone with AMOLED and fast charging."
+    },
+    {
+      "id": 218,
+      "title": "Nokia G42 5G",
+      "category": "smartphone",
+      "brand": "Nokia",
+      "price": 6590000,
+      "discount": 15,
+      "stock": 45,
+      "rate": 3,
+      "colors": [
+        "so grey",
+        "so purple"
+      ],
+      "mainImage": "images/products/Nokia_G42.png",
+      "gallery": [
+        "images/products/Nokia_G42.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
+      "specs": {
+        "cpu": "Qualcomm Snapdragon 480+ 5G",
+        "ram": "4 GB / 6 GB",
+        "storage": "128 GB",
+        "display": "6.56-inch IPS LCD, 90Hz",
+        "camera": "50MP + 2MP + 2MP",
+        "battery": "5000 mAh",
+        "os": "Android 13"
+      },
+      "caption": "Affordable 5G phone with clean Android."
+    },
+    {
+      "id": 219,
+      "title": "Tecno Camon 20 Premier 5G",
+      "category": "smartphone",
+      "brand": "Tecno",
+      "price": 8990000,
+      "discount": 10,
+      "stock": 38,
+      "rate": 4,
+      "colors": [
+        "serenity blue",
+        "dark welkin"
+      ],
+      "mainImage": "images/products/Tecno_Camon_20_Premier_5G.png",
+      "gallery": [
+        "images/products/Tecno_Camon_20_Premier_5G.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
+      "specs": {
+        "cpu": "MediaTek Dimensity 8050",
+        "ram": "8 GB",
+        "storage": "256 GB",
+        "display": "6.67-inch AMOLED, 120Hz",
+        "camera": "50MP + 108MP + 2MP",
+        "battery": "5000 mAh",
+        "os": "Android 13, HiOS"
+      },
+      "caption": "Stylish phone with curved AMOLED and strong cameras."
+    },
+    {
+      "id": 220,
+      "title": "Motorola Edge 40 Neo",
+      "category": "smartphone",
+      "brand": "Motorola",
+      "price": 11490000,
+      "discount": 7,
+      "stock": 32,
+      "rate": 4,
+      "colors": [
+        "caneel bay",
+        "black beauty"
+      ],
+      "mainImage": "images/products/Motorola_Edge_40_Neo.png",
+      "gallery": [
+        "images/products/Motorola_Edge_40_Neo.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
+      "specs": {
+        "cpu": "MediaTek Dimensity 7030",
+        "ram": "8 GB / 12 GB",
+        "storage": "128 GB / 256 GB",
+        "display": "6.55-inch P-OLED, 144Hz",
+        "camera": "50MP + 13MP",
+        "battery": "5000 mAh",
+        "os": "Android 13"
+      },
+      "caption": "Slim mid-range with curved OLED and 144Hz refresh rate."
+    },
+    {
+      "id": 201,
+      "title": "iPhone 15 Pro Max",
+      "category": "smartphone",
+      "brand": "Apple",
+      "price": 54990000,
+      "discount": 3,
+      "stock": 15,
+      "rate": 5,
+      "colors": [
+        "black titanium",
+        "white titanium",
+        "blue titanium",
+        "natural titanium"
+      ],
+      "mainImage": "images/products/Iphone_15_pro_max.png",
+      "gallery": [
+        "images/products/Iphone_15_pro_max.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
+      "specs": {
+        "cpu": "Apple A17 Pro",
+        "ram": "8 GB",
+        "storage": "256 GB / 512 GB / 1 TB",
+        "display": "6.7-inch Super Retina XDR OLED, 120Hz",
+        "camera": "48MP + 12MP + 12MP",
+        "battery": "4422 mAh",
+        "os": "iOS 17"
+      },
+      "caption": "Apple’s most powerful flagship with titanium frame."
+    },
+    {
+      "id": 202,
+      "title": "Samsung Galaxy S24 Ultra",
+      "category": "smartphone",
+      "brand": "Samsung",
+      "price": 51990000,
+      "discount": 4,
+      "stock": 20,
+      "rate": 5,
+      "colors": [
+        "titanium black",
+        "titanium gray",
+        "titanium violet",
+        "titanium yellow"
+      ],
+      "mainImage": "images/products/Samsung_Galaxy_S24_Ultra.png",
+      "gallery": [
+        "images/products/Samsung_Galaxy_S24_Ultra.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
+      "specs": {
+        "cpu": "Qualcomm Snapdragon 8 Gen 3",
+        "ram": "12 GB",
+        "storage": "256 GB / 512 GB / 1 TB",
+        "display": "6.8-inch Dynamic AMOLED 2X, QHD+, 120Hz",
+        "camera": "200MP + 12MP + 10MP + 10MP",
+        "battery": "5000 mAh",
+        "os": "Android 14, One UI 6"
+      },
+      "caption": "Samsung’s top-tier flagship with S-Pen and quad camera system."
+    },
+    {
+      "id": 203,
+      "title": "Google Pixel 8 Pro",
+      "category": "smartphone",
+      "brand": "Google",
+      "price": 39990000,
+      "discount": 2,
+      "stock": 18,
+      "rate": 4,
+      "colors": [
+        "obsidian",
+        "porcelain",
+        "bay"
+      ],
+      "mainImage": "images/products/Google_Pixel_8_Pro.png",
+      "gallery": [
+        "images/products/Google_Pixel_8_Pro.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
+      "specs": {
+        "cpu": "Google Tensor G3",
+        "ram": "12 GB",
+        "storage": "128 GB / 256 GB / 512 GB / 1 TB",
+        "display": "6.7-inch LTPO OLED, 120Hz",
+        "camera": "50MP + 48MP + 48MP",
+        "battery": "5050 mAh",
+        "os": "Android 14"
+      },
+      "caption": "AI-focused flagship with Google’s best camera system."
+    },
+    {
+      "id": 204,
+      "title": "OnePlus 12",
+      "category": "smartphone",
+      "brand": "OnePlus",
+      "price": 33990000,
+      "discount": 5,
+      "stock": 25,
+      "rate": 4,
+      "colors": [
+        "flowy emerald",
+        "silky black"
+      ],
+      "mainImage": "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
+      "gallery": [
+        "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
+      "specs": {
+        "cpu": "Qualcomm Snapdragon 8 Gen 3",
+        "ram": "12 GB / 16 GB",
+        "storage": "256 GB / 512 GB / 1 TB",
+        "display": "6.82-inch AMOLED, QHD+, 120Hz",
+        "camera": "50MP + 48MP + 64MP",
+        "battery": "5400 mAh",
+        "os": "Android 14, OxygenOS"
+      },
+      "caption": "Flagship killer with Hasselblad cameras and super-fast charging."
+    },
+    {
+      "id": 205,
+      "title": "Xiaomi 14 Ultra",
+      "category": "smartphone",
+      "brand": "Xiaomi",
+      "price": 35990000,
+      "discount": 3,
+      "stock": 20,
+      "rate": 5,
+      "colors": [
+        "black",
+        "white",
+        "blue"
+      ],
+      "mainImage": "images/products/Xiaomi_14_Ultra.png",
+      "gallery": [
+        "images/products/Xiaomi_14_Ultra.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
+      "specs": {
+        "cpu": "Qualcomm Snapdragon 8 Gen 3",
+        "ram": "12 GB / 16 GB",
+        "storage": "256 GB / 512 GB / 1 TB",
+        "display": "6.73-inch AMOLED, QHD+, 120Hz",
+        "camera": "50MP (1-inch) + 50MP + 50MP + 50MP",
+        "battery": "5000 mAh",
+        "os": "Android 14, HyperOS"
+      },
+      "caption": "Ultra camera phone with Leica optics."
+    },
+    {
+      "id": 206,
+      "title": "Sony Xperia 1 V",
+      "category": "smartphone",
+      "brand": "Sony",
+      "price": 42990000,
+      "discount": 2,
+      "stock": 12,
+      "rate": 4,
+      "colors": [
+        "black",
+        "platinum silver",
+        "khaki green"
+      ],
+      "mainImage": "images/products/sony-xperia-1-vi.png",
+      "gallery": [
+        "images/products/sony-xperia-1-vi.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
+      "specs": {
+        "cpu": "Qualcomm Snapdragon 8 Gen 2",
+        "ram": "12 GB",
+        "storage": "256 GB / 512 GB",
+        "display": "6.5-inch 4K HDR OLED, 120Hz",
+        "camera": "48MP + 12MP + 12MP",
+        "battery": "5000 mAh",
+        "os": "Android 13"
+      },
+      "caption": "Professional photography-focused flagship with 4K OLED display."
+    },
+    {
+      "id": 207,
+      "title": "Asus ROG Phone 8 Pro",
+      "category": "smartphone",
+      "brand": "Asus",
+      "price": 38990000,
+      "discount": 4,
+      "stock": 15,
+      "rate": 5,
+      "colors": [
+        "phantom black"
+      ],
+      "mainImage": "images/products/Asus_ROG_Phone_8_Pro.png",
+      "gallery": [
+        "images/products/Asus_ROG_Phone_8_Pro.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
+      "specs": {
+        "cpu": "Qualcomm Snapdragon 8 Gen 3",
+        "ram": "16 GB / 24 GB",
+        "storage": "512 GB / 1 TB",
+        "display": "6.78-inch AMOLED, FHD+, 165Hz",
+        "camera": "50MP + 13MP + 32MP",
+        "battery": "5500 mAh",
+        "os": "Android 14"
+      },
+      "caption": "Ultimate gaming phone with high refresh rate display."
+    },
+    {
+      "id": 208,
+      "title": "Huawei P60 Pro",
+      "category": "smartphone",
+      "brand": "Huawei",
+      "price": 29990000,
+      "discount": 6,
+      "stock": 18,
+      "rate": 4,
+      "colors": [
+        "rococo pearl",
+        "black"
+      ],
+      "mainImage": "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
+      "gallery": [
+        "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
+      "specs": {
+        "cpu": "Qualcomm Snapdragon 8+ Gen 1 (4G)",
+        "ram": "8 GB / 12 GB",
+        "storage": "256 GB / 512 GB",
+        "display": "6.67-inch OLED, 120Hz",
+        "camera": "48MP + 13MP + 48MP",
+        "battery": "4815 mAh",
+        "os": "HarmonyOS 3.1"
+      },
+      "caption": "Huawei’s premium flagship with XMAGE camera system."
+    },
+    {
+      "id": 209,
+      "title": "Oppo Find X6 Pro",
+      "category": "smartphone",
+      "brand": "Oppo",
+      "price": 32990000,
+      "discount": 5,
+      "stock": 22,
+      "rate": 4,
+      "colors": [
+        "black",
+        "green",
+        "brown"
+      ],
+      "mainImage": "images/products/Oppo_Find_X6_Pro.png",
+      "gallery": [
+        "images/products/Oppo_Find_X6_Pro.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
+      "specs": {
+        "cpu": "Qualcomm Snapdragon 8 Gen 2",
+        "ram": "12 GB / 16 GB",
+        "storage": "256 GB / 512 GB",
+        "display": "6.82-inch AMOLED, QHD+, 120Hz",
+        "camera": "50MP (1-inch) + 50MP + 50MP",
+        "battery": "5000 mAh",
+        "os": "Android 13, ColorOS"
+      },
+      "caption": "Premium flagship with Hasselblad-tuned cameras."
+    },
+    {
+      "id": 210,
+      "title": "Vivo X100 Pro",
+      "category": "smartphone",
+      "brand": "Vivo",
+      "price": 31990000,
+      "discount": 4,
+      "stock": 20,
+      "rate": 4,
+      "colors": [
+        "black",
+        "white",
+        "orange"
+      ],
+      "mainImage": "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
+      "gallery": [
+        "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
+      "specs": {
+        "cpu": "MediaTek Dimensity 9300",
+        "ram": "12 GB / 16 GB",
+        "storage": "256 GB / 512 GB",
+        "display": "6.78-inch AMOLED, 120Hz",
+        "camera": "50MP + 50MP + 50MP",
+        "battery": "5400 mAh",
+        "os": "Android 14, FuntouchOS"
+      },
+      "caption": "Zeiss-powered flagship with Dimensity 9300 processor."
     }
   ],
   "carts": [
     {
       "userId": 13,
-      "items": [],
+      "items": [
+        {
+          "productId": 103,
+          "count": 1
+        }
+      ],
       "id": 1
+    },
+    {
+      "userId": 25,
+      "items": [
+        {
+          "productId": 101,
+          "count": 10
+        },
+        {
+          "productId": 102,
+          "count": 17
+        }
+      ],
+      "id": 2
     }
   ],
   "orders": [
@@ -388,6 +1031,34 @@
       "totalPrice": 1199234,
       "finalPrice": 0,
       "id": 2
+    },
+    {
+      "userId": 13,
+      "items": [
+        {
+          "productId": 102,
+          "count": 1
+        }
+      ],
+      "status": "paid",
+      "createdAt": "2025-09-12T14:29:57.568Z",
+      "totalPrice": 899,
+      "finalPrice": 899,
+      "id": 3
+    },
+    {
+      "userId": 13,
+      "items": [
+        {
+          "productId": 102,
+          "count": 1
+        }
+      ],
+      "status": "paid",
+      "createdAt": "2025-09-12T14:30:47.991Z",
+      "totalPrice": 899,
+      "finalPrice": 899,
+      "id": 4
     }
   ],
   "discounts": [

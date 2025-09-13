@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { useAuthContext } from "../AuthContext/useAuthContext";
 import { useDiscountContext } from "../DiscountContext/useDiscountContext";
+import { toast } from "sonner";
 
 const CartContext = createContext();
 
@@ -85,7 +86,7 @@ function CartProvider({ children }) {
 
   async function addToCart(ID) {
     if (!user) {
-      alert("please login first");
+      toast.info("please login first");
       return;
     }
 
@@ -98,13 +99,13 @@ function CartProvider({ children }) {
 
       // Handle out of stock error
       if (!product.stock) {
-        alert("Out of stock");
+        toast.error("Out of stock");
         return;
       }
 
       // Handle stock is not enough error
       if (cartItem && cartItem.count >= product.stock) {
-        alert("Stock is not enough!");
+        toast.error("stock is not enough");
         return;
       }
 
@@ -133,6 +134,7 @@ function CartProvider({ children }) {
           }
         });
       }
+      toast.success("product add successfully");
     } catch (err) {
       console.log("Add to cart error", err.message);
     } finally {
@@ -145,10 +147,15 @@ function CartProvider({ children }) {
     setCart(prevCart => {
       return prevCart.map(p => (p.productId === ID ? { ...p, count: p.count - 1 } : p));
     });
+    toast.success("mins product from cart");
   }
 
   function removeFromCart(ID) {
-    setCart(prevCart => prevCart.filter(p => p.productId !== ID));
+    const confirmResult = confirm("are you sure want remove this product from cart ?");
+    if (confirmResult) {
+      // later implement a confirm delete modal
+      setCart(prevCart => prevCart.filter(p => p.productId !== ID));
+    }
   }
 
   // اینجا در واقع داری ساده سازی میکنیم و در اصل فقط باید سفارش کاربر به صورت در حال انتظار یا همون پندینگ ذخیره بشه و بعد کاربر میره توی صفحه ی تسویه حساب و یه سری اطلاعات رو وارد میکنه و بعد سفارش به صورت پرداخت شده یا همون پید در میاد و بعدش موجودی انبار اپدیت میشه
@@ -230,7 +237,13 @@ function CartProvider({ children }) {
       );
 
       await getAllProducts();
-      setCart([]);
+
+      toast.success("Your order has been placed.", {
+        onAutoClose: () => {
+          setCart([]);
+        },
+        duration: 1500,
+      });
     } catch (err) {
       console.log("purchase error", err.message);
       throw err;
