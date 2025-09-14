@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@plugin './hero.js';
+@source '../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
@@ -13,8 +15,7 @@
 
 @layer base {
   body {
-    font-family: sans-serif;
-    @apply text-slate-900;
+    @apply text-slate-900 font-sans;
   }
 }
 
