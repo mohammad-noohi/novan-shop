@@ -50,6 +50,13 @@ export default function Header() {
                     </NavLink>
                   </li>
                 )}
+                {user !== null && user.role === "admin" && (
+                  <li>
+                    <NavLink to="/admin/dashboard" className={({ isActive }) => (isActive ? "text-brand dark:text-indigo-500" : " dark:text-white")}>
+                      dashboard
+                    </NavLink>
+                  </li>
+                )}
               </ul>
             </nav>
 

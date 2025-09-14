@@ -7,7 +7,7 @@ const intialState = { email: "", password: "" };
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const { login, loading } = useAuthContext();
+  const { user, login, loading } = useAuthContext();
   const [form, setForm] = useState(intialState);
   const [errors, setErrors] = useState({});
 
@@ -39,37 +39,77 @@ export default function LoginPage() {
     setErrors({});
   }
 
+  // async function handleSubmit(e) {
+  //   e.preventDefault();
+
+  //   const validationErrors = validate();
+
+  //   if (Object.keys(validationErrors).length) {
+  //     setErrors(validationErrors);
+  //     return;
+  //   }
+
+  //   toast.promise(login(form), {
+  //     // loading: "login...", // we can use it if need it to show toast in loading state
+  //     success: resp => ({
+  //       message: "login successfully",
+  //       classNames: {
+  //         toast: "dark:bg-suface-dark! dark:bg-suface-dark! dark:border-slate-800! dark:text-white!",
+  //       },
+
+  //       onAutoClose: () => {
+  //         clearForm();
+  //         console.log("after toast => ", resp);
+  //         if (resp.user.role === "admin") {
+  //           navigate("/admin/dashboard");
+  //         } else {
+  //           navigate("/");
+  //         }
+  //       },
+  //       duration: 1500,
+  //     }),
+  //     error: () => ({
+  //       message: "login failed",
+  //       classNames: {
+  //         toast: "dark:bg-suface-dark! dark:bg-suface-dark! dark:border-slate-800! dark:text-white!",
+  //       },
+  //     }),
+  //   });
+  // }
+
   async function handleSubmit(e) {
     e.preventDefault();
 
     const validationErrors = validate();
-
     if (Object.keys(validationErrors).length) {
       setErrors(validationErrors);
       return;
     }
 
-    toast.promise(login(form), {
-      // loading: "login...", // we can use it if need it to show toast in loading state
-      success: () => ({
-        message: "login successfully",
+    try {
+      const resp = await login(form); // login async
+      toast.success("Login successfully!", {
         classNames: {
-          toast: "dark:bg-suface-dark! dark:bg-suface-dark! dark:border-slate-800! dark:text-white!",
-        },
-
-        onAutoClose: () => {
-          clearForm();
-          navigate("/");
+          toast: "dark:bg-suface-dark! dark:border-slate-800! dark:text-white!",
         },
         duration: 1500,
-      }),
-      error: () => ({
-        message: "login failed",
+      });
+
+      clearForm();
+
+      // هدایت مستقیم بعد از login و ست شدن user در context
+      if (resp.user.role === "admin") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/");
+      }
+    } catch (err) {
+      toast.error("Login failed", {
         classNames: {
-          toast: "dark:bg-suface-dark! dark:bg-suface-dark! dark:border-slate-800! dark:text-white!",
+          toast: "dark:bg-suface-dark! dark:border-slate-800! dark:text-white!",
         },
-      }),
-    });
+      });
+    }
   }
 
   return (

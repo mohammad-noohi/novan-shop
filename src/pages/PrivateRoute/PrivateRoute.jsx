@@ -1,21 +1,28 @@
-import React, { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router";
+import { useEffect } from "react";
+import { Navigate, Outlet, useNavigate } from "react-router";
 import { useAuthContext } from "../../contexts/AuthContext/useAuthContext";
 
 export default function PrivateRoute() {
-  /* if user not logged in can't access to this url */
-  const { user } = useAuthContext();
-  const navigate = useNavigate();
+  const { user, loading } = useAuthContext();
 
-  useEffect(() => {
-    if (user === null) {
-      navigate("/");
-    }
-  }, [navigate, user]);
-
-  /* if condition be true return outlet if false return null */
-  if (user === null) {
+  /* if (loading) {
+    // هنوز اطلاعات کاربر لود نشده → می‌تونی Loader یا null بذاری
     return null;
+  } else if (!user) {
+    // کاربر لاگین نکرده
+    return <Navigate to="/login" replace />;
+  } else if (user.role !== "admin") {
+    // کاربر لاگین کرده اما role اشتباهه
+    return <Navigate to="/login" replace />;
+  } else {
+    // همه چیز اوکیه
+    return <Outlet />;
+  } */
+
+  if (loading) return null;
+
+  if (!user || user.role !== "admin") {
+    return <Navigate to="/login" replace />;
   }
 
   return <Outlet />;

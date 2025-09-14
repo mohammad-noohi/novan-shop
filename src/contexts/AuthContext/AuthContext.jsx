@@ -5,7 +5,7 @@ const AuthContext = createContext();
 
 function AuthProvider({ children }) {
   /*------------ States ------------*/
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
@@ -73,7 +73,6 @@ function AuthProvider({ children }) {
 
   useEffect(() => {
     const token = localStorage.getItem("novan-user-token"); // string & null
-
     if (!token) return;
 
     // Get user id with jwtDecode package this function extract some information in token string and return as object
@@ -92,6 +91,7 @@ function AuthProvider({ children }) {
         setUser(data);
       } catch (err) {
         setError(err.message);
+        setUser(null);
         throw err;
       } finally {
         setLoading(false);
@@ -99,7 +99,7 @@ function AuthProvider({ children }) {
     }
 
     fetchUser();
-  }, [token]);
+  }, []);
 
   return <AuthContext.Provider value={{ register, login, logout, user, error, loading, token }}>{children}</AuthContext.Provider>;
 }
