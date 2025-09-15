@@ -3,7 +3,7 @@ import { LayoutDashboard, Store, ListOrdered, MessageCircleMore, Users, Ticket, 
 
 export default function Sidebar({ collapsedLayout, onToggleLayout }) {
   return (
-    <aside className={`bg-white max-w-[300px] flex flex-col sticky top-0 border-r border-slate-200 transition-all ${collapsedLayout ? "w-[65px]" : "w-full"}`}>
+    <aside className={`bg-white max-w-[300px] flex flex-col sticky top-0 border-r border-slate-200 transition-all overflow-x-hidden ${collapsedLayout ? "w-[65px]" : "w-full"}`}>
       {/* sidebar header */}
       <div className={`flex items-center p-3 ${collapsedLayout ? "justify-center" : "justify-end"}`}>
         <button className="cursor-pointer" onClick={onToggleLayout}>
@@ -14,58 +14,58 @@ export default function Sidebar({ collapsedLayout, onToggleLayout }) {
       <div className="px-3">
         <ul className="mt-3 flex flex-col gap-1">
           <li>
-            <NavLink to="/admin/dashboard" className={({ isActive }) => `flex items-center -500 gap-4 p-2 rounded-lg transition-colors  ${isActive ? "bg-slate-200" : "hover:bg-slate-100"}`}>
+            <NavLink to="/admin/dashboard" className={({ isActive }) => `flex items-center  gap-5 p-2 rounded-lg transition-colors  ${isActive ? "bg-slate-200" : "hover:bg-slate-100"}`}>
               <LayoutDashboard className="size-6 shrink-0" />
-              {!collapsedLayout && <span>Dashboard</span>}
+              <span>Dashboard</span>
             </NavLink>
           </li>
 
           <li>
-            <NavLink to="/admin/products" className={({ isActive }) => `flex items-center -500 gap-4 p-2 rounded-lg transition-colors  ${isActive ? "bg-slate-200" : "hover:bg-slate-100"}`}>
+            <NavLink to="/admin/products" className={({ isActive }) => `flex items-center  gap-5 p-2 rounded-lg transition-colors  ${isActive ? "bg-slate-200" : "hover:bg-slate-100"}`}>
               <Store className="size-6 shrink-0" />
-              {!collapsedLayout && <span>Products</span>}
+              <span>Products</span>
             </NavLink>
           </li>
 
           <li>
-            <NavLink to="/admin/orders" className={({ isActive }) => `flex items-center -500 gap-4 p-2 rounded-lg transition-colors  ${isActive ? "bg-slate-200" : "hover:bg-slate-100"}`}>
+            <NavLink to="/admin/orders" className={({ isActive }) => `flex items-center  gap-5 p-2 rounded-lg transition-colors  ${isActive ? "bg-slate-200" : "hover:bg-slate-100"}`}>
               <ListOrdered className="size-6 shrink-0" />
-              {!collapsedLayout && <span>Orders</span>}
+              <span>Orders</span>
             </NavLink>
           </li>
 
           <li>
-            <NavLink to="/admin/comments" className={({ isActive }) => `flex items-center -500 gap-4 p-2 rounded-lg transition-colors  ${isActive ? "bg-slate-200" : "hover:bg-slate-100"}`}>
+            <NavLink to="/admin/comments" className={({ isActive }) => `flex items-center  gap-5 p-2 rounded-lg transition-colors  ${isActive ? "bg-slate-200" : "hover:bg-slate-100"}`}>
               <MessageCircleMore className="size-6 shrink-0" />
-              {!collapsedLayout && <span>Comments</span>}
+              <span>Comments</span>
             </NavLink>
           </li>
 
           <li>
-            <NavLink to="/admin/users" className={({ isActive }) => `flex items-center -500 gap-4 p-2 rounded-lg transition-colors  ${isActive ? "bg-slate-200" : "hover:bg-slate-100"}`}>
+            <NavLink to="/admin/users" className={({ isActive }) => `flex items-center  gap-5 p-2 rounded-lg transition-colors  ${isActive ? "bg-slate-200" : "hover:bg-slate-100"}`}>
               <Users className="size-6 shrink-0" />
-              {!collapsedLayout && <span>Users</span>}
+              <span>Users</span>
             </NavLink>
           </li>
 
           <li>
-            <NavLink to="/admin/tickets" className={({ isActive }) => `flex items-center -500 gap-4 p-2 rounded-lg transition-colors  ${isActive ? "bg-slate-200" : "hover:bg-slate-100"}`}>
+            <NavLink to="/admin/tickets" className={({ isActive }) => `flex items-center  gap-5 p-2 rounded-lg transition-colors  ${isActive ? "bg-slate-200" : "hover:bg-slate-100"}`}>
               <Ticket className="size-6 shrink-0" />
-              {!collapsedLayout && <span>Tickets</span>}
+              <span>Tickets</span>
             </NavLink>
           </li>
 
           <li>
-            <NavLink to="/admin/discounts" className={({ isActive }) => `flex items-center -500 gap-4 p-2 rounded-lg transition-colors  ${isActive ? "bg-slate-200" : "hover:bg-slate-100"}`}>
+            <NavLink to="/admin/discounts" className={({ isActive }) => `flex items-center  gap-5 p-2 rounded-lg transition-colors  ${isActive ? "bg-slate-200" : "hover:bg-slate-100"}`}>
               <Percent className="size-6 shrink-0" />
-              {!collapsedLayout && <span>Discounts</span>}
+              <span>Discounts</span>
             </NavLink>
           </li>
 
           <li>
-            <NavLink to="/admin/profile" className={({ isActive }) => `flex items-center -500 gap-4 p-2 rounded-lg transition-colors  ${isActive ? "bg-slate-200" : "hover:bg-slate-100"}`}>
+            <NavLink to="/admin/profile" className={({ isActive }) => `flex items-center  gap-5 p-2 rounded-lg transition-colors  ${isActive ? "bg-slate-200" : "hover:bg-slate-100"}`}>
               <UserPen className="size-6 shrink-0" />
-              {!collapsedLayout && <span>Profile</span>}
+              <span>Profile</span>
             </NavLink>
           </li>
         </ul>

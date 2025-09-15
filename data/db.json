@@ -585,7 +585,7 @@
       "brand": "Nokia",
       "price": 6590000,
       "discount": 15,
-      "stock": 45,
+      "stock": 44,
       "rate": 3,
       "colors": [
         "so grey",
@@ -1166,6 +1166,20 @@
       "totalPrice": 14990000,
       "finalPrice": 14990000,
       "id": 12
+    },
+    {
+      "userId": 13,
+      "items": [
+        {
+          "productId": 218,
+          "count": 1
+        }
+      ],
+      "status": "paid",
+      "createdAt": "2025-09-14T20:17:59.846Z",
+      "totalPrice": 6590000,
+      "finalPrice": 6590000,
+      "id": 13
     }
   ],
   "discounts": [
