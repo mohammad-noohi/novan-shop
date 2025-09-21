@@ -1,4 +1,3 @@
-import { Table, TableBody, TableHeader, TableColumn, TableRow, TableCell, Chip, Button } from "@heroui/react";
 import { Users, MoveUp, MoveDown, ChartSpline, ShoppingBag, Clock, FileDown, RefreshCcw } from "lucide-react";
 
 export default function Dashboard() {
@@ -10,14 +9,7 @@ export default function Dashboard() {
           <p className="text-slate-500">Welcome back! Here's what's happening.</p>
         </div>
 
-        <div className="flex items-center gap-3">
-          <Button title="download data" isIconOnly className="bg-white">
-            <FileDown />
-          </Button>
-          <Button title="refresh data" isIconOnly className="bg-white">
-            <RefreshCcw />
-          </Button>
-        </div>
+        <div className="flex items-center gap-3">some content</div>
       </div>
 
       {/* Top Stats */}
@@ -108,137 +100,110 @@ export default function Dashboard() {
           {/* Recent orders*/}
           <div className="rounded-lg bg-white px-5 py-3 shadow">
             <h6 className="text-xl font-semibold">Recent Orders</h6>
-            <Table className="mt-4">
-              <TableHeader>
-                <TableColumn>ORDER ID</TableColumn>
-                <TableColumn>CUSTOMER</TableColumn>
-                <TableColumn>AMOUNT</TableColumn>
-                <TableColumn>STATUS</TableColumn>
-                <TableColumn>DATE</TableColumn>
-              </TableHeader>
-              <TableBody>
-                <TableRow key="1">
-                  <TableCell>5148</TableCell>
-                  <TableCell>Jane Smith</TableCell>
-                  <TableCell>$265.01</TableCell>
-                  <TableCell>
-                    <Chip className="bg-emerald-500 text-white">Paid</Chip>
-                  </TableCell>
-                  <TableCell>2025/8/7</TableCell>
-                </TableRow>
-                <TableRow key="2">
-                  <TableCell>5148</TableCell>
-                  <TableCell>Jane Smith</TableCell>
-                  <TableCell>$265.01</TableCell>
-                  <TableCell>
-                    <Chip className="bg-red-500 text-white">Cancelled</Chip>
-                  </TableCell>
-                  <TableCell>2025/8/7</TableCell>
-                </TableRow>
-                <TableRow key="3">
-                  <TableCell>5148</TableCell>
-                  <TableCell>Jane Smith</TableCell>
-                  <TableCell>$265.01</TableCell>
-                  <TableCell>
-                    <Chip className="bg-amber-500 text-white">Pending</Chip>
-                  </TableCell>
-                  <TableCell>2025/8/7</TableCell>
-                </TableRow>
-                <TableRow key="4">
-                  <TableCell>5148</TableCell>
-                  <TableCell>Jane Smith</TableCell>
-                  <TableCell>$265.01</TableCell>
-                  <TableCell>
-                    <Chip className="bg-blue-500 text-white">Shipped</Chip>
-                  </TableCell>
-                  <TableCell>2025/8/7</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
+            <div className="overflow-x-auto">
+              <table className="bg-white w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
+                <thead>
+                  <tr className="*:border *:border-slate-200 *:uppercase *:p-3 bg-slate-50">
+                    <th>id</th>
+                    <th>consumer</th>
+                    <th>product/s</th>
+                    <th>date</th>
+                    <th>status</th>
+                    <th>total Price</th>
+                  </tr>
+                </thead>
+                <tbody className="*:even:bg-slate-50 *:transition-colors *:hover:bg-slate-100">
+                  <tr className="*:border *:p-2 *:border-slate-200 ">
+                    <td>2342</td>
+                    <td>mohammad noohi</td>
+                    <td>product</td>
+                    <td>2025/04/05</td>
+                    <td>paid</td>
+                    <td>$38,000</td>
+                  </tr>
+                  <tr className="*:border *:p-2 *:border-slate-200">
+                    <td>2342</td>
+                    <td>mohammad noohi</td>
+                    <td>product</td>
+                    <td>2025/04/05</td>
+                    <td>paid</td>
+                    <td>$38,000</td>
+                  </tr>
+                  <tr className="*:border *:p-2 *:border-slate-200">
+                    <td>2342</td>
+                    <td>mohammad noohi</td>
+                    <td>product</td>
+                    <td>2025/04/05</td>
+                    <td>paid</td>
+                    <td>$38,000</td>
+                  </tr>
+                  <tr className="*:border *:p-2 *:border-slate-200">
+                    <td>2342</td>
+                    <td>mohammad noohi</td>
+                    <td>product</td>
+                    <td>2025/04/05</td>
+                    <td>paid</td>
+                    <td>$38,000</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
           {/* Recent Users */}
           <div className="rounded-lg bg-white px-5 py-3 shadow">
             <h6 className="text-xl font-semibold">Recent Users</h6>
-            <Table className="mt-4">
-              <TableHeader>
-                <TableColumn>FULL NAME</TableColumn>
-                <TableColumn>ROLE</TableColumn>
-                <TableColumn>EMAIL</TableColumn>
-                <TableColumn>REGISTER AT</TableColumn>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell>Mohammad Noohi</TableCell>
-                  <TableCell>User</TableCell>
-                  <TableCell>noohi.m98@gmail.com</TableCell>
-                  <TableCell>2025/9/10</TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell>Mohammad Noohi</TableCell>
-                  <TableCell>User</TableCell>
-                  <TableCell>noohi.m98@gmail.com</TableCell>
-                  <TableCell>2025/9/10</TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell>Mohammad Noohi</TableCell>
-                  <TableCell>User</TableCell>
-                  <TableCell>noohi.m98@gmail.com</TableCell>
-                  <TableCell>2025/9/10</TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell>Mohammad Noohi</TableCell>
-                  <TableCell>User</TableCell>
-                  <TableCell>noohi.m98@gmail.com</TableCell>
-                  <TableCell>2025/9/10</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
+            <table className="bg-white w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
+              <thead>
+                <tr className="*:border *:border-slate-200 *:uppercase *:p-3 bg-slate-50">
+                  <th>id</th>
+                  <th>avatar</th>
+                  <th>user</th>
+                  <th>role</th>
+                  <th>joined</th>
+                  <th>actions</th>
+                </tr>
+              </thead>
+              <tbody className="*:even:bg-slate-50 *:transition-colors *:hover:bg-slate-100">
+                <tr className="*:border *:p-2 *:border-slate-200 ">
+                  <td>5345</td>
+                  <td>avatar</td>
+                  <td>mohammad noohi</td>
+                  <td>product</td>
+                  <td>2025/04/05</td>
+                  <td>
+                    <button className="text-lg capitalize rounded-lg bg-slate-300 py-1 px-4 cursor-pointer">view</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
           {/* Best-selling products */}
           <div className="rounded-lg bg-white px-5 py-3 shadow">
             <h6 className="text-xl font-semibold">Best-selling products</h6>
-            <Table className="mt-4">
-              <TableHeader>
-                <TableColumn>PRODUCT ID</TableColumn>
-                <TableColumn>NAME</TableColumn>
-                <TableColumn>COUNT</TableColumn>
-                <TableColumn>TOTAL PRICE</TableColumn>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell>12313</TableCell>
-                  <TableCell>Mackbook pro m1</TableCell>
-                  <TableCell>50</TableCell>
-                  <TableCell>$90,000</TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell>12313</TableCell>
-                  <TableCell>Mackbook pro m1</TableCell>
-                  <TableCell>50</TableCell>
-                  <TableCell>$90,000</TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell>12313</TableCell>
-                  <TableCell>Mackbook pro m1</TableCell>
-                  <TableCell>50</TableCell>
-                  <TableCell>$90,000</TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell>12313</TableCell>
-                  <TableCell>Mackbook pro m1</TableCell>
-                  <TableCell>50</TableCell>
-                  <TableCell>$90,000</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
+            <table className="bg-white w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
+              <thead>
+                <tr className="*:border *:border-slate-200 *:uppercase *:p-3 bg-slate-50">
+                  <th>thumbnail</th>
+                  <th>title</th>
+                  <th>category</th>
+                  <th>units sold</th>
+                  <th>revenu</th>
+                  <th>stock status</th>
+                </tr>
+              </thead>
+              <tbody className="*:even:bg-slate-50 *:transition-colors *:hover:bg-slate-100">
+                <tr className="*:border *:p-2 *:border-slate-200 ">
+                  <td>img</td>
+                  <td>iPhone 15 Pro</td>
+                  <td>Electronics</td>
+                  <td>320</td>
+                  <td>$384,000</td>
+                  <td>🟢 In Stock</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

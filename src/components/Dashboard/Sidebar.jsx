@@ -5,7 +5,7 @@ export default function Sidebar({ collapsedLayout, onToggleLayout }) {
   return (
     <aside className={`bg-white max-w-[300px] flex flex-col sticky top-0 border-r border-slate-200 transition-all overflow-x-hidden ${collapsedLayout ? "w-[65px]" : "w-full"}`}>
       {/* sidebar header */}
-      <div className={`flex items-center p-3 ${collapsedLayout ? "justify-center" : "justify-end"}`}>
+      <div className={`flex items-center p-3`}>
         <button className="cursor-pointer" onClick={onToggleLayout}>
           <PanelRightOpen className="size-6" />
         </button>

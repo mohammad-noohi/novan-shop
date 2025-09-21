@@ -1,305 +1,238 @@
-import { Eye, Pencil, Trash, EllipsisVertical, Star } from "lucide-react";
-
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  NumberInput,
-  DropdownTrigger,
-  Input,
-  Button,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  Table,
-  Avatar,
-  Pagination,
-  Select,
-  SelectItem,
-} from "@heroui/react";
+import { Eye, Pencil, Trash, EllipsisVertical, Star, ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function Products() {
   return (
     <div className="min-h-screen bg-slate-100 p-5">
       <h2 className="text-2xl font-bold">Products</h2>
+      <p className="text-slate-500">Manage your products as you wish!</p>
+      {/* table and header and footer */}
+      <div className="mt-10">
+        {/* toolbar */}
+        <div className="bg-white p-3 rounded-lg">
+          {/* --------------- Filtering Section ------------------- */}
+          <h4 className="text-xl font-semibold capitalize">filter actions</h4>
+          <input className="border" type="text" placeholder="search" />
+          {/* category filter */}
+          <select className="border" name="" id="">
+            <option value="-1">filter by category</option>
+            <option value="cat1">cat1</option>
+            <option value="cat2">cat2</option>
+            <option value="cat3">cat3</option>
+            <option value="cat4">cat4</option>
+            <option value="cat5">cat5</option>
+          </select>
+          {/* brand filter */}
+          <select className="border" name="" id="">
+            <option value="-1">filtery by brand</option>
+            <option value="brand1">brand1</option>
+            <option value="brand2">brand2</option>
+            <option value="brand3">brand3</option>
+            <option value="brand4">brand4</option>
+            <option value="brand5">brand5</option>
+          </select>
+          {/* stock filter */}
+          <select className="border" name="" id="">
+            <option value="-1">filter by stock status</option>
+            <option value="all">all</option>
+            <option value="instock">in stock</option>
+            <option value="outofstock">out of stock</option>
+            <option value="lowstock">low stock</option>
+          </select>
+          {/* discount filter */}
+          <select className="border" name="" id="">
+            <option value="-1">filter by discount</option>
+            <option value="all">all</option>
+            <option value="nodiscount">no discount</option>
+            <option value="midrate">1%-10%</option>
+            <option value="highrate">10%-100%</option>
+          </select>
+          {/* rate filter */}
+          <select className="border" name="" id="">
+            <option value="-1">filter by rate</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          {/* price filter */}
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-1">
+              <label htmlFor="min-price">min price: </label>
+              <input type="range" min={0} />
+            </div>
 
-      {/* Products List & Table , Sorting , Filtering , ... */}
-      <div className="mt-5">
-        {/* top */}
+            <div className="flex items-center gap-1">
+              <label htmlFor="min-price">max price: </label>
+              <input type="range" min={0} />
+            </div>
+          </div>
+
+          {/* --------------- Sortign Section ------------------- */}
+          <h4 className="text-xl font-semibold capitalize">filter actions</h4>
+          <select name="" id="">
+            <option value="-1">sort by price</option>
+          </select>
+
+          <select name="" id="">
+            <option value="-1">sort by discount</option>
+          </select>
+
+          <select name="" id="">
+            <option value="-1">sort by rate</option>
+          </select>
+
+          <select name="" id="">
+            <option value="-1">sort by stock</option>
+          </select>
+
+          <select name="" id="">
+            <option value="-1">sort alphabetical</option>
+          </select>
+        </div>
+
+        {/* header */}
         <div className="flex items-center justify-between">
-          {/* left side */}
-          <div>
-            <Input
-              type="search"
-              label="search..."
-              variant="bordered"
-              classNames={{
-                inputWrapper: ["bg-white"],
-              }}
-            />
-          </div>
+          <span className="capitalize text-xl text-slate-400">total products : 200</span>
 
-          {/* right side */}
-          <div className="w-full">
-            <Select className="max-w-xs" label="category filter">
-              <SelectItem key="laptop">laptop</SelectItem>
-              <SelectItem key="mobile">mobile</SelectItem>
-              <SelectItem key="headphone">headphone</SelectItem>
-              <SelectItem key="manitor">manitor</SelectItem>
-            </Select>
-
-            <Select className="max-w-xs" label="brand filter">
-              <SelectItem key="asus">asus</SelectItem>
-              <SelectItem key="lenevo">lenevo</SelectItem>
-              <SelectItem key="apple">apple</SelectItem>
-            </Select>
-          </div>
-        </div>
-        {/* bottom */}
-        <div className="mt-2 flex items-center justify-between">
-          <p className="text-lg capitalize text-slate-400">total users : 20</p>
           <div>
-            <NumberInput
-              label="items per page:"
-              variant="bordered"
-              labelPlacement="outside-left"
-              minValue={4}
-              classNames={{
-                inputWrapper: ["max-w-30"],
-              }}
-            />
+            <label htmlFor="rows-per-page">rows per page</label>
+            <select className="border" name="rows-per-page" id="rows-per-page">
+              <option value="1">5</option>
+              <option value="1">10</option>
+              <option value="1">15</option>
+              <option value="1">20</option>
+              <option value="1">25</option>
+              <option value="1">30</option>
+            </select>
           </div>
         </div>
 
-        {/* table */}
-        <Table isStriped className="mt-5">
-          <TableHeader>
-            <TableColumn>ID</TableColumn>
-            <TableColumn>PRODUCT</TableColumn>
-            <TableColumn>CATEGORY</TableColumn>
-            <TableColumn>PRICE</TableColumn>
-            <TableColumn>RATE</TableColumn>
-            <TableColumn>STOCK</TableColumn>
-            <TableColumn>CREATED</TableColumn>
-            <TableColumn>ACTIONS</TableColumn>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell>876234</TableCell>
-              <TableCell>
-                <div className="flex items-center gap-2">
-                  <Avatar />
-                  <span>mackbook pro</span>
-                </div>
-              </TableCell>
-              <TableCell>laptop</TableCell>
-              <TableCell>$79.99</TableCell>
-              <TableCell>
-                <div className="flex">
-                  {Array.from({ length: 3 }, (_, i) => (
-                    <Star key={i} size={16} fill="oklch(82.8% 0.189 84.429)" color="oklch(82.8% 0.189 84.429)" strokeWidth={2} />
-                  ))}
+        {/* body */}
+        <div className="overflow-x-auto">
+          {/* toolbar */}
 
-                  {Array.from({ length: 2 }, (_, i) => (
-                    <Star key={i} size={16} color="oklch(82.8% 0.189 84.429)" strokeWidth={2} />
-                  ))}
-                </div>
-              </TableCell>
-              <TableCell>23</TableCell>
-              <TableCell>2025/10/13</TableCell>
-              <TableCell>
-                {/* dropdown for actions(CRUD) */}
-                <Dropdown>
-                  <DropdownTrigger>
-                    <Button isIconOnly disableRipple className="bg-transparent">
-                      <EllipsisVertical />
-                    </Button>
-                  </DropdownTrigger>
-                  <DropdownMenu
-                    aria-label="Static Actions"
-                    onAction={key => {
-                      console.log(key + " product");
-                    }}>
-                    <DropdownItem startContent={<Eye className="size-4" />} key="view">
-                      View
-                    </DropdownItem>
-                    <DropdownItem startContent={<Pencil className="size-4" />} key="edit">
-                      Edit
-                    </DropdownItem>
-                    <DropdownItem className="text-danger" color="danger" startContent={<Trash className="size-4" />} key="delete">
-                      Delete
-                    </DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-              </TableCell>
-            </TableRow>
+          {/* products table */}
+          <table className="w-full bg-white mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
+            <thead>
+              <tr className="*:border *:border-slate-200 *:uppercase *:p-3 bg-slate-50">
+                <th>thumbnail</th>
+                <th>title</th>
+                <th>category</th>
+                <th>brand</th>
+                <th>price</th>
+                <th>discount</th>
+                <th>stock</th>
+                <th>rate</th>
+                <th>actions</th>
+              </tr>
+            </thead>
+            <tbody className="*:even:bg-slate-50 *:transition-colors *:hover:bg-slate-100">
+              <tr className="*:border *:p-2 *:border-slate-200 ">
+                <td>img</td>
+                <td>iPhone 15 Pro</td>
+                <td>mobile</td>
+                <td>apple</td>
+                <td>$384,000</td>
+                <td>20%</td>
+                <td>320</td>
+                <td>⭐⭐⭐⭐⭐</td>
+                <td className="flex items-center gap-2 justify-center">
+                  <button className="text-lg capitalize rounded-lg bg-slate-300 py-1 px-4 cursor-pointer">view</button>
+                  <button className="text-lg capitalize rounded-lg bg-slate-300 py-1 px-4 cursor-pointer">edit</button>
+                  <button className="text-lg capitalize rounded-lg bg-slate-300 py-1 px-4 cursor-pointer">delete</button>
+                </td>
+              </tr>
+              <tr className="*:border *:p-2 *:border-slate-200 ">
+                <td>img</td>
+                <td>iPhone 15 Pro</td>
+                <td>mobile</td>
+                <td>apple</td>
+                <td>$384,000</td>
+                <td>20%</td>
+                <td>320</td>
+                <td>⭐⭐⭐⭐⭐</td>
+                <td className="flex items-center gap-2 justify-center">
+                  <button className="text-lg capitalize rounded-lg bg-slate-300 py-1 px-4 cursor-pointer">view</button>
+                  <button className="text-lg capitalize rounded-lg bg-slate-300 py-1 px-4 cursor-pointer">edit</button>
+                  <button className="text-lg capitalize rounded-lg bg-slate-300 py-1 px-4 cursor-pointer">delete</button>
+                </td>
+              </tr>
+              <tr className="*:border *:p-2 *:border-slate-200 ">
+                <td>img</td>
+                <td>iPhone 15 Pro</td>
+                <td>mobile</td>
+                <td>apple</td>
+                <td>$384,000</td>
+                <td>20%</td>
+                <td>320</td>
+                <td>⭐⭐⭐⭐⭐</td>
+                <td className="flex items-center gap-2 justify-center">
+                  <button className="text-lg capitalize rounded-lg bg-slate-300 py-1 px-4 cursor-pointer">view</button>
+                  <button className="text-lg capitalize rounded-lg bg-slate-300 py-1 px-4 cursor-pointer">edit</button>
+                  <button className="text-lg capitalize rounded-lg bg-slate-300 py-1 px-4 cursor-pointer">delete</button>
+                </td>
+              </tr>
+              <tr className="*:border *:p-2 *:border-slate-200 ">
+                <td>img</td>
+                <td>iPhone 15 Pro</td>
+                <td>mobile</td>
+                <td>apple</td>
+                <td>$384,000</td>
+                <td>20%</td>
+                <td>320</td>
+                <td>⭐⭐⭐⭐⭐</td>
+                <td className="flex items-center gap-2 justify-center">
+                  <button className="text-lg capitalize rounded-lg bg-slate-300 py-1 px-4 cursor-pointer">view</button>
+                  <button className="text-lg capitalize rounded-lg bg-slate-300 py-1 px-4 cursor-pointer">edit</button>
+                  <button className="text-lg capitalize rounded-lg bg-slate-300 py-1 px-4 cursor-pointer">delete</button>
+                </td>
+              </tr>
+              <tr className="*:border *:p-2 *:border-slate-200 ">
+                <td>img</td>
+                <td>iPhone 15 Pro</td>
+                <td>mobile</td>
+                <td>apple</td>
+                <td>$384,000</td>
+                <td>20%</td>
+                <td>320</td>
+                <td>⭐⭐⭐⭐⭐</td>
+                <td className="flex items-center gap-2 justify-center">
+                  <button className="text-lg capitalize rounded-lg bg-slate-300 py-1 px-4 cursor-pointer">view</button>
+                  <button className="text-lg capitalize rounded-lg bg-slate-300 py-1 px-4 cursor-pointer">edit</button>
+                  <button className="text-lg capitalize rounded-lg bg-slate-300 py-1 px-4 cursor-pointer">delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
-            <TableRow>
-              <TableCell>876234</TableCell>
-              <TableCell>
-                <div className="flex items-center gap-2">
-                  <Avatar />
-                  <span>mackbook pro</span>
-                </div>
-              </TableCell>
-              <TableCell>laptop</TableCell>
-              <TableCell>$79.99</TableCell>
-              <TableCell>
-                <div className="flex">
-                  {Array.from({ length: 3 }, (_, i) => (
-                    <Star key={i} size={16} fill="oklch(82.8% 0.189 84.429)" color="oklch(82.8% 0.189 84.429)" strokeWidth={2} />
-                  ))}
+          <div></div>
+        </div>
 
-                  {Array.from({ length: 2 }, (_, i) => (
-                    <Star key={i} size={16} color="oklch(82.8% 0.189 84.429)" strokeWidth={2} />
-                  ))}
-                </div>
-              </TableCell>
-              <TableCell>23</TableCell>
-              <TableCell>2025/10/13</TableCell>
-              <TableCell>
-                {/* dropdown for actions(CRUD) */}
-                <Dropdown>
-                  <DropdownTrigger>
-                    <Button isIconOnly disableRipple className="bg-transparent">
-                      <EllipsisVertical />
-                    </Button>
-                  </DropdownTrigger>
-                  <DropdownMenu
-                    aria-label="Static Actions"
-                    onAction={key => {
-                      console.log(key + " product");
-                    }}>
-                    <DropdownItem startContent={<Eye className="size-4" />} key="view">
-                      View
-                    </DropdownItem>
-                    <DropdownItem startContent={<Pencil className="size-4" />} key="edit">
-                      Edit
-                    </DropdownItem>
-                    <DropdownItem className="text-danger" color="danger" startContent={<Trash className="size-4" />} key="delete">
-                      Delete
-                    </DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell>876234</TableCell>
-              <TableCell>
-                <div className="flex items-center gap-2">
-                  <Avatar />
-                  <span>mackbook pro</span>
-                </div>
-              </TableCell>
-              <TableCell>laptop</TableCell>
-              <TableCell>$79.99</TableCell>
-              <TableCell>
-                <div className="flex">
-                  {Array.from({ length: 3 }, (_, i) => (
-                    <Star key={i} size={16} fill="oklch(82.8% 0.189 84.429)" color="oklch(82.8% 0.189 84.429)" strokeWidth={2} />
-                  ))}
-
-                  {Array.from({ length: 2 }, (_, i) => (
-                    <Star key={i} size={16} color="oklch(82.8% 0.189 84.429)" strokeWidth={2} />
-                  ))}
-                </div>
-              </TableCell>
-              <TableCell>23</TableCell>
-              <TableCell>2025/10/13</TableCell>
-              <TableCell>
-                {/* dropdown for actions(CRUD) */}
-                <Dropdown>
-                  <DropdownTrigger>
-                    <Button isIconOnly disableRipple className="bg-transparent">
-                      <EllipsisVertical />
-                    </Button>
-                  </DropdownTrigger>
-                  <DropdownMenu
-                    aria-label="Static Actions"
-                    onAction={key => {
-                      console.log(key + " product");
-                    }}>
-                    <DropdownItem startContent={<Eye className="size-4" />} key="view">
-                      View
-                    </DropdownItem>
-                    <DropdownItem startContent={<Pencil className="size-4" />} key="edit">
-                      Edit
-                    </DropdownItem>
-                    <DropdownItem className="text-danger" color="danger" startContent={<Trash className="size-4" />} key="delete">
-                      Delete
-                    </DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell>876234</TableCell>
-              <TableCell>
-                <div className="flex items-center gap-2">
-                  <Avatar />
-                  <span>mackbook pro</span>
-                </div>
-              </TableCell>
-              <TableCell>laptop</TableCell>
-              <TableCell>$79.99</TableCell>
-              <TableCell>
-                <div className="flex">
-                  {Array.from({ length: 3 }, (_, i) => (
-                    <Star key={i} size={16} fill="oklch(82.8% 0.189 84.429)" color="oklch(82.8% 0.189 84.429)" strokeWidth={2} />
-                  ))}
-
-                  {Array.from({ length: 2 }, (_, i) => (
-                    <Star key={i} size={16} color="oklch(82.8% 0.189 84.429)" strokeWidth={2} />
-                  ))}
-                </div>
-              </TableCell>
-              <TableCell>23</TableCell>
-              <TableCell>2025/10/13</TableCell>
-              <TableCell>
-                {/* dropdown for actions(CRUD) */}
-                <Dropdown>
-                  <DropdownTrigger>
-                    <Button isIconOnly disableRipple className="bg-transparent">
-                      <EllipsisVertical />
-                    </Button>
-                  </DropdownTrigger>
-                  <DropdownMenu
-                    aria-label="Static Actions"
-                    onAction={key => {
-                      console.log(key + " product");
-                    }}>
-                    <DropdownItem startContent={<Eye className="size-4" />} key="view">
-                      View
-                    </DropdownItem>
-                    <DropdownItem startContent={<Pencil className="size-4" />} key="edit">
-                      Edit
-                    </DropdownItem>
-                    <DropdownItem className="text-danger" color="danger" startContent={<Trash className="size-4" />} key="delete">
-                      Delete
-                    </DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-
-        <Pagination
-          className="mt-4"
-          showControls
-          initialPage={1}
-          total={10}
-          classNames={{
-            item: ["bg-white", "hover:bg-slate-200!", "cursor-pointer"],
-            prev: ["bg-white", "hover:bg-slate-200!", "cursor-pointer"],
-            next: ["bg-white", "hover:bg-slate-200!", "cursor-pointer"],
-            cursor: ["bg-slate-500"],
-          }}
-        />
+        {/* footer */}
+        <div>
+          {/* pagination */}
+          <div className="flex items-center gap-3 mt-5">
+            <button className="size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-50 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white disabled:opacity-30 disabled:cursor-not-allowed">
+              <ChevronLeft className="size-4" />
+            </button>
+            <button
+              className={`size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-50 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white `}>
+              1
+            </button>
+            <button
+              className={` size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-300 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white `}>
+              2
+            </button>
+            <button
+              className={`size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-50 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white `}>
+              3
+            </button>
+            <button className="size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-50 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white disabled:opacity-30 disabled:cursor-not-allowed">
+              <ChevronRight className="size-4" />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -309,15 +242,7 @@ export default function Products() {
 
 فیلترهای پرکاربرد توی داشبورد محصول
 
-وضعیت موجودی (Stock Status)
 
-همه محصولات
-
-موجود
-
-ناموجود
-
-موجودی کم (مثلاً کمتر از ۱۰ عدد)
 
 وضعیت انتشار (Publish Status)
 
@@ -327,21 +252,10 @@ export default function Products() {
 
 آرشیو
 
-دسته‌بندی (Category)
 
-موبایل، لپ‌تاپ، لوازم جانبی …
 
-برند (Brand)
 
-فیلتر بر اساس برند محصول
 
-تخفیف‌دار بودن (Discounted)
-
-فقط محصولاتی که تخفیف دارن
-
-بازه قیمتی (Price Range)
-
-انتخاب min/max قیمت
 
 تاریخ ایجاد / آخرین تغییر (Date Created / Updated)
 
