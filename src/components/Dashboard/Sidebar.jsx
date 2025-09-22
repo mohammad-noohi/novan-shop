@@ -3,7 +3,7 @@ import { LayoutDashboard, Store, ListOrdered, MessageCircleMore, Users, Ticket, 
 
 export default function Sidebar({ collapsedLayout, onToggleLayout }) {
   return (
-    <aside className={`bg-white max-w-[300px] flex flex-col sticky top-0 border-r border-slate-200 transition-all overflow-x-hidden ${collapsedLayout ? "w-[65px]" : "w-full"}`}>
+    <aside className={`bg-white max-w-[250px] flex flex-col sticky top-0 border-r border-slate-200 transition-all overflow-x-hidden ${collapsedLayout ? "w-[65px]" : "w-full"}`}>
       {/* sidebar header */}
       <div className={`flex items-center p-3`}>
         <button className="cursor-pointer" onClick={onToggleLayout}>

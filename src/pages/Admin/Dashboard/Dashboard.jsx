@@ -1,4 +1,5 @@
-import { Users, MoveUp, MoveDown, ChartSpline, ShoppingBag, Clock, FileDown, RefreshCcw } from "lucide-react";
+import DotStatus from "@/components/DotStatus";
+import { Users, MoveUp, MoveDown, ChartSpline, ShoppingBag, Clock, FileDown, RefreshCcw, Circle } from "lucide-react";
 
 export default function Dashboard() {
   return (
@@ -13,7 +14,7 @@ export default function Dashboard() {
       </div>
 
       {/* Top Stats */}
-      <div className="mt-5 grid gap-5 lg:grid-cols-4">
+      <div className="mt-5 grid gap-5 grid-cols-1 md:grid-cols-2  xl:grid-cols-4 ">
         {/* cart stat */}
         <div className="flex items-center gap-3 rounded-lg bg-white px-4 py-3 shadow transition-all hover:-translate-y-0.5 hover:shadow-md">
           <div className="inline-flex items-center justify-center rounded-lg bg-slate-200 p-3">
@@ -73,9 +74,9 @@ export default function Dashboard() {
       </div>
 
       {/* Main Stats */}
-      <div className="mt-5 flex items-start gap-5">
+      <div className="mt-5 grid grid-cols-1 xl:grid-cols-2 gap-5">
         {/* left column */}
-        <div className="w-1/2 space-y-5">
+        <div className="space-y-5">
           {/* Recent Orders chart */}
           <div className="rounded-lg bg-white px-5 py-3 shadow">
             <h6 className="text-xl font-semibold">Order Status Distribution</h6>
@@ -96,12 +97,12 @@ export default function Dashboard() {
         </div>
 
         {/* right column */}
-        <div className="w-1/2 space-y-5">
+        <div className="space-y-5">
           {/* Recent orders*/}
           <div className="rounded-lg bg-white px-5 py-3 shadow">
             <h6 className="text-xl font-semibold">Recent Orders</h6>
             <div className="overflow-x-auto">
-              <table className="bg-white w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
+              <table className="bg-white text-nowrap w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
                 <thead>
                   <tr className="*:border *:border-slate-200 *:uppercase *:p-3 bg-slate-50">
                     <th>id</th>
@@ -153,57 +154,74 @@ export default function Dashboard() {
           {/* Recent Users */}
           <div className="rounded-lg bg-white px-5 py-3 shadow">
             <h6 className="text-xl font-semibold">Recent Users</h6>
-            <table className="bg-white w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
-              <thead>
-                <tr className="*:border *:border-slate-200 *:uppercase *:p-3 bg-slate-50">
-                  <th>id</th>
-                  <th>avatar</th>
-                  <th>user</th>
-                  <th>role</th>
-                  <th>joined</th>
-                  <th>actions</th>
-                </tr>
-              </thead>
-              <tbody className="*:even:bg-slate-50 *:transition-colors *:hover:bg-slate-100">
-                <tr className="*:border *:p-2 *:border-slate-200 ">
-                  <td>5345</td>
-                  <td>avatar</td>
-                  <td>mohammad noohi</td>
-                  <td>product</td>
-                  <td>2025/04/05</td>
-                  <td>
-                    <button className="text-lg capitalize rounded-lg bg-slate-300 py-1 px-4 cursor-pointer">view</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div className="overflow-x-auto">
+              <table className="bg-white text-nowrap w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
+                <thead>
+                  <tr className="*:border *:border-slate-200 *:uppercase *:p-3 bg-slate-50">
+                    <th>id</th>
+                    <th>avatar</th>
+                    <th>user</th>
+                    <th>role</th>
+                    <th>joined</th>
+                    <th>actions</th>
+                  </tr>
+                </thead>
+                <tbody className="*:even:bg-slate-50 *:transition-colors *:hover:bg-slate-100">
+                  <tr className="*:border *:p-2 *:border-slate-200 ">
+                    <td>5345</td>
+                    <td>
+                      <div className="size-12 rounded-full overflow-hidden mx-auto">
+                        <img src="/images/mohammad-noohi.jpeg" alt="avatar image" className="size-full" />
+                      </div>
+                    </td>
+                    <td>mohammad noohi</td>
+                    <td>product</td>
+                    <td>2025/04/05</td>
+                    <td>
+                      <button className="text-lg capitalize rounded-lg bg-slate-300 py-1 px-4 cursor-pointer">view</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
           {/* Best-selling products */}
           <div className="rounded-lg bg-white px-5 py-3 shadow">
             <h6 className="text-xl font-semibold">Best-selling products</h6>
-            <table className="bg-white w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
-              <thead>
-                <tr className="*:border *:border-slate-200 *:uppercase *:p-3 bg-slate-50">
-                  <th>thumbnail</th>
-                  <th>title</th>
-                  <th>category</th>
-                  <th>units sold</th>
-                  <th>revenu</th>
-                  <th>stock status</th>
-                </tr>
-              </thead>
-              <tbody className="*:even:bg-slate-50 *:transition-colors *:hover:bg-slate-100">
-                <tr className="*:border *:p-2 *:border-slate-200 ">
-                  <td>img</td>
-                  <td>iPhone 15 Pro</td>
-                  <td>Electronics</td>
-                  <td>320</td>
-                  <td>$384,000</td>
-                  <td>🟢 In Stock</td>
-                </tr>
-              </tbody>
-            </table>
+            <div className="overflow-x-auto">
+              <table className="bg-white text-nowrap w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
+                <thead>
+                  <tr className="*:border *:border-slate-200 *:uppercase *:p-3 bg-slate-50">
+                    <th>thumbnail</th>
+                    <th>title</th>
+                    <th>category</th>
+                    <th>units sold</th>
+                    <th>revenu</th>
+                    <th>stock status</th>
+                  </tr>
+                </thead>
+                <tbody className="*:even:bg-slate-50 *:transition-colors *:hover:bg-slate-100">
+                  <tr className="*:border *:p-2 *:border-slate-200 ">
+                    <td>
+                      <div className="size-12  overflow-hidden mx-auto">
+                        <img src="/images/products/Asus_ROG_Phone_8_Pro.png" alt="avatar image" className="size-full" />
+                      </div>
+                    </td>
+                    <td>iPhone 15 Pro</td>
+                    <td>Electronics</td>
+                    <td>320</td>
+                    <td>$384,000</td>
+                    <td>
+                      <p className="flex items-center justify-center gap-2">
+                        <DotStatus color="green" />
+                        <span>In Stock</span>
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

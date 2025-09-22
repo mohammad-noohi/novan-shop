@@ -5,7 +5,7 @@ import Header from "../../../components/Dashboard/Header";
 import Sidebar from "../../../components/Dashboard/Sidebar";
 
 export default function AdminLayout() {
-  const [collapsedLayout, setCollapsedLayout] = useState(false);
+  const [collapsedLayout, setCollapsedLayout] = useState(true);
 
   function toggleLayout() {
     setCollapsedLayout(prev => !prev);
