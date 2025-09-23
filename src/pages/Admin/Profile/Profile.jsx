@@ -47,28 +47,28 @@ export default function Profile() {
                   <label htmlFor="firstname" className="font-semibold capitalize">
                     firstname
                   </label>
-                  <input type="text" id="firstname" className="border w-full text-lg py-2 px-4 rounded-lg mt-2" id="firstname" placeholder="John" />
+                  <input type="text" id="firstname" className="border w-full text-lg py-2 px-4 rounded-lg mt-2" placeholder="John" />
                 </div>
                 {/* lastname input */}
                 <div>
                   <label htmlFor="lastname" className="font-semibold capitalize">
                     lastname
                   </label>
-                  <input type="text" id="lastname" className="border w-full text-lg py-2 px-4 rounded-lg mt-2" id="lastname" placeholder="Doe" />
+                  <input type="text" id="lastname" className="border w-full text-lg py-2 px-4 rounded-lg mt-2" placeholder="Doe" />
                 </div>
                 {/* email input */}
                 <div>
                   <label htmlFor="email" className="font-semibold capitalize">
                     email
                   </label>
-                  <input type="email" id="email" className="border w-full text-lg py-2 px-4 rounded-lg mt-2" id="email" placeholder="example@gmail.com" />
+                  <input type="email" id="email" className="border w-full text-lg py-2 px-4 rounded-lg mt-2" placeholder="example@gmail.com" />
                 </div>
                 {/* file image input */}
                 <div>
                   <label htmlFor="profile" className="font-semibold capitalize">
                     profile ( optional )
                   </label>
-                  <input type="file" id="profile" className="border w-full text-lg py-2 px-4 rounded-lg mt-2" id="profile" placeholder="example@gmail.com" />
+                  <input type="file" id="profile" className="border w-full text-lg py-2 px-4 rounded-lg mt-2" placeholder="example@gmail.com" />
                 </div>
 
                 <button className="py-1 w-full sm:w-auto px-4 text-lg capitalize rounded-lg bg-slate-200 hover:bg-slate-300 transition-colors cursor-pointer">submit</button>

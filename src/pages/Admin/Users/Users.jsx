@@ -222,7 +222,7 @@ export default function Users() {
               </button>
             </div>
 
-            <span className="capitalize text-lg text-slate-400">total products : 200</span>
+            <span className="capitalize text-lg text-slate-400">total users : 200</span>
           </div>
         </div>
       </div>
