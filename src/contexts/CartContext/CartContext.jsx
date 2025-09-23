@@ -313,7 +313,22 @@ function CartProvider({ children }) {
 
   return (
     <CartContext.Provider
-      value={{ products, productsLoading, cart, cartLoading, purchaseLoading, loadingProductId, cartProducts, totalPrice, finalPrice, addToCart, minusFromCart, removeFromCart, purchase }}>
+      value={{
+        products,
+        productsLoading,
+        cart,
+        cartLoading,
+        purchaseLoading,
+        loadingProductId,
+        cartProducts,
+        totalPrice,
+        finalPrice,
+        addToCart,
+        minusFromCart,
+        removeFromCart,
+        purchase,
+        getAllProducts,
+      }}>
       {children}
     </CartContext.Provider>
   );

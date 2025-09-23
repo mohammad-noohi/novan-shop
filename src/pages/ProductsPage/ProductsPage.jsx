@@ -4,6 +4,7 @@ import { useCartContext } from "../../contexts/CartContext/useCartContext";
 
 // icons
 import { ChevronRight, ChevronLeft } from "lucide-react";
+import { toast } from "sonner";
 
 // change this value to manage amount of items to show in UI.
 const ITEMS_PER_PAGE = 12;

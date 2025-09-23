@@ -1,4 +1,4 @@
-import { Eye, Pencil, Trash, EllipsisVertical, Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { Eye, Pencil, Trash, EllipsisVertical, Star, ChevronLeft, ChevronRight, Rss } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
@@ -15,8 +15,281 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Textarea } from "@/components/ui/textarea";
+import { useEffect, useState } from "react";
+import FileSearchIllustration from "@/components/Illustrations/FileSearchIllustration";
+import { toast } from "sonner";
+import { useCartContext } from "@/contexts/CartContext/useCartContext";
 
 export default function Products() {
+  const { products, getAllProducts } = useCartContext();
+  let pages = null;
+
+  const [query, setQuery] = useState({
+    search: "",
+    filters: {
+      category: "all",
+      brand: "all",
+      stock: "all",
+      discount: "all",
+      rate: "all",
+    },
+    sort: "none", // price-asc , price-dsc , ....
+    pagination: {
+      page: 1,
+      perPages: 10,
+    },
+  });
+  // for handle add product form inputs
+  const [addForm, setAddForm] = useState({
+    loading: false,
+    title: "",
+    category: "",
+    brand: "",
+    price: "",
+    discount: "",
+    stock: "",
+    caption: "",
+    thumbnail: null,
+    preview: "",
+  });
+
+  // to show error msg in add product form
+  const [addErrors, setAddErrors] = useState({
+    title: "",
+    category: "",
+    brand: "",
+    price: "",
+    discount: "",
+    stock: "",
+    // file is optional so we don't need error for that
+  });
+
+  // Derived States
+  const categoryItems = Array.from(new Set(products.map(p => p.category.toLowerCase())));
+  const brandItems = Array.from(new Set(products.map(p => p.brand.toLowerCase())));
+
+  /*------------------ Pagination Actions ------------------*/
+  function nextPage() {
+    setQuery(prev => {
+      if (prev.pagination.page < pages) {
+        return { ...prev, pagination: { ...prev.pagination, page: prev.pagination.page + 1 } };
+      }
+
+      return prev;
+    });
+  }
+
+  function prevPage() {
+    setQuery(prev => {
+      if (prev.pagination.page > 1) {
+        return { ...prev, pagination: { ...prev.pagination, page: prev.pagination.page - 1 } };
+      }
+
+      return prev;
+    });
+  }
+
+  function changeCurrentPage(num) {
+    setQuery(prev => {
+      return { ...prev, pagination: { ...prev.pagination, page: num } };
+    });
+  }
+  /*------------------ Add Product Form Functions  ------------------*/
+  function validateAddForm() {
+    let errors = {};
+
+    if (!addForm.title.trim()) {
+      errors.title = "title can't be empty";
+    } else if (products.some(p => p.title.toLowerCase() === addForm.title.toLowerCase())) {
+      errors.title = "this product already exists";
+    }
+
+    if (!addForm.category.trim()) errors.category = "category can't be empty";
+    if (!addForm.brand.trim()) errors.brand = "brand can't be empty";
+    if (!addForm.price) errors.price = "price can't be empty";
+    if (addForm.price < 0) errors.price = "price must be atleast 0 (free)";
+    if (addForm.discount < 0 || addForm.discount > 100) errors.discount = "discount must be from 0 to 100";
+    if (!addForm.stock) errors.stock = "stock can't be empty";
+    if (addForm.stock <= 0) errors.stock = "stock must be atleast 1";
+
+    setAddErrors(errors);
+
+    return Object.keys(errors).length === 0; // true => valid form , false => invalid form
+  }
+
+  function resetAddForm() {
+    setAddForm({
+      loading: false,
+      title: "",
+      category: "",
+      brand: "",
+      price: "",
+      discount: "",
+      stock: "",
+      rate: "",
+    });
+    setAddErrors({
+      title: "",
+      category: "",
+      brand: "",
+      price: "",
+      discount: "",
+      stock: "",
+      thumbnail: null,
+      preview: "",
+      base64: "",
+      caption: "",
+    });
+  }
+
+  function handleImageChange(e) {
+    e.preventDefault();
+
+    const selectedFile = e.target.files[0];
+    if (!selectedFile) return;
+
+    setAddForm(prev => ({ ...prev, thumbnail: selectedFile }));
+    // create preview file
+    const temporaryURL = URL.createObjectURL(selectedFile);
+    setAddForm(prev => ({ ...prev, preview: temporaryURL }));
+
+    // convert image to base64 because our api is json-server but in real server we don't need this convert
+    const reader = new FileReader();
+    reader.readAsDataURL(selectedFile);
+    reader.onloadend = () => {
+      setAddForm(prev => ({ ...prev, base64: reader.result }));
+    };
+  }
+
+  async function addNewProduct() {
+    // In real API use FormData Object to send data
+    const newProduct = {
+      title: addForm.title.trim(),
+      category: addForm.category.trim(),
+      brand: addForm.brand.trim(),
+      price: addForm.price,
+      discount: addForm.discount,
+      stock: addForm.stock,
+      rate: 5,
+      caption: addForm.caption.trim(),
+      createdAt: new Date().toISOString(),
+      mainImage: addForm.base64,
+    };
+
+    try {
+      const resp = await fetch(`http://localhost:3000/products`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newProduct),
+      });
+      // status ==> 201 ==> create status
+      if (resp.status === 201) {
+        toast.success("product add successfully");
+        resetAddForm();
+        // بعد از اضافه کردن محصول یه بار باید محصولات رو اپدیت کرد
+        await getAllProducts();
+      }
+    } catch (err) {
+      toast.error("Something went wrong , Please try again");
+      throw err;
+    }
+  }
+
+  function addFormSubmitHandler(e) {
+    e.preventDefault();
+    const isFormValid = validateAddForm();
+    if (isFormValid) {
+      addNewProduct();
+    } else {
+      toast.error("check form errors");
+    }
+  }
+
+  /*------------------ CRUD Product Actions ------------------*/
+  // add new product => form
+  // view product => modal
+  // edit product => modal
+  // delete product => after confirm modal
+
+  /*-------------- Proccessing Shown Items In Table--------------*/
+
+  function visibleProducts() {
+    let result = [...products];
+
+    // search in title and description
+    if (query.search.trim()) {
+      const term = query.search;
+      result = result.filter(p => p.title.toLowerCase().includes(term) || p.caption?.toLowerCase().includes(term));
+    }
+
+    // category filter
+    if (query.filters.category !== "all") {
+      result = result.filter(p => p.category === query.filters.category);
+    }
+
+    // brand filter
+    if (query.filters.brand !== "all") {
+      result = result.filter(p => p.brand === query.filters.brand);
+    }
+
+    // stock filter
+    if (query.filters.stock !== "all") {
+      result = result.filter(p => {
+        if (query.filters.stock === "instock") return p.stock > 0;
+        if (query.filters.stock === "outofstock") return p.stock === 0;
+        if (query.filters.stock === "lowstock") return p.stock > 0 && p.stock < 5;
+      });
+    }
+    // discount filter
+    if (query.filters.discount !== "all") {
+      result = result.filter(p => {
+        if (query.filters.discount === "nodiscount") return p.discount === 0;
+        if (query.filters.discount === "lowdiscount") return p.discount > 0 && p.discount <= 10;
+        if (query.filters.discount === "highdiscount") return p.discount >= 10;
+      });
+    }
+    // rate filter
+    if (query.filters.rate !== "all") {
+      result = result.filter(p => p.rate === Number(query.filters.rate));
+    }
+
+    // Sort Result
+    result.sort((a, b) => {
+      // فقط باید این مورد که ممکنه مقادیر نباشن یا نال یا اندیفایند باشند رو هم مدیریت کنی برای این موضوع وگرنه لاجیک کامل درسته
+      const sortType = query.sort;
+      if (sortType === "name-asc") return a.title.localeCompare(b.title);
+      if (sortType === "name-desc") return b.title.localeCompare(a.title);
+      if (sortType === "price-asc") return a.price - b.price;
+      if (sortType === "price-desc") return b.price - a.price;
+      if (sortType === "date-asc") return new Date(a.createdAt) - new Date(b.createdAt);
+      if (sortType === "date-desc") return new Date(b.createdAt) - new Date(a.createdAt);
+      if (sortType === "stock-asc") return a.stock - b.stock;
+      if (sortType === "stock-desc") return b.stock - a.stock;
+      if (sortType === "discount-asc") return a.discount - b.discount;
+      if (sortType === "discount-desc") return b.discount - a.discount;
+      if (sortType === "rate-asc") return a.rate - b.rate;
+      if (sortType === "rate-desc") return b.rate - a.rate;
+      return 0;
+    });
+
+    // Paginated Result
+    const endIndex = query.pagination.page * query.pagination.perPages;
+    const startIndex = endIndex - query.pagination.perPages;
+    pages = Math.ceil(result.length / query.pagination.perPages);
+    result = result.slice(startIndex, endIndex);
+
+    return result;
+  }
+
+  /*-------------- Effects --------------*/
+  // صرفا یه هشدار به کسی که داره برنامه رو تست میکنه
+  useEffect(() => {
+    toast.info("چون سرور به صورت جیسون-سرور هست برای یه اپلود واقعی از بیس ۶۴ استفاده کردم و ترجیجا برای اینکه دیتابیس سنگین نشه عکسی رو اپلود نکنید یا حداقل یه بار امتحان کنید");
+  }, []);
+
   return (
     <div className="min-h-screen bg-slate-100 p-5">
       <h2 className="text-2xl font-bold">Products</h2>
@@ -26,40 +299,112 @@ export default function Products() {
         {/* Product Form */}
         <div className="bg-white p-5 rounded-lg">
           <h4 className="text-xl font-semibold capitalize">add product</h4>
-          <form className="mt-5">
+          <form onSubmit={addFormSubmitHandler} className="mt-5">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               <div>
-                <Input type="text" placeholder="title" />
+                <span>Title</span>
+                <Input
+                  value={addForm.title}
+                  onChange={e => {
+                    setAddForm(prev => ({ ...prev, title: e.target.value }));
+                  }}
+                  type="text"
+                />
+                {addErrors.title ? <span className="text-red-500 text-sm">{addErrors.title}</span> : null}
               </div>
               <div>
-                <Input type="text" list="cateogries" placeholder="category" />
+                <span>Category</span>
+                <Input
+                  value={addForm.category}
+                  onChange={e => {
+                    setAddForm(prev => ({ ...prev, category: e.target.value }));
+                  }}
+                  type="text"
+                  list="cateogries"
+                />
+                {addErrors.category ? <span className="text-red-500 text-sm">{addErrors.category}</span> : null}
+
                 <datalist id="cateogries">
-                  <option value="laptop">laptop</option>
-                  <option value="smartphone">smartphone</option>
+                  {categoryItems.map(category => (
+                    <option key={`${category}-option`} value={category}>
+                      {category}
+                    </option>
+                  ))}
                 </datalist>
               </div>
               <div>
-                <Input type="text" list="brands" placeholder="brand" />
+                <span>Brand</span>
+                <Input
+                  value={addForm.brand}
+                  onChange={e => {
+                    setAddForm(prev => ({ ...prev, brand: e.target.value }));
+                  }}
+                  type="text"
+                  list="brands"
+                />
+                {addErrors.brand ? <span className="text-red-500 text-sm">{addErrors.brand}</span> : null}
+
                 <datalist id="brands">
-                  <option value="asus">asus</option>
-                  <option value="lenovo">lenovo</option>
+                  {brandItems.map(brand => (
+                    <option key={`${brand}-option`} value={brand}>
+                      {brand}
+                    </option>
+                  ))}
                 </datalist>
               </div>
               <div>
-                <Input type="number" min={1} placeholder="price" />
+                <span>Price</span>
+                <Input
+                  value={addForm.price}
+                  onChange={e => {
+                    setAddForm(prev => ({ ...prev, price: Number(e.target.value) }));
+                  }}
+                  type="number"
+                  min={1}
+                />
+                {addErrors.price ? <span className="text-red-500 text-sm">{addErrors.price}</span> : null}
               </div>
               <div>
-                <Input type="number" min={0} max={100} placeholder="discount percent" />
+                <span>Discount</span>
+                <Input
+                  value={addForm.discount}
+                  onChange={e => {
+                    setAddForm(prev => ({ ...prev, discount: Number(e.target.value) }));
+                  }}
+                  type="number"
+                  min={0}
+                  max={100}
+                  placeholder="from 0 to 100 percent"
+                />
+                {addErrors.discount ? <span className="text-red-500 text-sm">{addErrors.discount}</span> : null}
               </div>
               <div>
-                <Input type="number" min={1} placeholder="stock" />
+                <span>Stock</span>
+                <Input
+                  value={addForm.stock}
+                  onChange={e => {
+                    setAddForm(prev => ({ ...prev, stock: Number(e.target.value) }));
+                  }}
+                  type="number"
+                  min={1}
+                  placeholder="minimum 1 unit"
+                />
+                {addErrors.stock ? <span className="text-red-500 text-sm">{addErrors.stock}</span> : null}
+              </div>
+              <div className="col-start-1 col-end-3">
+                <span>Caption</span>
+                <Textarea value={addForm.caption} onChange={e => setAddForm(prev => ({ ...prev, caption: e.target.value }))} rows={8} placeholder="Type your caption here." />
               </div>
               <div>
-                <Input type="number" min={1} max={5} placeholder="rate" />
+                <span>Thumbnail</span>
+                <Input onChange={handleImageChange} type="file" />
+                <div className="mt-5 border h-50 overflow-hidden p-3">
+                  {addForm.thumbnail ? <img src={addForm.preview} alt="" className=" w-full h-full object-contain" /> : <span>no Image upload</span>}
+                </div>
               </div>
             </div>
 
-            <button className="py-1 px-4 mt-5 bg-slate-200 rounded-lg text-lg capitalize cursor-pointer hover:bg-slate-300  transition-colors">add product</button>
+            <button className="py-1 px-4 mt-5 bg-slate-500 rounded-lg text-lg capitalize cursor-pointer hover:bg-slate-600 text-white transition-colors">add product</button>
           </form>
         </div>
 
@@ -70,39 +415,65 @@ export default function Products() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-5">
             {/* category filter */}
-            <Select>
+            <Select
+              value={query.filters.category}
+              onValueChange={value => {
+                setQuery(prev => {
+                  return { ...prev, filters: { ...prev.filters, category: value } };
+                });
+              }}>
               <SelectTrigger>
                 <SelectValue placeholder="Select a category" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Category</SelectLabel>
-                  <SelectItem value="laptop">laptop</SelectItem>
-                  <SelectItem value="smartphone">smartphone</SelectItem>
+                  <SelectItem value="all">all</SelectItem>
+                  {categoryItems.map(category => (
+                    <SelectItem key={category} value={category}>
+                      {category}
+                    </SelectItem>
+                  ))}
                 </SelectGroup>
               </SelectContent>
             </Select>
             {/* brand filter */}
-            <Select>
+            <Select
+              value={query.filters.brand}
+              onValueChange={value => {
+                setQuery(prev => {
+                  return { ...prev, filters: { ...prev.filters, brand: value } };
+                });
+              }}>
               <SelectTrigger>
                 <SelectValue placeholder="Select a brand" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Brand</SelectLabel>
-                  <SelectItem value="laptop">laptop</SelectItem>
-                  <SelectItem value="smartphone">smartphone</SelectItem>
+                  <SelectItem value="all">all</SelectItem>
+                  {brandItems.map(brand => (
+                    <SelectItem key={brand} value={brand}>
+                      {brand}
+                    </SelectItem>
+                  ))}
                 </SelectGroup>
               </SelectContent>
             </Select>
             {/* stock filter */}
-            <Select>
+            <Select
+              value={query.filters.stock}
+              onValueChange={value => {
+                setQuery(prev => {
+                  return { ...prev, filters: { ...prev.filters, stock: value } };
+                });
+              }}>
               <SelectTrigger>
                 <SelectValue placeholder="Select a stock status" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>Brand</SelectLabel>
+                  <SelectLabel>Stock</SelectLabel>
                   <SelectItem value="all">all</SelectItem>
                   <SelectItem value="instock">in stock</SelectItem>
                   <SelectItem value="outofstock">out of stock</SelectItem>
@@ -111,7 +482,13 @@ export default function Products() {
               </SelectContent>
             </Select>
             {/* discount filter */}
-            <Select>
+            <Select
+              value={query.filters.discount}
+              onValueChange={value => {
+                setQuery(prev => {
+                  return { ...prev, filters: { ...prev.filters, discount: value } };
+                });
+              }}>
               <SelectTrigger>
                 <SelectValue placeholder="Select a discount" />
               </SelectTrigger>
@@ -120,19 +497,26 @@ export default function Products() {
                   <SelectLabel>Discount</SelectLabel>
                   <SelectItem value="all">all</SelectItem>
                   <SelectItem value="nodiscount">no discount</SelectItem>
-                  <SelectItem value="midrate">1%-10%</SelectItem>
-                  <SelectItem value="highrate">10%-100%</SelectItem>
+                  <SelectItem value="lowdiscount">1%-10%</SelectItem>
+                  <SelectItem value="highdiscount">10%-100%</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
             {/* rate filter */}
-            <Select>
+            <Select
+              value={query.filters.rate}
+              onValueChange={value => {
+                setQuery(prev => {
+                  return { ...prev, filters: { ...prev.filters, rate: value } };
+                });
+              }}>
               <SelectTrigger>
                 <SelectValue placeholder="Select a rate" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Rate</SelectLabel>
+                  <SelectItem value="all">all</SelectItem>
                   <SelectItem value="1">
                     <Star className="size-4 text-yellow-500 fill-yellow-500" />
                   </SelectItem>
@@ -175,7 +559,11 @@ export default function Products() {
           <h4 className="text-xl font-semibold capitalize mt-5">Sorting</h4>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-5">
-            <Select>
+            <Select
+              value={query.sort}
+              onValueChange={value => {
+                setQuery(prev => ({ ...prev, sort: value }));
+              }}>
               <SelectTrigger>
                 <SelectValue placeholder="sort by name" />
               </SelectTrigger>
@@ -185,7 +573,11 @@ export default function Products() {
               </SelectContent>
             </Select>
 
-            <Select>
+            <Select
+              value={query.sort}
+              onValueChange={value => {
+                setQuery(prev => ({ ...prev, sort: value }));
+              }}>
               <SelectTrigger>
                 <SelectValue placeholder="sort by price" />
               </SelectTrigger>
@@ -195,7 +587,11 @@ export default function Products() {
               </SelectContent>
             </Select>
 
-            <Select>
+            <Select
+              value={query.sort}
+              onValueChange={value => {
+                setQuery(prev => ({ ...prev, sort: value }));
+              }}>
               <SelectTrigger>
                 <SelectValue placeholder="sort by created at" />
               </SelectTrigger>
@@ -205,7 +601,11 @@ export default function Products() {
               </SelectContent>
             </Select>
 
-            <Select>
+            <Select
+              value={query.sort}
+              onValueChange={value => {
+                setQuery(prev => ({ ...prev, sort: value }));
+              }}>
               <SelectTrigger>
                 <SelectValue placeholder="sort by stock" />
               </SelectTrigger>
@@ -215,7 +615,11 @@ export default function Products() {
               </SelectContent>
             </Select>
 
-            <Select>
+            <Select
+              value={query.sort}
+              onValueChange={value => {
+                setQuery(prev => ({ ...prev, sort: value }));
+              }}>
               <SelectTrigger>
                 <SelectValue placeholder="sort by discount" />
               </SelectTrigger>
@@ -225,7 +629,11 @@ export default function Products() {
               </SelectContent>
             </Select>
 
-            <Select>
+            <Select
+              value={query.sort}
+              onValueChange={value => {
+                setQuery(prev => ({ ...prev, sort: value }));
+              }}>
               <SelectTrigger>
                 <SelectValue placeholder="sort by rate" />
               </SelectTrigger>
@@ -234,39 +642,42 @@ export default function Products() {
                 <SelectItem value="rate-desc">highest rated</SelectItem>
               </SelectContent>
             </Select>
-
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="sort by sale" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="sale-asc">least selling</SelectItem>
-                <SelectItem value="sale-desc">best selling</SelectItem>
-              </SelectContent>
-            </Select>
           </div>
         </div>
 
         {/* Table Section*/}
         <div className="bg-white mt-10 p-5 rounded-lg">
           <div className="flex items-center gap-3 flex-wrap justify-between">
-            <Input className="max-w-100" type="search" placeholder="search product by title , des" />
+            <Input
+              value={query.search}
+              onChange={e => {
+                setQuery(prev => ({ ...prev, search: e.target.value }));
+              }}
+              className="max-w-100"
+              type="text"
+              placeholder="search product by title , des"
+            />
 
             <div className="flex items-center gap-3">
               <p>rows per page :</p>
-              <Select id="rows-per-page">
+              <Select
+                value={query.pagination.perPages}
+                onValueChange={value => {
+                  setQuery(prev => ({ ...prev, pagination: { ...prev.pagination, perPages: Number(value) } }));
+                }}
+                id="rows-per-page">
                 <SelectTrigger className="w-auto">
                   <SelectValue placeholder="8" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>rows</SelectLabel>
-                    <SelectItem value="5">5</SelectItem>
-                    <SelectItem value="10">10</SelectItem>
-                    <SelectItem value="15">15</SelectItem>
-                    <SelectItem value="20">20</SelectItem>
-                    <SelectItem value="25">25</SelectItem>
-                    <SelectItem value="30">30</SelectItem>
+                    <SelectItem value={5}>5</SelectItem>
+                    <SelectItem value={10}>10</SelectItem>
+                    <SelectItem value={15}>15</SelectItem>
+                    <SelectItem value={20}>20</SelectItem>
+                    <SelectItem value={25}>25</SelectItem>
+                    <SelectItem value={30}>30</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -274,272 +685,117 @@ export default function Products() {
           </div>
 
           {/* table */}
-          <div className="overflow-x-auto">
-            {/* products table */}
-            <table className="w-full text-nowrap bg-white mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
-              <thead>
-                <tr className="*:border *:border-slate-200 *:uppercase *:p-3 bg-slate-50">
-                  <th>thumbnail</th>
-                  <th>title</th>
-                  <th>category</th>
-                  <th>brand</th>
-                  <th>price</th>
-                  <th>discount</th>
-                  <th>stock</th>
-                  <th>rate</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody className="*:even:bg-slate-50 *:transition-colors *:hover:bg-slate-100">
-                <tr className="*:border *:p-2 *:border-slate-200 ">
-                  <td>img</td>
-                  <td>iPhone 15 Pro</td>
-                  <td>mobile</td>
-                  <td>apple</td>
-                  <td>$384,000</td>
-                  <td>20%</td>
-                  <td>320</td>
-                  <td>
-                    <div className="flex items-center justify-center">
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                    </div>
-                  </td>
-                  <td className="flex items-center gap-2 justify-center">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        {/* <Button variant="outline">Open</Button> */}
-                        <button>
-                          <EllipsisVertical />
-                        </button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent className="w-56" align="start">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          {visibleProducts().length ? (
+            <div className="overflow-x-auto">
+              {/* products table */}
+              <table className="w-full text-nowrap bg-white mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
+                <thead>
+                  <tr className="*:border *:border-slate-200 *:uppercase *:p-3 bg-slate-50">
+                    <th>id</th>
+                    <th>thumbnail</th>
+                    <th>title</th>
+                    <th>category</th>
+                    <th>brand</th>
+                    <th>price</th>
+                    <th>discount</th>
+                    <th>stock</th>
+                    <th>rate</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody className="*:even:bg-slate-50 *:transition-colors *:hover:bg-slate-100">
+                  {visibleProducts().map(p => (
+                    <tr key={p.id} className="*:border *:p-2 *:border-slate-200 ">
+                      <td>{p.id}</td>
+                      <td>
+                        <div className="size-12  overflow-hidden mx-auto">
+                          <img src={`/${p.mainImage}`} alt="avatar image" className="size-full" />
+                        </div>
+                      </td>
+                      <td>{p.title}</td>
+                      <td>{p.category}</td>
+                      <td>{p.brand}</td>
+                      <td>${p.price.toLocaleString()}</td>
+                      <td>{p.discount}%</td>
+                      <td>{p.stock}</td>
+                      <td>
+                        <div className="flex items-center justify-center">
+                          {Array.from({ length: p.rate }, (_, i) => (
+                            <Star key={i} className="size-4 text-yellow-500 fill-yellow-500" />
+                          ))}
 
-                        <DropdownMenuItem>
-                          <Eye className="size-4" />
-                          <span>view</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <Pencil className="size-4" />
-                          <span>edit</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="hover:bg-red-100! text-red-500 hover:text-red-500!">
-                          <Trash className="size-4" />
-                          <span>delete</span>
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </td>
-                </tr>
-                <tr className="*:border *:p-2 *:border-slate-200 ">
-                  <td>img</td>
-                  <td>iPhone 15 Pro</td>
-                  <td>mobile</td>
-                  <td>apple</td>
-                  <td>$384,000</td>
-                  <td>20%</td>
-                  <td>320</td>
-                  <td>
-                    <div className="flex items-center justify-center">
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                    </div>
-                  </td>
-                  <td className="flex items-center gap-2 justify-center">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        {/* <Button variant="outline">Open</Button> */}
-                        <button>
-                          <EllipsisVertical />
-                        </button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent className="w-56" align="start">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                          {Array.from({ length: 5 - p.rate }, (_, i) => (
+                            <Star key={i} className="size-4 text-yellow-500 " />
+                          ))}
+                        </div>
+                      </td>
+                      <td>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            {/* <Button variant="outline">Open</Button> */}
+                            <button>
+                              <EllipsisVertical />
+                            </button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent className="w-56" align="start">
+                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
-                        <DropdownMenuItem>
-                          <Eye className="size-4" />
-                          <span>view</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <Pencil className="size-4" />
-                          <span>edit</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="hover:bg-red-100! text-red-500 hover:text-red-500!">
-                          <Trash className="size-4" />
-                          <span>delete</span>
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </td>
-                </tr>
-                <tr className="*:border *:p-2 *:border-slate-200 ">
-                  <td>img</td>
-                  <td>iPhone 15 Pro</td>
-                  <td>mobile</td>
-                  <td>apple</td>
-                  <td>$384,000</td>
-                  <td>20%</td>
-                  <td>320</td>
-                  <td>
-                    <div className="flex items-center justify-center">
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                    </div>
-                  </td>
-                  <td className="flex items-center gap-2 justify-center">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        {/* <Button variant="outline">Open</Button> */}
-                        <button>
-                          <EllipsisVertical />
-                        </button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent className="w-56" align="start">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                            <DropdownMenuItem>
+                              <Eye className="size-4" />
+                              <span>view</span>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <Pencil className="size-4" />
+                              <span>edit</span>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="hover:bg-red-100! text-red-500 hover:text-red-500!">
+                              <Trash className="size-4" />
+                              <span>delete</span>
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className="flex items-end justify-between flex-wrap-reverse mt-5 gap-5">
+                {/* pagination */}
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={prevPage}
+                    disabled={query.pagination.page === 1}
+                    className="size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-50 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white disabled:opacity-30 disabled:cursor-not-allowed">
+                    <ChevronLeft className="size-4" />
+                  </button>
+                  {Array.from({ length: pages }, (_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => changeCurrentPage(i + 1)}
+                      className={`size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200  ${
+                        i + 1 === query.pagination.page ? "bg-slate-500 text-white" : "bg-slate-50"
+                      } cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white `}>
+                      {i + 1}
+                    </button>
+                  ))}
 
-                        <DropdownMenuItem>
-                          <Eye className="size-4" />
-                          <span>view</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <Pencil className="size-4" />
-                          <span>edit</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="hover:bg-red-100! text-red-500 hover:text-red-500!">
-                          <Trash className="size-4" />
-                          <span>delete</span>
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </td>
-                </tr>
-                <tr className="*:border *:p-2 *:border-slate-200 ">
-                  <td>img</td>
-                  <td>iPhone 15 Pro</td>
-                  <td>mobile</td>
-                  <td>apple</td>
-                  <td>$384,000</td>
-                  <td>20%</td>
-                  <td>320</td>
-                  <td>
-                    <div className="flex items-center justify-center">
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                    </div>
-                  </td>
-                  <td className="flex items-center gap-2 justify-center">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        {/* <Button variant="outline">Open</Button> */}
-                        <button>
-                          <EllipsisVertical />
-                        </button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent className="w-56" align="start">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                  <button
+                    onClick={nextPage}
+                    disabled={query.pagination.page === pages}
+                    className="size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-50 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white disabled:opacity-30 disabled:cursor-not-allowed">
+                    <ChevronRight className="size-4" />
+                  </button>
+                </div>
 
-                        <DropdownMenuItem>
-                          <Eye className="size-4" />
-                          <span>view</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <Pencil className="size-4" />
-                          <span>edit</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="hover:bg-red-100! text-red-500 hover:text-red-500!">
-                          <Trash className="size-4" />
-                          <span>delete</span>
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </td>
-                </tr>
-                <tr className="*:border *:p-2 *:border-slate-200 ">
-                  <td>img</td>
-                  <td>iPhone 15 Pro</td>
-                  <td>mobile</td>
-                  <td>apple</td>
-                  <td>$384,000</td>
-                  <td>20%</td>
-                  <td>320</td>
-                  <td>
-                    <div className="flex items-center justify-center">
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                    </div>
-                  </td>
-                  <td className="flex items-center gap-2 justify-center">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        {/* <Button variant="outline">Open</Button> */}
-                        <button>
-                          <EllipsisVertical />
-                        </button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent className="w-56" align="start">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-
-                        <DropdownMenuItem>
-                          <Eye className="size-4" />
-                          <span>view</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <Pencil className="size-4" />
-                          <span>edit</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="hover:bg-red-100! text-red-500 hover:text-red-500!">
-                          <Trash className="size-4" />
-                          <span>delete</span>
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div className="flex items-end justify-between flex-wrap-reverse mt-5 gap-5">
-            {/* pagination */}
-            <div className="flex items-center gap-3">
-              <button className="size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-50 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white disabled:opacity-30 disabled:cursor-not-allowed">
-                <ChevronLeft className="size-4" />
-              </button>
-              <button
-                className={`size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-50 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white `}>
-                1
-              </button>
-              <button
-                className={` size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-300 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white `}>
-                2
-              </button>
-              <button
-                className={`size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-50 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white `}>
-                3
-              </button>
-              <button className="size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-50 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white disabled:opacity-30 disabled:cursor-not-allowed">
-                <ChevronRight className="size-4" />
-              </button>
+                <span className="capitalize text-lg text-slate-400">total products : {products.length}</span>
+              </div>
             </div>
-
-            <span className="capitalize text-lg text-slate-400">total products : 200</span>
-          </div>
+          ) : (
+            <div className="pt-4 pb-12 px-4 border border-slate-200 rounded-lg mt-5 flex flex-col items-center">
+              <FileSearchIllustration className="h-100" />
+              <h4 className="text-2xl capitalize font-semibold">no products found</h4>
+            </div>
+          )}
         </div>
       </div>
     </div>
