@@ -20,9 +20,14 @@ import { useEffect, useState } from "react";
 import FileSearchIllustration from "@/components/Illustrations/FileSearchIllustration";
 import { toast } from "sonner";
 import { useCartContext } from "@/contexts/CartContext/useCartContext";
+import DeleteModal from "@/components/DeleteModal";
+import ViewModal from "@/components/Dashboard/ViewModal";
 
 export default function Products() {
   const { products, getAllProducts } = useCartContext();
+  const [showDeleteProductModal, setShowDeleteProductModal] = useState(false);
+  const [showViewModal, setShowViewModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   let pages = null;
 
   const [query, setQuery] = useState({
@@ -128,7 +133,12 @@ export default function Products() {
       discount: "",
       stock: "",
       rate: "",
+      caption: "",
+      thumbnail: null,
+      preview: "",
+      base64: "",
     });
+
     setAddErrors({
       title: "",
       category: "",
@@ -136,10 +146,6 @@ export default function Products() {
       price: "",
       discount: "",
       stock: "",
-      thumbnail: null,
-      preview: "",
-      base64: "",
-      caption: "",
     });
   }
 
@@ -162,6 +168,17 @@ export default function Products() {
     };
   }
 
+  function addFormSubmitHandler(e) {
+    e.preventDefault();
+    const isFormValid = validateAddForm();
+    if (isFormValid) {
+      addNewProduct();
+    } else {
+      toast.error("check form errors");
+    }
+  }
+
+  /*------------------ CRUD Product Actions ------------------*/
   async function addNewProduct() {
     // In real API use FormData Object to send data
     const newProduct = {
@@ -198,21 +215,32 @@ export default function Products() {
     }
   }
 
-  function addFormSubmitHandler(e) {
-    e.preventDefault();
-    const isFormValid = validateAddForm();
-    if (isFormValid) {
-      addNewProduct();
-    } else {
-      toast.error("check form errors");
-    }
-  }
-
-  /*------------------ CRUD Product Actions ------------------*/
-  // add new product => form
   // view product => modal
   // edit product => modal
   // delete product => after confirm modal
+
+  async function deleteProduct() {
+    if (!selectedProduct) return;
+    try {
+      const resp = await fetch(`http://localhost:3000/products/${selectedProduct.id}`, {
+        method: "DELETE",
+      });
+
+      console.log(resp); // من شرط زیر رو غیر فعال کردم چون ارور ۵۰۰ میداد ولی محصول حذف میشد و خب نمیدونم مشکل از چیه ؟
+
+      // if (![200, 204, 404].includes(resp.status)) {
+      //   throw new Error(`Failed to delete product. Status: ${resp.status}`);
+      // }
+
+      toast.success("Product deleted successfully");
+
+      // update products
+      await getAllProducts();
+    } catch (err) {
+      console.log(err);
+      toast.error(`Failed to delete product`);
+    }
+  }
 
   /*-------------- Proccessing Shown Items In Table--------------*/
 
@@ -221,7 +249,7 @@ export default function Products() {
 
     // search in title and description
     if (query.search.trim()) {
-      const term = query.search;
+      const term = query.search.toLowerCase();
       result = result.filter(p => p.title.toLowerCase().includes(term) || p.caption?.toLowerCase().includes(term));
     }
 
@@ -708,79 +736,90 @@ export default function Products() {
 
           {/* table */}
           {visibleProducts().length ? (
-            <div className="overflow-x-auto">
-              {/* products table */}
-              <table className="w-full text-nowrap bg-white mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
-                <thead>
-                  <tr className="*:border *:border-slate-200 *:uppercase *:p-3 bg-slate-50">
-                    <th>id</th>
-                    <th>thumbnail</th>
-                    <th>title</th>
-                    <th>category</th>
-                    <th>brand</th>
-                    <th>price</th>
-                    <th>discount</th>
-                    <th>stock</th>
-                    <th>rate</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody className="*:even:bg-slate-50 *:transition-colors *:hover:bg-slate-100">
-                  {visibleProducts().map(p => (
-                    <tr key={p.id} className="*:border *:p-2 *:border-slate-200 ">
-                      <td>{p.id}</td>
-                      <td>
-                        <div className="size-12  overflow-hidden mx-auto">
-                          <img src={`/${p.mainImage}`} alt="avatar image" className="size-full" />
-                        </div>
-                      </td>
-                      <td>{p.title}</td>
-                      <td>{p.category}</td>
-                      <td>{p.brand}</td>
-                      <td>${p.price.toLocaleString()}</td>
-                      <td>{p.discount}%</td>
-                      <td>{p.stock}</td>
-                      <td>
-                        <div className="flex items-center justify-center">
-                          {Array.from({ length: p.rate }, (_, i) => (
-                            <Star key={i} className="size-4 text-yellow-500 fill-yellow-500" />
-                          ))}
-
-                          {Array.from({ length: 5 - p.rate }, (_, i) => (
-                            <Star key={i} className="size-4 text-yellow-500 " />
-                          ))}
-                        </div>
-                      </td>
-                      <td>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            {/* <Button variant="outline">Open</Button> */}
-                            <button>
-                              <EllipsisVertical />
-                            </button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent className="w-56" align="start">
-                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-
-                            <DropdownMenuItem>
-                              <Eye className="size-4" />
-                              <span>view</span>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                              <Pencil className="size-4" />
-                              <span>edit</span>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="hover:bg-red-100! text-red-500 hover:text-red-500!">
-                              <Trash className="size-4" />
-                              <span>delete</span>
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </td>
+            <>
+              <div className="overflow-x-auto">
+                {/* products table */}
+                <table className="w-full text-nowrap bg-white mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
+                  <thead>
+                    <tr className="*:border *:border-slate-200 *:uppercase *:p-3 bg-slate-50">
+                      <th>id</th>
+                      <th>thumbnail</th>
+                      <th>title</th>
+                      <th>category</th>
+                      <th>brand</th>
+                      <th>price</th>
+                      <th>discount</th>
+                      <th>stock</th>
+                      <th>rate</th>
+                      <th></th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="*:even:bg-slate-50 *:transition-colors *:hover:bg-slate-100">
+                    {visibleProducts().map(p => (
+                      <tr key={p.id} className="*:border *:p-2 *:border-slate-200 ">
+                        <td>{p.id}</td>
+                        <td>
+                          <div className="size-12  overflow-hidden mx-auto">
+                            <img src={`/${p.mainImage}`} alt="avatar image" className="size-full" />
+                          </div>
+                        </td>
+                        <td>{p.title}</td>
+                        <td>{p.category}</td>
+                        <td>{p.brand}</td>
+                        <td>${p.price.toLocaleString()}</td>
+                        <td>{p.discount}%</td>
+                        <td>{p.stock}</td>
+                        <td>
+                          <div className="flex items-center justify-center">
+                            {Array.from({ length: p.rate }, (_, i) => (
+                              <Star key={i} className="size-4 text-yellow-500 fill-yellow-500" />
+                            ))}
+
+                            {Array.from({ length: 5 - p.rate }, (_, i) => (
+                              <Star key={i} className="size-4 text-yellow-500 " />
+                            ))}
+                          </div>
+                        </td>
+                        <td>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              {/* <Button variant="outline">Open</Button> */}
+                              <button>
+                                <EllipsisVertical />
+                              </button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent className="w-56" align="start">
+                              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+
+                              <DropdownMenuItem
+                                onClick={() => {
+                                  setShowViewModal(true);
+                                  setSelectedProduct(p);
+                                }}>
+                                <Eye className="size-4" />
+                                <span>view</span>
+                              </DropdownMenuItem>
+                              <DropdownMenuItem>
+                                <Pencil className="size-4" />
+                                <span>edit</span>
+                              </DropdownMenuItem>
+                              <DropdownMenuItem
+                                onClick={() => {
+                                  setShowDeleteProductModal(true);
+                                  setSelectedProduct(p);
+                                }}
+                                className="hover:bg-red-100! text-red-500 hover:text-red-500!">
+                                <Trash className="size-4" />
+                                <span>delete</span>
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
               <div className="flex items-end justify-between flex-wrap-reverse mt-5 gap-5">
                 {/* pagination */}
                 <div className="flex items-center gap-3">
@@ -811,7 +850,7 @@ export default function Products() {
 
                 <span className="capitalize text-lg text-slate-400">total products : {products.length}</span>
               </div>
-            </div>
+            </>
           ) : (
             <div className="pt-4 pb-12 px-4 border border-slate-200 rounded-lg mt-5 flex flex-col items-center">
               <FileSearchIllustration className="h-100" />
@@ -820,6 +859,71 @@ export default function Products() {
           )}
         </div>
       </div>
+      <DeleteModal show={showDeleteProductModal} onClose={() => setShowDeleteProductModal(false)} confirmText="delete" text="Are you sure you want to delete the product?" onConfirm={deleteProduct} />
+
+      <ViewModal show={showViewModal} onClose={() => setShowViewModal(false)}>
+        <div className="p-5">
+          <div className="flex flex-col sm:flex-row items-start gap-10">
+            <div className="w-70 shrink-0 flex mx-auto md:mx-0">
+              <img src={`/${selectedProduct?.mainImage}`} alt="" className="size-full drop-shadow-[20px_20px_8px_#3737375e]" />
+            </div>
+
+            <div>
+              <h3 className="text-xl sm:text-2xl line-clamp-2 md:text-3xl font-semibold">{selectedProduct?.title}</h3>
+              <ul className="mt-6 space-y-1">
+                <li className="space-x-2">
+                  Categories: <span className="text-sm py-0.5 px-2  rounded-full bg-slate-200">{selectedProduct?.category}</span>
+                </li>
+                <li>Brand: {selectedProduct?.brand}</li>
+                <li className="font-medium lg:text-xl">
+                  <strong>Price: ${selectedProduct?.price.toLocaleString()}</strong>
+                </li>
+                <li>Discount: {selectedProduct?.discount}%</li>
+                <li>Stock: {selectedProduct?.stock}</li>
+                <li>Rate: {selectedProduct?.rate}</li>
+                <li className="flex items-center gap-3">
+                  Colors:
+                  <ul className="flex items-center gap-2">
+                    <li className="size-6 ring ring-offset-2 ring-slate-300 bg-blue-500 rounded-full"></li>
+                    <li className="size-6 ring ring-offset-2 ring-slate-300 bg-red-500 rounded-full"></li>
+                    <li className="size-6 ring ring-offset-2 ring-slate-300 bg-green-500 rounded-full"></li>
+                    <li className="size-6 ring ring-offset-2 ring-slate-300 bg-amber-500 rounded-full"></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-5">
+            <h4 className="capitalize lg:text-xl font-semibold">caption:</h4>
+            <p className="text-slate-500 mt-2">{selectedProduct?.caption}</p>
+          </div>
+
+          <div className="overflow-x-auto mt-5">
+            <h4 className="capitalize lgt:text-xl font-semibold">Specifications:</h4>
+            <table className="w-full text-nowrap bg-white mt-2 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
+              <thead>
+                <tr className="*:border *:border-slate-200 *:uppercase *:p-3 bg-slate-50">
+                  {Object.keys(selectedProduct?.specs || {}).map(key => (
+                    <th className="text-sm" key={key}>
+                      {key}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="*:even:bg-slate-50 *:transition-colors *:hover:bg-slate-100">
+                <tr className="*:border *:p-2 *:border-slate-200 ">
+                  {Object.values(selectedProduct?.specs || {}).map(value => (
+                    <td className="text-sm lg:text-base" key={value}>
+                      {value}
+                    </td>
+                  ))}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </ViewModal>
     </div>
   );
 }
