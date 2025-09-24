@@ -1,3 +1,4 @@
+import DashboardCardStat from "@/components/Dashboard/DashboardCardStat";
 import DotStatus from "@/components/DotStatus";
 import { Users, MoveUp, MoveDown, ChartSpline, ShoppingBag, Clock, FileDown, RefreshCcw, Circle } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, Rectangle, Cell, Pie, PieChart } from "recharts";
@@ -113,7 +114,7 @@ const data02 = [
 
 export default function Dashboard() {
   return (
-    <div className="min-h-screen bg-slate-100 p-5">
+    <div className="min-h-screen bg-slate-100 dark:bg-app-dark p-5">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold">Dashboard</h2>
@@ -126,61 +127,14 @@ export default function Dashboard() {
       {/* Top Stats */}
       <div className="mt-5 grid gap-5 grid-cols-1 md:grid-cols-2  xl:grid-cols-4 ">
         {/* cart stat */}
-        <div className="flex items-center gap-3 rounded-lg bg-white px-4 py-3 shadow transition-all hover:-translate-y-0.5 hover:shadow-md">
-          <div className="inline-flex items-center justify-center rounded-lg bg-slate-200 p-3">
-            <Clock />
-          </div>
-          <div>
-            <h6 className="text-lg font-semibold text-slate-600">Total Users</h6>
-            <p className="text-2xl font-semibold leading-4">8</p>
-            <p className="mt-2 flex items-center gap-1 text-xs text-emerald-500">
-              <MoveUp className="size-4" />
-              <span>+12.5%</span>
-            </p>
-          </div>
-        </div>
 
-        <div className="flex items-center gap-3 rounded-lg bg-white px-4 py-3 shadow transition-all hover:-translate-y-0.5 hover:shadow-md">
-          <div className="inline-flex items-center justify-center rounded-lg bg-slate-200 p-3">
-            <ChartSpline />
-          </div>
-          <div>
-            <h6 className="text-lg font-semibold text-slate-600">Revenue</h6>
-            <p className="text-2xl font-semibold leading-4">$54,320</p>
-            <p className="mt-2 flex items-center gap-1 text-xs text-emerald-500">
-              <MoveUp className="size-4" />
-              <span>+8.2%</span>
-            </p>
-          </div>
-        </div>
+        <DashboardCardStat title="Total Users" stat="8" icon={Clock} trendIcon={MoveUp} trendValue="+12.5%" trendColor="text-emerald-500" />
 
-        <div className="flex items-center gap-3 rounded-lg bg-white px-4 py-3 shadow transition-all hover:-translate-y-0.5 hover:shadow-md">
-          <div className="inline-flex items-center justify-center rounded-lg bg-slate-200 p-3">
-            <ShoppingBag />
-          </div>
-          <div>
-            <h6 className="text-lg font-semibold text-slate-600">Orders</h6>
-            <p className="text-2xl font-semibold leading-4">8</p>
-            <p className="mt-2 flex items-center gap-1 text-xs text-red-500">
-              <MoveDown className="size-4" />
-              <span>-2.1%</span>
-            </p>
-          </div>
-        </div>
+        <DashboardCardStat title="Revenu" stat="$54,320" icon={ChartSpline} trendIcon={MoveUp} trendValue="+8.2%" trendColor="text-emerald-500" />
 
-        <div className="flex items-center gap-3 rounded-lg bg-white px-4 py-3 shadow transition-all hover:-translate-y-0.5 hover:shadow-md">
-          <div className="inline-flex items-center justify-center rounded-lg bg-slate-200 p-3">
-            <Users />
-          </div>
-          <div>
-            <h6 className="text-lg font-semibold text-slate-600">Avg. Response</h6>
-            <p className="text-2xl font-semibold leading-4">2.3s</p>
-            <p className="mt-2 flex items-center gap-1 text-xs text-emerald-500">
-              <MoveUp className="size-4" />
-              <span>+5.4%</span>
-            </p>
-          </div>
-        </div>
+        <DashboardCardStat title="Orders" stat="450" icon={ShoppingBag} trendIcon={MoveDown} trendValue="-2.1%" trendColor="text-red-500" />
+
+        <DashboardCardStat title="Avg. Response" stat="2.3s" icon={Users} trendIcon={MoveUp} trendValue="+5.4%" trendColor="text-emerald-500" />
       </div>
 
       {/* Main Stats */}
@@ -188,7 +142,7 @@ export default function Dashboard() {
         {/* left column */}
         <div className="space-y-5">
           {/* Recent Orders chart */}
-          <div className="rounded-lg bg-white px-5 py-3 shadow">
+          <div className="rounded-lg bg-white dark:bg-suface-dark px-5 py-3 border border-slate-200 dark:border-slate-800">
             <h6 className="text-xl font-semibold">Order Status Distribution</h6>
             <div className="mt-5 flex h-60 items-center justify-center rounded-lg ">
               <ResponsiveContainer width="100%" height="100%">
@@ -206,7 +160,7 @@ export default function Dashboard() {
           </div>
 
           {/* Users chart */}
-          <div className="rounded-lg bg-white px-5 py-3 shadow">
+          <div className="rounded-lg bg-white dark:bg-suface-dark px-5 py-3 border border-slate-200 dark:border-slate-800">
             <h6 className="text-xl font-semibold">Users Overview</h6>
             <div className="mt-4 flex h-60 items-center justify-center rounded-lg ">
               <ResponsiveContainer width="100%" height="100%">
@@ -233,7 +187,7 @@ export default function Dashboard() {
           </div>
 
           {/* Revenu chart */}
-          <div className="rounded-lg bg-white px-5 py-3 shadow">
+          <div className="rounded-lg bg-white dark:bg-suface-dark px-5 py-3 border border-slate-200 dark:border-slate-800">
             <h6 className="text-xl font-semibold">Revenue Overview</h6>
             <div className="mt-4 flex h-60 items-center justify-center rounded-lg ">
               <ResponsiveContainer width="100%" height="100%">
@@ -249,12 +203,12 @@ export default function Dashboard() {
         {/* right column */}
         <div className="space-y-5">
           {/* Recent orders*/}
-          <div className="rounded-lg bg-white px-5 py-3 shadow">
+          <div className="rounded-lg bg-white dark:bg-suface-dark px-5 py-3 border border-slate-200 dark:border-slate-800">
             <h6 className="text-xl font-semibold">Recent Orders</h6>
             <div className="overflow-x-auto">
-              <table className="bg-white text-nowrap w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
+              <table className="bg-white dark:bg-app-dark text-nowrap w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
                 <thead>
-                  <tr className="*:border *:border-slate-200 *:uppercase *:p-3 bg-slate-50">
+                  <tr className="*:border *:border-slate-200 dark:*:border-slate-700 *:uppercase *:p-3 bg-slate-50 dark:bg-slate-900">
                     <th>id</th>
                     <th>consumer</th>
                     <th>product/s</th>
@@ -263,8 +217,8 @@ export default function Dashboard() {
                     <th>total Price</th>
                   </tr>
                 </thead>
-                <tbody className="*:even:bg-slate-50 *:transition-colors *:hover:bg-slate-100">
-                  <tr className="*:border *:p-2 *:border-slate-200 ">
+                <tbody className="*:even:bg-slate-50 dark:*:even:bg-slate-900 *:transition-colors *:hover:bg-slate-100 dark:*:hover:bg-slate-800">
+                  <tr className="*:border *:p-2 *:border-slate-200 dark:*:border-slate-700 ">
                     <td>2342</td>
                     <td>mohammad noohi</td>
                     <td>product</td>
@@ -272,7 +226,7 @@ export default function Dashboard() {
                     <td>paid</td>
                     <td>$38,000</td>
                   </tr>
-                  <tr className="*:border *:p-2 *:border-slate-200">
+                  <tr className="*:border *:p-2 *:border-slate-200 dark:*:border-slate-700">
                     <td>2342</td>
                     <td>mohammad noohi</td>
                     <td>product</td>
@@ -280,7 +234,7 @@ export default function Dashboard() {
                     <td>paid</td>
                     <td>$38,000</td>
                   </tr>
-                  <tr className="*:border *:p-2 *:border-slate-200">
+                  <tr className="*:border *:p-2 *:border-slate-200 dark:*:border-slate-700">
                     <td>2342</td>
                     <td>mohammad noohi</td>
                     <td>product</td>
@@ -288,7 +242,7 @@ export default function Dashboard() {
                     <td>paid</td>
                     <td>$38,000</td>
                   </tr>
-                  <tr className="*:border *:p-2 *:border-slate-200">
+                  <tr className="*:border *:p-2 *:border-slate-200 dark:*:border-slate-700">
                     <td>2342</td>
                     <td>mohammad noohi</td>
                     <td>product</td>
@@ -302,12 +256,12 @@ export default function Dashboard() {
           </div>
 
           {/* Recent Users */}
-          <div className="rounded-lg bg-white px-5 py-3 shadow">
+          <div className="rounded-lg bg-white dark:bg-suface-dark px-5 py-3 border border-slate-200 dark:border-slate-800">
             <h6 className="text-xl font-semibold">Recent Users</h6>
             <div className="overflow-x-auto">
-              <table className="bg-white text-nowrap w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
+              <table className="bg-white dark:bg-app-dark text-nowrap w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
                 <thead>
-                  <tr className="*:border *:border-slate-200 *:uppercase *:p-3 bg-slate-50">
+                  <tr className="*:border *:border-slate-200 dark:*:border-slate-700 *:uppercase *:p-3 bg-slate-50 dark:bg-slate-900">
                     <th>id</th>
                     <th>avatar</th>
                     <th>user</th>
@@ -315,8 +269,8 @@ export default function Dashboard() {
                     <th>joined</th>
                   </tr>
                 </thead>
-                <tbody className="*:even:bg-slate-50 *:transition-colors *:hover:bg-slate-100">
-                  <tr className="*:border *:p-2 *:border-slate-200 ">
+                <tbody className="*:even:bg-slate-50 dark:*:even:bg-slate-900 *:transition-colors *:hover:bg-slate-100 dark:*:hover:bg-slate-800">
+                  <tr className="*:border *:p-2 *:border-slate-200 dark:*:border-slate-700 ">
                     <td>5345</td>
                     <td>
                       <div className="size-12 rounded-full overflow-hidden mx-auto">
@@ -333,12 +287,12 @@ export default function Dashboard() {
           </div>
 
           {/* Best-selling products */}
-          <div className="rounded-lg bg-white px-5 py-3 shadow">
+          <div className="rounded-lg bg-white dark:bg-suface-dark px-5 py-3 border border-slate-200 dark:border-slate-800">
             <h6 className="text-xl font-semibold">Best-selling products</h6>
             <div className="overflow-x-auto">
-              <table className="bg-white text-nowrap w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
+              <table className="bg-white dark:bg-app-dark text-nowrap w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
                 <thead>
-                  <tr className="*:border *:border-slate-200 *:uppercase *:p-3 bg-slate-50">
+                  <tr className="*:border *:border-slate-200 dark:*:border-slate-700 *:uppercase *:p-3 bg-slate-50 dark:bg-slate-900">
                     <th>thumbnail</th>
                     <th>title</th>
                     <th>category</th>
@@ -347,8 +301,8 @@ export default function Dashboard() {
                     <th>stock status</th>
                   </tr>
                 </thead>
-                <tbody className="*:even:bg-slate-50 *:transition-colors *:hover:bg-slate-100">
-                  <tr className="*:border *:p-2 *:border-slate-200 ">
+                <tbody className="*:even:bg-slate-50 dark:*:even:bg-slate-900 *:transition-colors *:hover:bg-slate-100 dark:*:hover:bg-slate-800">
+                  <tr className="*:border *:p-2 *:border-slate-200 dark:*:border-slate-700 ">
                     <td>
                       <div className="size-12  overflow-hidden mx-auto">
                         <img src="/images/products/Asus_ROG_Phone_8_Pro.png" alt="avatar image" className="size-full" />

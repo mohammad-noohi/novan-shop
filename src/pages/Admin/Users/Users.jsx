@@ -18,13 +18,13 @@ import {
 
 export default function Users() {
   return (
-    <div className="min-h-screen bg-slate-100 p-5">
+    <div className="min-h-screen bg-slate-100 dark:bg-app-dark p-5">
       <h2 className="text-2xl font-bold">Users</h2>
       <p className="text-slate-500">Manage your Users as you wish!</p>
 
       <div className="mt-10">
         {/* Add New User Form */}
-        <div className="bg-white p-5 rounded-lg">
+        <div className="bg-white dark:bg-suface-dark border border-slate-200 dark:border-slate-800 p-5 rounded-lg">
           <h4 className="text-xl font-semibold capitalize">add user</h4>
           <form className="mt-5">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -58,12 +58,14 @@ export default function Users() {
               </div>
             </div>
 
-            <button className="py-1 px-4 mt-5 bg-slate-200 rounded-lg text-lg capitalize cursor-pointer hover:bg-slate-300  transition-colors">add user</button>
+            <button className="py-1 px-4 mt-5 bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 rounded-lg text-lg capitalize cursor-pointer hover:bg-slate-300  transition-colors">
+              add user
+            </button>
           </form>
         </div>
 
         {/* Toolbar Section*/}
-        <div className="bg-white mt-10 p-5 rounded-lg">
+        <div className="bg-white dark:bg-suface-dark border border-slate-200 dark:border-slate-800 mt-10 p-5 rounded-lg">
           {/* --------------- Filtering Section ------------------- */}
           <h4 className="text-xl font-semibold capitalize">filtering</h4>
 
@@ -118,7 +120,7 @@ export default function Users() {
         </div>
 
         {/* Table Section*/}
-        <div className="bg-white mt-10 p-5 rounded-lg">
+        <div className="bg-white dark:bg-suface-dark mt-10 p-5 rounded-lg">
           <div className="flex items-center gap-3 flex-wrap justify-between">
             <Input className="max-w-100" type="search" placeholder="search user by name" />
 
@@ -146,9 +148,9 @@ export default function Users() {
           {/* table */}
           <div className="overflow-x-auto">
             {/* products table */}
-            <table className="w-full text-nowrap bg-white mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
+            <table className="bg-white dark:bg-app-dark text-nowrap w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
               <thead>
-                <tr className="*:border *:border-slate-200 *:uppercase *:p-3 bg-slate-50">
+                <tr className="*:border *:border-slate-200 dark:*:border-slate-700 *:uppercase *:p-3 bg-slate-50 dark:bg-slate-900">
                   <th>avatar</th>
                   <th>firstname</th>
                   <th>lastname</th>
@@ -159,8 +161,8 @@ export default function Users() {
                   <th></th>
                 </tr>
               </thead>
-              <tbody className="*:even:bg-slate-50 *:transition-colors *:hover:bg-slate-100">
-                <tr className="*:border *:p-2 *:border-slate-200 ">
+              <tbody className="*:even:bg-slate-50 dark:*:even:bg-slate-900 *:transition-colors *:hover:bg-slate-100 dark:*:hover:bg-slate-800">
+                <tr className="*:border *:p-2 *:border-slate-200 dark:*:border-slate-700 ">
                   <td>img</td>
                   <td>mohammad</td>
                   <td>noohi</td>

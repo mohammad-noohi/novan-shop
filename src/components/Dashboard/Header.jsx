@@ -10,7 +10,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 flex items-center justify-between border-b border-slate-200 bg-white px-6 py-3 transition-all">
+      <header className="sticky top-0 flex items-center justify-between border-b border-slate-200 bg-white px-6 py-3 transition-all dark:bg-suface-dark dark:border-slate-800">
         <div>
           <Link to="/">
             <h1 className="text-2xl">Novan</h1>

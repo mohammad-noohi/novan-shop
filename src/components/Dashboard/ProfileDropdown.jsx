@@ -28,7 +28,7 @@ export function ProfileDropdown() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <div>
-            <div className="size-10 bg-slate-200 rounded-full overflow-hidden ring-2 ring-offset-2 ring-slate-400">
+            <div className="size-10 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden ring-2 ring-offset-2 ring-slate-400 dark:ring-slate-700 dark:ring-offset-app-dark">
               <img className="w-full h-full" src="/images/mohammad-noohi.jpeg" alt="" />
             </div>
           </div>

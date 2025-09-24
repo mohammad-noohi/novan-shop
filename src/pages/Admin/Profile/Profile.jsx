@@ -9,18 +9,18 @@ export default function Profile() {
 
   return (
     <>
-      <div className="p-5 bg-slate-100 min-h-screen">
+      <div className="p-5 bg-slate-100 dark:bg-app-dark min-h-screen">
         {/* Profile */}
-        <div className=" rounded-lg bg-white border border-slate-200 p-10 flex flex-col justify-center">
+        <div className=" rounded-lg bg-white dark:bg-suface-dark dark:border-slate-800 border border-slate-200 p-10 flex flex-col justify-center">
           <div className="flex flex-col md:flex-row text-center md:text-left items-center gap-10 ">
             {/* Admin Avatar */}
-            <div className="border relative size-50 rounded-full ring-4 ring-offset-4 ring-slate-200 shrink-0">
+            <div className="border relative size-50 rounded-full ring-4 ring-offset-4 ring-slate-200 dark:ring-slate-600 dark:ring-offset-app-dark shrink-0">
               <img src="/images/mohammad-noohi.jpeg" alt="profile image" className="size-full rounded-full" />
 
               {/* Logout Button */}
               <button
                 onClick={() => setShowLogOutModal(true)}
-                className="absolute bottom-0 right-0 group flex items-center w-10 lg:hover:w-28 lg:hover:text-red-500 transition-all duration-300 overflow-hidden rounded-full bg-white border p-2 cursor-pointer">
+                className="absolute bottom-0 right-0 group flex items-center w-10 lg:hover:w-28 lg:hover:text-red-500 transition-all duration-300 overflow-hidden rounded-full bg-white dark:bg-suface-dark dark:border-slate-800  border p-2 cursor-pointer">
                 <LogOut className="size-6 shrink-0" />
                 <span className="ml-2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">Logout</span>
               </button>
@@ -35,8 +35,8 @@ export default function Profile() {
           </div>
         </div>
 
-        <div className="bg-white  rounded-lg  border border-slate-200 mt-5">
-          <div className="border-b p-5 border-slate-200">
+        <div className="bg-white  rounded-lg  border border-slate-200 mt-5 dark:bg-suface-dark dark:border-slate-800">
+          <div className="border-b p-5 border-slate-200 dark:border-slate-800">
             <h4 className="text-2xl capitalize">Edit Info</h4>
           </div>
           <div className="p-5">
@@ -71,7 +71,9 @@ export default function Profile() {
                   <input type="file" id="profile" className="border w-full text-lg py-2 px-4 rounded-lg mt-2" placeholder="example@gmail.com" />
                 </div>
 
-                <button className="py-1 w-full sm:w-auto px-4 text-lg capitalize rounded-lg bg-slate-200 hover:bg-slate-300 transition-colors cursor-pointer">submit</button>
+                <button className="py-1 w-full sm:w-auto px-4 text-lg capitalize rounded-lg bg-slate-200 hover:bg-slate-300 transition-colors cursor-pointer dark:bg-slate-700 dark:hover:bg-slate-600">
+                  submit
+                </button>
               </div>
             </form>
           </div>

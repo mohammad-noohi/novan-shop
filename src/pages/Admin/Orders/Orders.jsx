@@ -20,7 +20,7 @@ import DotStatus from "@/components/DotStatus";
 
 export default function Orders() {
   return (
-    <div className="min-h-screen bg-slate-100 p-5">
+    <div className="min-h-screen bg-slate-100 dark:bg-app-dark p-5">
       <h2 className="text-2xl font-bold">Orders</h2>
       <p className="text-slate-500">Manage your Orders as you wish!</p>
 
@@ -66,7 +66,7 @@ export default function Orders() {
         </div> */}
 
         {/* Toolbar Section*/}
-        <div className="bg-white mt-10 p-5 rounded-lg">
+        <div className="bg-white dark:bg-suface-dark border border-slate-200 dark:border-slate-800 mt-10 p-5 rounded-lg">
           {/* --------------- Filtering Section ------------------- */}
           <h4 className="text-xl font-semibold capitalize">filtering</h4>
 
@@ -169,7 +169,7 @@ export default function Orders() {
         </div>
 
         {/* Table Section*/}
-        <div className="bg-white mt-10 p-5 rounded-lg">
+        <div className="bg-white dark:bg-suface-dark border border-slate-200 dark:border-slate-800 mt-10 p-5 rounded-lg">
           <div className="flex items-center gap-3 flex-wrap justify-between">
             <Input className="max-w-100" type="search" placeholder="search order by title" />
 
@@ -197,9 +197,9 @@ export default function Orders() {
           {/* table */}
           <div className="overflow-x-auto">
             {/* Orders table */}
-            <table className="w-full text-nowrap bg-white mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
+            <table className="bg-white dark:bg-app-dark text-nowrap w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
               <thead>
-                <tr className="*:border *:border-slate-200 *:uppercase *:p-3 bg-slate-50">
+                <tr className="*:border *:border-slate-200 dark:*:border-slate-700 *:uppercase *:p-3 bg-slate-50 dark:bg-slate-900">
                   <th>id</th>
                   <th>user</th>
                   <th>user email</th>
@@ -211,8 +211,8 @@ export default function Orders() {
                   <th></th>
                 </tr>
               </thead>
-              <tbody className="*:even:bg-slate-50 *:transition-colors *:hover:bg-slate-100">
-                <tr className="*:border *:p-2 *:border-slate-200 ">
+              <tbody className="*:even:bg-slate-50 dark:*:even:bg-slate-900 *:transition-colors *:hover:bg-slate-100 dark:*:hover:bg-slate-800">
+                <tr className="*:border *:p-2 *:border-slate-200 dark:*:border-slate-700 ">
                   <td>12</td>
                   <td>maral noohi</td>
                   <td>maral@gmail.com</td>
@@ -253,7 +253,7 @@ export default function Orders() {
                     </DropdownMenu>
                   </td>
                 </tr>
-                <tr className="*:border *:p-2 *:border-slate-200 ">
+                <tr className="*:border *:p-2 *:border-slate-200 dark:*:border-slate-700 ">
                   <td>12</td>
                   <td>maral noohi</td>
                   <td>maral@gmail.com</td>
@@ -294,7 +294,7 @@ export default function Orders() {
                     </DropdownMenu>
                   </td>
                 </tr>
-                <tr className="*:border *:p-2 *:border-slate-200 ">
+                <tr className="*:border *:p-2 *:border-slate-200 dark:*:border-slate-700 ">
                   <td>12</td>
                   <td>maral noohi</td>
                   <td>maral@gmail.com</td>

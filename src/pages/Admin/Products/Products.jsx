@@ -319,13 +319,13 @@ export default function Products() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-100 p-5">
+    <div className="min-h-screen bg-slate-100 dark:bg-app-dark p-5">
       <h2 className="text-2xl font-bold">Products</h2>
       <p className="text-slate-500">Manage your products as you wish!</p>
 
       <div className="mt-10">
         {/* Product Form */}
-        <div className="bg-white p-5 rounded-lg">
+        <div className="bg-white dark:bg-suface-dark border border-slate-200 dark:border-slate-800 p-5 rounded-lg">
           <h4 className="text-xl font-semibold capitalize">add product</h4>
           <form onSubmit={addFormSubmitHandler} className="mt-5">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -436,12 +436,14 @@ export default function Products() {
               </div>
             </div>
 
-            <button className="py-1 px-4 mt-5 bg-slate-500 rounded-lg text-lg capitalize cursor-pointer hover:bg-slate-600 text-white transition-colors">add product</button>
+            <button className="py-1 px-4 mt-5 bg-slate-500 dark:bg-slate-700 dark:hover:bg-slate-600 rounded-lg text-lg capitalize cursor-pointer hover:bg-slate-600 text-white transition-colors">
+              add product
+            </button>
           </form>
         </div>
 
         {/* Toolbar Section*/}
-        <div className="bg-white mt-10 p-5 rounded-lg">
+        <div className="bg-white dark:bg-suface-dark border border-slate-200 dark:border-slate-800 mt-10 p-5 rounded-lg">
           {/* --------------- Filtering Section ------------------- */}
           <h4 className="text-xl font-semibold capitalize">filtering</h4>
 
@@ -696,7 +698,7 @@ export default function Products() {
         </div>
 
         {/* Table Section*/}
-        <div className="bg-white mt-10 p-5 rounded-lg">
+        <div className="bg-white dark:bg-suface-dark border border-slate-200 dark:border-slate-800 mt-10 p-5 rounded-lg">
           <div className="flex items-center gap-3 flex-wrap justify-between">
             <Input
               value={query.search}
@@ -739,9 +741,9 @@ export default function Products() {
             <>
               <div className="overflow-x-auto">
                 {/* products table */}
-                <table className="w-full text-nowrap bg-white mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
+                <table className="bg-white dark:bg-app-dark text-nowrap w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
                   <thead>
-                    <tr className="*:border *:border-slate-200 *:uppercase *:p-3 bg-slate-50">
+                    <tr className="*:border *:border-slate-200 dark:*:border-slate-700 *:uppercase *:p-3 bg-slate-50 dark:bg-slate-900">
                       <th>id</th>
                       <th>thumbnail</th>
                       <th>title</th>
@@ -754,9 +756,9 @@ export default function Products() {
                       <th></th>
                     </tr>
                   </thead>
-                  <tbody className="*:even:bg-slate-50 *:transition-colors *:hover:bg-slate-100">
+                  <tbody className="*:even:bg-slate-50 dark:*:even:bg-slate-900 *:transition-colors *:hover:bg-slate-100 dark:*:hover:bg-slate-800">
                     {visibleProducts().map(p => (
-                      <tr key={p.id} className="*:border *:p-2 *:border-slate-200 ">
+                      <tr key={p.id} className="*:border *:p-2 *:border-slate-200 dark:*:border-slate-700 ">
                         <td>{p.id}</td>
                         <td>
                           <div className="size-12  overflow-hidden mx-auto">
@@ -833,9 +835,9 @@ export default function Products() {
                     <button
                       key={i}
                       onClick={() => changeCurrentPage(i + 1)}
-                      className={`size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200  ${
-                        i + 1 === query.pagination.page ? "bg-slate-500 text-white" : "bg-slate-50"
-                      } cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white `}>
+                      className={`size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 dark:border-slate-800  ${
+                        i + 1 === query.pagination.page ? "bg-slate-500 text-white dark:bg-slate-700" : "bg-slate-50 dark:bg-suface-dark"
+                      } cursor-pointer dark:text-white `}>
                       {i + 1}
                     </button>
                   ))}
@@ -865,14 +867,14 @@ export default function Products() {
         <div className="p-5">
           <div className="flex flex-col sm:flex-row items-start gap-10">
             <div className="w-70 shrink-0 flex mx-auto md:mx-0">
-              <img src={`/${selectedProduct?.mainImage}`} alt="" className="size-full drop-shadow-[20px_20px_8px_#3737375e]" />
+              <img src={`/${selectedProduct?.mainImage}`} alt="" className="size-full drop-shadow-[20px_20px_8px_#3737375e] dark:drop-shadow-[20px_20px_8px_#1c2543d4]" />
             </div>
 
             <div>
               <h3 className="text-xl sm:text-2xl line-clamp-2 md:text-3xl font-semibold">{selectedProduct?.title}</h3>
               <ul className="mt-6 space-y-1">
                 <li className="space-x-2">
-                  Categories: <span className="text-sm py-0.5 px-2  rounded-full bg-slate-200">{selectedProduct?.category}</span>
+                  Categories: <span className="text-sm py-0.5 px-2  rounded-full bg-slate-200 dark:bg-slate-700 dark:text-white">{selectedProduct?.category}</span>
                 </li>
                 <li>Brand: {selectedProduct?.brand}</li>
                 <li className="font-medium lg:text-xl">
@@ -901,9 +903,9 @@ export default function Products() {
 
           <div className="overflow-x-auto mt-5">
             <h4 className="capitalize lgt:text-xl font-semibold">Specifications:</h4>
-            <table className="w-full text-nowrap bg-white mt-2 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
+            <table className="bg-white dark:bg-app-dark text-nowrap w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
               <thead>
-                <tr className="*:border *:border-slate-200 *:uppercase *:p-3 bg-slate-50">
+                <tr className="*:border *:border-slate-200 dark:*:border-slate-700 *:uppercase *:p-3 bg-slate-50 dark:bg-slate-900">
                   {Object.keys(selectedProduct?.specs || {}).map(key => (
                     <th className="text-sm" key={key}>
                       {key}
@@ -911,8 +913,8 @@ export default function Products() {
                   ))}
                 </tr>
               </thead>
-              <tbody className="*:even:bg-slate-50 *:transition-colors *:hover:bg-slate-100">
-                <tr className="*:border *:p-2 *:border-slate-200 ">
+              <tbody className="*:even:bg-slate-50 dark:*:even:bg-slate-900 *:transition-colors *:hover:bg-slate-100 dark:*:hover:bg-slate-800">
+                <tr className="*:border *:p-2 *:border-slate-200 dark:*:border-slate-700 ">
                   {Object.values(selectedProduct?.specs || {}).map(value => (
                     <td className="text-sm lg:text-base" key={value}>
                       {value}
