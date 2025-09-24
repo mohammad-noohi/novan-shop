@@ -28,7 +28,10 @@
       "username": "noohi1998",
       "role": "admin",
       "id": 13,
-      "usedDiscounts": ["FREESHIP", "FREESHIP"]
+      "usedDiscounts": [
+        "FREESHIP",
+        "FREESHIP"
+      ]
     },
     {
       "email": "taqa@mailinator.com",
@@ -161,7 +164,10 @@
       "discount": 5,
       "stock": 20,
       "rate": 1,
-      "colors": ["space gray", "silver"],
+      "colors": [
+        "space gray",
+        "silver"
+      ],
       "mainImage": "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
       "gallery": [
         "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
@@ -188,7 +194,10 @@
       "discount": 10,
       "stock": 12,
       "rate": 4,
-      "colors": ["silver", "black"],
+      "colors": [
+        "silver",
+        "black"
+      ],
       "mainImage": "https://images.unsplash.com/photo-1621635186925-7d07c0f7d01c",
       "gallery": [
         "https://images.unsplash.com/photo-1621635186925-7d07c0f7d01c",
@@ -215,7 +224,10 @@
       "discount": 12,
       "stock": 5,
       "rate": 3,
-      "colors": ["nightfall black", "poseidon blue"],
+      "colors": [
+        "nightfall black",
+        "poseidon blue"
+      ],
       "mainImage": "images/products/hp-spectre-x360-16.png",
       "gallery": [
         "https://images.unsplash.com/photo-1622772443923-d2bb7c0f9c3b",
@@ -242,7 +254,9 @@
       "discount": 8,
       "stock": 8,
       "rate": 3,
-      "colors": ["black"],
+      "colors": [
+        "black"
+      ],
       "mainImage": "images/products/Lenovo-ThinkPad-X1-Carbon-Gen-11.png",
       "gallery": [
         "https://images.unsplash.com/photo-1616480145678-3d2f8c0f7f4b",
@@ -269,7 +283,10 @@
       "discount": 10,
       "stock": 4,
       "rate": 2,
-      "colors": ["moonlight white", "esports black"],
+      "colors": [
+        "moonlight white",
+        "esports black"
+      ],
       "mainImage": "images/products/Asus-ROG-Zephyrus-G14.png",
       "gallery": [
         "https://images.unsplash.com/photo-1625567890123-1a2b3c0f4d5e",
@@ -296,7 +313,9 @@
       "discount": 7,
       "stock": 19,
       "rate": 5,
-      "colors": ["carbon gray"],
+      "colors": [
+        "carbon gray"
+      ],
       "mainImage": "images/products/MSI-Creator-Z16.png",
       "gallery": [
         "https://images.unsplash.com/photo-1625567891123-2b3c4d0f5e6f",
@@ -323,7 +342,9 @@
       "discount": 12,
       "stock": 18,
       "rate": 1,
-      "colors": ["black"],
+      "colors": [
+        "black"
+      ],
       "mainImage": "https://images.unsplash.com/photo-1625567892123-3c4d5e0f6f7g",
       "gallery": [
         "https://images.unsplash.com/photo-1625567892123-3c4d5e0f6f7g",
@@ -350,9 +371,18 @@
       "discount": 8,
       "stock": 29,
       "rate": 4,
-      "colors": ["lime", "graphite", "violet", "white"],
+      "colors": [
+        "lime",
+        "graphite",
+        "violet",
+        "white"
+      ],
       "mainImage": "images/products/Galaxy-A54-5g.png",
-      "gallery": ["images/products/Iphon_SE_2020.png", "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9", "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"],
+      "gallery": [
+        "images/products/Iphon_SE_2020.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
       "specs": {
         "cpu": "Exynos 1380",
         "ram": "6 GB / 8 GB",
@@ -373,9 +403,17 @@
       "discount": 5,
       "stock": 25,
       "rate": 4,
-      "colors": ["midnight", "starlight", "product red"],
+      "colors": [
+        "midnight",
+        "starlight",
+        "product red"
+      ],
       "mainImage": "images/products/Iphon_SE_2020.png",
-      "gallery": ["images/products/Iphon_SE_2020.png", "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9", "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"],
+      "gallery": [
+        "images/products/Iphon_SE_2020.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
       "specs": {
         "cpu": "Apple A15 Bionic",
         "ram": "4 GB",
@@ -396,7 +434,11 @@
       "discount": 7,
       "stock": 35,
       "rate": 4,
-      "colors": ["black", "blue", "white"],
+      "colors": [
+        "black",
+        "blue",
+        "white"
+      ],
       "mainImage": "images/products/Xiaomi_Redmi_Note_13_Pro_Plus_5G.png",
       "gallery": [
         "images/products/Xiaomi_Redmi_Note_13_Pro_Plus_5G.png",
@@ -423,7 +465,11 @@
       "discount": 6,
       "stock": 28,
       "rate": 4,
-      "colors": ["purple", "black", "white"],
+      "colors": [
+        "purple",
+        "black",
+        "white"
+      ],
       "mainImage": "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
       "gallery": [
         "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
@@ -450,7 +496,10 @@
       "discount": 5,
       "stock": 40,
       "rate": 4,
-      "colors": ["black", "white"],
+      "colors": [
+        "black",
+        "white"
+      ],
       "mainImage": "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
       "gallery": [
         "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
@@ -477,7 +526,11 @@
       "discount": 10,
       "stock": 50,
       "rate": 3,
-      "colors": ["dark blue", "light blue", "silver"],
+      "colors": [
+        "dark blue",
+        "light blue",
+        "silver"
+      ],
       "mainImage": "images/products/Samsung_Galaxy_M14-removebg-preview.png",
       "gallery": [
         "images/products/Samsung_Galaxy_M14-removebg-preview.png",
@@ -504,9 +557,16 @@
       "discount": 12,
       "stock": 60,
       "rate": 3,
-      "colors": ["magic black", "variable gold"],
+      "colors": [
+        "magic black",
+        "variable gold"
+      ],
       "mainImage": "images/products/Infinix_Note_30_Pro.png",
-      "gallery": ["images/products/Infinix_Note_30_Pro.png", "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9", "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"],
+      "gallery": [
+        "images/products/Infinix_Note_30_Pro.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
       "specs": {
         "cpu": "MediaTek Helio G99",
         "ram": "8 GB",
@@ -527,9 +587,16 @@
       "discount": 15,
       "stock": 44,
       "rate": 3,
-      "colors": ["so grey", "so purple"],
+      "colors": [
+        "so grey",
+        "so purple"
+      ],
       "mainImage": "images/products/Nokia_G42.png",
-      "gallery": ["images/products/Nokia_G42.png", "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9", "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"],
+      "gallery": [
+        "images/products/Nokia_G42.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
       "specs": {
         "cpu": "Qualcomm Snapdragon 480+ 5G",
         "ram": "4 GB / 6 GB",
@@ -550,9 +617,16 @@
       "discount": 10,
       "stock": 38,
       "rate": 4,
-      "colors": ["serenity blue", "dark welkin"],
+      "colors": [
+        "serenity blue",
+        "dark welkin"
+      ],
       "mainImage": "images/products/Tecno_Camon_20_Premier_5G.png",
-      "gallery": ["images/products/Tecno_Camon_20_Premier_5G.png", "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9", "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"],
+      "gallery": [
+        "images/products/Tecno_Camon_20_Premier_5G.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
       "specs": {
         "cpu": "MediaTek Dimensity 8050",
         "ram": "8 GB",
@@ -573,9 +647,16 @@
       "discount": 7,
       "stock": 32,
       "rate": 4,
-      "colors": ["caneel bay", "black beauty"],
+      "colors": [
+        "caneel bay",
+        "black beauty"
+      ],
       "mainImage": "images/products/Motorola_Edge_40_Neo.png",
-      "gallery": ["images/products/Motorola_Edge_40_Neo.png", "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9", "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"],
+      "gallery": [
+        "images/products/Motorola_Edge_40_Neo.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
       "specs": {
         "cpu": "MediaTek Dimensity 7030",
         "ram": "8 GB / 12 GB",
@@ -596,9 +677,18 @@
       "discount": 3,
       "stock": 0,
       "rate": 5,
-      "colors": ["black titanium", "white titanium", "blue titanium", "natural titanium"],
+      "colors": [
+        "black titanium",
+        "white titanium",
+        "blue titanium",
+        "natural titanium"
+      ],
       "mainImage": "images/products/Iphone_15_pro_max.png",
-      "gallery": ["images/products/Iphone_15_pro_max.png", "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9", "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"],
+      "gallery": [
+        "images/products/Iphone_15_pro_max.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
       "specs": {
         "cpu": "Apple A17 Pro",
         "ram": "8 GB",
@@ -619,9 +709,18 @@
       "discount": 4,
       "stock": 20,
       "rate": 5,
-      "colors": ["titanium black", "titanium gray", "titanium violet", "titanium yellow"],
+      "colors": [
+        "titanium black",
+        "titanium gray",
+        "titanium violet",
+        "titanium yellow"
+      ],
       "mainImage": "images/products/Samsung_Galaxy_S24_Ultra.png",
-      "gallery": ["images/products/Samsung_Galaxy_S24_Ultra.png", "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9", "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"],
+      "gallery": [
+        "images/products/Samsung_Galaxy_S24_Ultra.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
       "specs": {
         "cpu": "Qualcomm Snapdragon 8 Gen 3",
         "ram": "12 GB",
@@ -642,9 +741,17 @@
       "discount": 2,
       "stock": 18,
       "rate": 4,
-      "colors": ["obsidian", "porcelain", "bay"],
+      "colors": [
+        "obsidian",
+        "porcelain",
+        "bay"
+      ],
       "mainImage": "images/products/Google_Pixel_8_Pro.png",
-      "gallery": ["images/products/Google_Pixel_8_Pro.png", "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9", "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"],
+      "gallery": [
+        "images/products/Google_Pixel_8_Pro.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
       "specs": {
         "cpu": "Google Tensor G3",
         "ram": "12 GB",
@@ -665,7 +772,10 @@
       "discount": 5,
       "stock": 25,
       "rate": 4,
-      "colors": ["flowy emerald", "silky black"],
+      "colors": [
+        "flowy emerald",
+        "silky black"
+      ],
       "mainImage": "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
       "gallery": [
         "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
@@ -692,9 +802,17 @@
       "discount": 3,
       "stock": 20,
       "rate": 5,
-      "colors": ["black", "white", "blue"],
+      "colors": [
+        "black",
+        "white",
+        "blue"
+      ],
       "mainImage": "images/products/Xiaomi_14_Ultra.png",
-      "gallery": ["images/products/Xiaomi_14_Ultra.png", "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9", "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"],
+      "gallery": [
+        "images/products/Xiaomi_14_Ultra.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
       "specs": {
         "cpu": "Qualcomm Snapdragon 8 Gen 3",
         "ram": "12 GB / 16 GB",
@@ -715,9 +833,17 @@
       "discount": 2,
       "stock": 0,
       "rate": 4,
-      "colors": ["black", "platinum silver", "khaki green"],
+      "colors": [
+        "black",
+        "platinum silver",
+        "khaki green"
+      ],
       "mainImage": "images/products/sony-xperia-1-vi.png",
-      "gallery": ["images/products/sony-xperia-1-vi.png", "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9", "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"],
+      "gallery": [
+        "images/products/sony-xperia-1-vi.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
       "specs": {
         "cpu": "Qualcomm Snapdragon 8 Gen 2",
         "ram": "12 GB",
@@ -738,9 +864,15 @@
       "discount": 4,
       "stock": 15,
       "rate": 5,
-      "colors": ["phantom black"],
+      "colors": [
+        "phantom black"
+      ],
       "mainImage": "images/products/Asus_ROG_Phone_8_Pro.png",
-      "gallery": ["images/products/Asus_ROG_Phone_8_Pro.png", "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9", "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"],
+      "gallery": [
+        "images/products/Asus_ROG_Phone_8_Pro.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
       "specs": {
         "cpu": "Qualcomm Snapdragon 8 Gen 3",
         "ram": "16 GB / 24 GB",
@@ -761,7 +893,10 @@
       "discount": 6,
       "stock": 18,
       "rate": 4,
-      "colors": ["rococo pearl", "black"],
+      "colors": [
+        "rococo pearl",
+        "black"
+      ],
       "mainImage": "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
       "gallery": [
         "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
@@ -788,9 +923,17 @@
       "discount": 5,
       "stock": 22,
       "rate": 4,
-      "colors": ["black", "green", "brown"],
+      "colors": [
+        "black",
+        "green",
+        "brown"
+      ],
       "mainImage": "images/products/Oppo_Find_X6_Pro.png",
-      "gallery": ["images/products/Oppo_Find_X6_Pro.png", "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9", "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"],
+      "gallery": [
+        "images/products/Oppo_Find_X6_Pro.png",
+        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
+        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
+      ],
       "specs": {
         "cpu": "Qualcomm Snapdragon 8 Gen 2",
         "ram": "12 GB / 16 GB",
@@ -811,7 +954,11 @@
       "discount": 4,
       "stock": 20,
       "rate": 4,
-      "colors": ["black", "white", "orange"],
+      "colors": [
+        "black",
+        "white",
+        "orange"
+      ],
       "mainImage": "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
       "gallery": [
         "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",

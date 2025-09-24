@@ -398,9 +398,13 @@ export default function Products() {
               <div>
                 <span>Thumbnail</span>
                 <Input onChange={handleImageChange} type="file" />
-                <div className="mt-5 border h-50 overflow-hidden p-3">
-                  {addForm.thumbnail ? <img src={addForm.preview} alt="" className=" w-full h-full object-contain" /> : <span>no Image upload</span>}
-                </div>
+                {addForm.thumbnail ? (
+                  <div className="mt-5 border size-50 overflow-hidden p-3 rounded-lg">
+                    <img src={addForm.preview} alt="" className=" block w-full h-full object-cover rounded-lg" />
+                  </div>
+                ) : (
+                  <span>no Image upload</span>
+                )}
               </div>
             </div>
 
@@ -559,89 +563,107 @@ export default function Products() {
           <h4 className="text-xl font-semibold capitalize mt-5">Sorting</h4>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-5">
-            <Select
-              value={query.sort}
-              onValueChange={value => {
-                setQuery(prev => ({ ...prev, sort: value }));
-              }}>
-              <SelectTrigger>
-                <SelectValue placeholder="sort by name" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="name-asc">A - Z</SelectItem>
-                <SelectItem value="name-desc">Z - A</SelectItem>
-              </SelectContent>
-            </Select>
+            <div>
+              <span>Alphabatic</span>
+              <Select
+                value={query.sort}
+                onValueChange={value => {
+                  setQuery(prev => ({ ...prev, sort: value }));
+                }}>
+                <SelectTrigger>
+                  <SelectValue placeholder="sort by name" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="name-asc">A - Z</SelectItem>
+                  <SelectItem value="name-desc">Z - A</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-            <Select
-              value={query.sort}
-              onValueChange={value => {
-                setQuery(prev => ({ ...prev, sort: value }));
-              }}>
-              <SelectTrigger>
-                <SelectValue placeholder="sort by price" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="price-asc">cheap to expense</SelectItem>
-                <SelectItem value="price-desc">expense to cheap</SelectItem>
-              </SelectContent>
-            </Select>
+            <div>
+              <span>Price</span>
+              <Select
+                value={query.sort}
+                onValueChange={value => {
+                  setQuery(prev => ({ ...prev, sort: value }));
+                }}>
+                <SelectTrigger>
+                  <SelectValue placeholder="sort by price" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="price-asc">cheap to expense</SelectItem>
+                  <SelectItem value="price-desc">expense to cheap</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-            <Select
-              value={query.sort}
-              onValueChange={value => {
-                setQuery(prev => ({ ...prev, sort: value }));
-              }}>
-              <SelectTrigger>
-                <SelectValue placeholder="sort by created at" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="date-asc">oldest first</SelectItem>
-                <SelectItem value="date-desc">newest first</SelectItem>
-              </SelectContent>
-            </Select>
+            <div>
+              <span>Created At</span>
+              <Select
+                value={query.sort}
+                onValueChange={value => {
+                  setQuery(prev => ({ ...prev, sort: value }));
+                }}>
+                <SelectTrigger>
+                  <SelectValue placeholder="sort by created at" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="date-asc">oldest first</SelectItem>
+                  <SelectItem value="date-desc">newest first</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-            <Select
-              value={query.sort}
-              onValueChange={value => {
-                setQuery(prev => ({ ...prev, sort: value }));
-              }}>
-              <SelectTrigger>
-                <SelectValue placeholder="sort by stock" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="stock-asc">low to high</SelectItem>
-                <SelectItem value="stock-desc">hight to low</SelectItem>
-              </SelectContent>
-            </Select>
+            <div>
+              <span>Stock</span>
+              <Select
+                value={query.sort}
+                onValueChange={value => {
+                  setQuery(prev => ({ ...prev, sort: value }));
+                }}>
+                <SelectTrigger>
+                  <SelectValue placeholder="sort by stock" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="stock-asc">low to high</SelectItem>
+                  <SelectItem value="stock-desc">hight to low</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-            <Select
-              value={query.sort}
-              onValueChange={value => {
-                setQuery(prev => ({ ...prev, sort: value }));
-              }}>
-              <SelectTrigger>
-                <SelectValue placeholder="sort by discount" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="discount-asc">lowest discount</SelectItem>
-                <SelectItem value="discount-desc">highest discount</SelectItem>
-              </SelectContent>
-            </Select>
+            <div>
+              <span>Discount</span>
+              <Select
+                value={query.sort}
+                onValueChange={value => {
+                  setQuery(prev => ({ ...prev, sort: value }));
+                }}>
+                <SelectTrigger>
+                  <SelectValue placeholder="sort by discount" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="discount-asc">lowest discount</SelectItem>
+                  <SelectItem value="discount-desc">highest discount</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-            <Select
-              value={query.sort}
-              onValueChange={value => {
-                setQuery(prev => ({ ...prev, sort: value }));
-              }}>
-              <SelectTrigger>
-                <SelectValue placeholder="sort by rate" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="rate-asc">lowest rated</SelectItem>
-                <SelectItem value="rate-desc">highest rated</SelectItem>
-              </SelectContent>
-            </Select>
+            <div>
+              Rate
+              <Select
+                value={query.sort}
+                onValueChange={value => {
+                  setQuery(prev => ({ ...prev, sort: value }));
+                }}>
+                <SelectTrigger>
+                  <SelectValue placeholder="sort by rate" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="rate-asc">lowest rated</SelectItem>
+                  <SelectItem value="rate-desc">highest rated</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </div>
 

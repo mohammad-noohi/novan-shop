@@ -1,4 +1,5 @@
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
+import { AnimatePresence, motion } from "framer-motion"; // eslint-disable-line
 import { CircleCheckBig, CircleX } from "lucide-react";
 import { Toaster } from "sonner";
 import { useState } from "react";
@@ -7,6 +8,7 @@ import Sidebar from "../../../components/Dashboard/Sidebar";
 
 export default function AdminLayout() {
   const [collapsedLayout, setCollapsedLayout] = useState(true);
+  const location = useLocation(); // just for motion
 
   function toggleLayout() {
     setCollapsedLayout(prev => !prev);
@@ -24,9 +26,17 @@ export default function AdminLayout() {
 
           {/* Main content اسکرول شود */}
           <main className="flex flex-1 flex-col overflow-auto">
-            <article className="flex-1">
-              <Outlet />
-            </article>
+            <AnimatePresence mode="wait">
+              <motion.article
+                key={location.pathname}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                // exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="flex-1">
+                <Outlet />
+              </motion.article>
+            </AnimatePresence>
           </main>
         </div>
       </div>
