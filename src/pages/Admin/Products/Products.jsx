@@ -16,17 +16,21 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Textarea } from "@/components/ui/textarea";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import FileSearchIllustration from "@/components/Illustrations/FileSearchIllustration";
 import { toast } from "sonner";
 import { useCartContext } from "@/contexts/CartContext/useCartContext";
 import DeleteModal from "@/components/DeleteModal";
 import ViewModal from "@/components/Dashboard/ViewModal";
+import EditModal from "@/components/Dashboard/EditModal";
+import AddProductForm from "@/components/Dashboard/AddProductForm";
+import EditProductForm from "@/components/Dashboard/EditProductForm";
 
 export default function Products() {
   const { products, getAllProducts } = useCartContext();
   const [showDeleteProductModal, setShowDeleteProductModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   let pages = null;
 
@@ -44,30 +48,6 @@ export default function Products() {
       page: 1,
       perPages: 10,
     },
-  });
-  // for handle add product form inputs
-  const [addForm, setAddForm] = useState({
-    loading: false,
-    title: "",
-    category: "",
-    brand: "",
-    price: "",
-    discount: "",
-    stock: "",
-    caption: "",
-    thumbnail: null,
-    preview: "",
-  });
-
-  // to show error msg in add product form
-  const [addErrors, setAddErrors] = useState({
-    title: "",
-    category: "",
-    brand: "",
-    price: "",
-    discount: "",
-    stock: "",
-    // file is optional so we don't need error for that
   });
 
   // Derived States
@@ -100,124 +80,8 @@ export default function Products() {
       return { ...prev, pagination: { ...prev.pagination, page: num } };
     });
   }
-  /*------------------ Add Product Form Functions  ------------------*/
-  function validateAddForm() {
-    let errors = {};
 
-    if (!addForm.title.trim()) {
-      errors.title = "title can't be empty";
-    } else if (products.some(p => p.title.toLowerCase() === addForm.title.toLowerCase())) {
-      errors.title = "this product already exists";
-    }
-
-    if (!addForm.category.trim()) errors.category = "category can't be empty";
-    if (!addForm.brand.trim()) errors.brand = "brand can't be empty";
-    if (!addForm.price) errors.price = "price can't be empty";
-    if (addForm.price < 0) errors.price = "price must be atleast 0 (free)";
-    if (addForm.discount < 0 || addForm.discount > 100) errors.discount = "discount must be from 0 to 100";
-    if (!addForm.stock) errors.stock = "stock can't be empty";
-    if (addForm.stock <= 0) errors.stock = "stock must be atleast 1";
-
-    setAddErrors(errors);
-
-    return Object.keys(errors).length === 0; // true => valid form , false => invalid form
-  }
-
-  function resetAddForm() {
-    setAddForm({
-      loading: false,
-      title: "",
-      category: "",
-      brand: "",
-      price: "",
-      discount: "",
-      stock: "",
-      rate: "",
-      caption: "",
-      thumbnail: null,
-      preview: "",
-      base64: "",
-    });
-
-    setAddErrors({
-      title: "",
-      category: "",
-      brand: "",
-      price: "",
-      discount: "",
-      stock: "",
-    });
-  }
-
-  function handleImageChange(e) {
-    e.preventDefault();
-
-    const selectedFile = e.target.files[0];
-    if (!selectedFile) return;
-
-    setAddForm(prev => ({ ...prev, thumbnail: selectedFile }));
-    // create preview file
-    const temporaryURL = URL.createObjectURL(selectedFile);
-    setAddForm(prev => ({ ...prev, preview: temporaryURL }));
-
-    // convert image to base64 because our api is json-server but in real server we don't need this convert
-    const reader = new FileReader();
-    reader.readAsDataURL(selectedFile);
-    reader.onloadend = () => {
-      setAddForm(prev => ({ ...prev, base64: reader.result }));
-    };
-  }
-
-  function addFormSubmitHandler(e) {
-    e.preventDefault();
-    const isFormValid = validateAddForm();
-    if (isFormValid) {
-      addNewProduct();
-    } else {
-      toast.error("check form errors");
-    }
-  }
-
-  /*------------------ CRUD Product Actions ------------------*/
-  async function addNewProduct() {
-    // In real API use FormData Object to send data
-    const newProduct = {
-      title: addForm.title.trim(),
-      category: addForm.category.trim(),
-      brand: addForm.brand.trim(),
-      price: addForm.price,
-      discount: addForm.discount,
-      stock: addForm.stock,
-      rate: 5,
-      caption: addForm.caption.trim(),
-      createdAt: new Date().toISOString(),
-      mainImage: addForm.base64,
-    };
-
-    try {
-      const resp = await fetch(`http://localhost:3000/products`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newProduct),
-      });
-      // status ==> 201 ==> create status
-      if (resp.status === 201) {
-        toast.success("product add successfully");
-        resetAddForm();
-        // بعد از اضافه کردن محصول یه بار باید محصولات رو اپدیت کرد
-        await getAllProducts();
-      }
-    } catch (err) {
-      toast.error("Something went wrong , Please try again");
-      throw err;
-    }
-  }
-
-  // view product => modal
-  // edit product => modal
-  // delete product => after confirm modal
+  /*------------------ CRUD ------------------*/
 
   async function deleteProduct() {
     if (!selectedProduct) return;
@@ -312,135 +176,13 @@ export default function Products() {
     return result;
   }
 
-  /*-------------- Effects --------------*/
-  // صرفا یه هشدار به کسی که داره برنامه رو تست میکنه
-  useEffect(() => {
-    toast.info("چون سرور به صورت جیسون-سرور هست برای یه اپلود واقعی از بیس ۶۴ استفاده کردم و ترجیجا برای اینکه دیتابیس سنگین نشه عکسی رو اپلود نکنید یا حداقل یه بار امتحان کنید");
-  }, []);
-
   return (
     <div className="min-h-screen bg-slate-100 dark:bg-app-dark p-5">
       <h2 className="text-2xl font-bold">Products</h2>
       <p className="text-slate-500">Manage your products as you wish!</p>
 
       <div className="mt-10">
-        {/* Product Form */}
-        <div className="bg-white dark:bg-suface-dark border border-slate-200 dark:border-slate-800 p-5 rounded-lg">
-          <h4 className="text-xl font-semibold capitalize">add product</h4>
-          <form onSubmit={addFormSubmitHandler} className="mt-5">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              <div>
-                <span>Title</span>
-                <Input
-                  value={addForm.title}
-                  onChange={e => {
-                    setAddForm(prev => ({ ...prev, title: e.target.value }));
-                  }}
-                  type="text"
-                />
-                {addErrors.title ? <span className="text-red-500 text-sm">{addErrors.title}</span> : null}
-              </div>
-              <div>
-                <span>Category</span>
-                <Input
-                  value={addForm.category}
-                  onChange={e => {
-                    setAddForm(prev => ({ ...prev, category: e.target.value }));
-                  }}
-                  type="text"
-                  list="cateogries"
-                />
-                {addErrors.category ? <span className="text-red-500 text-sm">{addErrors.category}</span> : null}
-
-                <datalist id="cateogries">
-                  {categoryItems.map(category => (
-                    <option key={`${category}-option`} value={category}>
-                      {category}
-                    </option>
-                  ))}
-                </datalist>
-              </div>
-              <div>
-                <span>Brand</span>
-                <Input
-                  value={addForm.brand}
-                  onChange={e => {
-                    setAddForm(prev => ({ ...prev, brand: e.target.value }));
-                  }}
-                  type="text"
-                  list="brands"
-                />
-                {addErrors.brand ? <span className="text-red-500 text-sm">{addErrors.brand}</span> : null}
-
-                <datalist id="brands">
-                  {brandItems.map(brand => (
-                    <option key={`${brand}-option`} value={brand}>
-                      {brand}
-                    </option>
-                  ))}
-                </datalist>
-              </div>
-              <div>
-                <span>Price</span>
-                <Input
-                  value={addForm.price}
-                  onChange={e => {
-                    setAddForm(prev => ({ ...prev, price: Number(e.target.value) }));
-                  }}
-                  type="number"
-                  min={1}
-                />
-                {addErrors.price ? <span className="text-red-500 text-sm">{addErrors.price}</span> : null}
-              </div>
-              <div>
-                <span>Discount</span>
-                <Input
-                  value={addForm.discount}
-                  onChange={e => {
-                    setAddForm(prev => ({ ...prev, discount: Number(e.target.value) }));
-                  }}
-                  type="number"
-                  min={0}
-                  max={100}
-                  placeholder="from 0 to 100 percent"
-                />
-                {addErrors.discount ? <span className="text-red-500 text-sm">{addErrors.discount}</span> : null}
-              </div>
-              <div>
-                <span>Stock</span>
-                <Input
-                  value={addForm.stock}
-                  onChange={e => {
-                    setAddForm(prev => ({ ...prev, stock: Number(e.target.value) }));
-                  }}
-                  type="number"
-                  min={1}
-                  placeholder="minimum 1 unit"
-                />
-                {addErrors.stock ? <span className="text-red-500 text-sm">{addErrors.stock}</span> : null}
-              </div>
-              <div className="col-start-1 col-end-3">
-                <span>Caption</span>
-                <Textarea value={addForm.caption} onChange={e => setAddForm(prev => ({ ...prev, caption: e.target.value }))} rows={8} placeholder="Type your caption here." />
-              </div>
-              <div>
-                <span>Thumbnail</span>
-                <Input onChange={handleImageChange} type="file" />
-                {addForm.thumbnail ? (
-                  <div className="mt-5 border size-50 overflow-hidden p-3 rounded-lg">
-                    <img src={addForm.preview} alt="" className=" block w-full h-full object-cover rounded-lg" />
-                  </div>
-                ) : (
-                  <span>no Image upload</span>
-                )}
-              </div>
-            </div>
-
-            <button className="py-1 px-4 mt-5 bg-slate-500 dark:bg-slate-700 dark:hover:bg-slate-600 rounded-lg text-lg capitalize cursor-pointer hover:bg-slate-600 text-white transition-colors">
-              add product
-            </button>
-          </form>
-        </div>
+        <AddProductForm />
 
         {/* Toolbar Section*/}
         <div className="bg-white dark:bg-suface-dark border border-slate-200 dark:border-slate-800 mt-10 p-5 rounded-lg">
@@ -801,7 +543,11 @@ export default function Products() {
                                 <Eye className="size-4" />
                                 <span>view</span>
                               </DropdownMenuItem>
-                              <DropdownMenuItem>
+                              <DropdownMenuItem
+                                onClick={() => {
+                                  setShowEditModal(true);
+                                  setSelectedProduct(p);
+                                }}>
                                 <Pencil className="size-4" />
                                 <span>edit</span>
                               </DropdownMenuItem>
@@ -861,6 +607,7 @@ export default function Products() {
           )}
         </div>
       </div>
+
       <DeleteModal show={showDeleteProductModal} onClose={() => setShowDeleteProductModal(false)} confirmText="delete" text="Are you sure you want to delete the product?" onConfirm={deleteProduct} />
 
       <ViewModal show={showViewModal} onClose={() => setShowViewModal(false)}>
@@ -926,6 +673,10 @@ export default function Products() {
           </div>
         </div>
       </ViewModal>
+
+      <EditModal show={showEditModal} onClose={() => setShowEditModal(false)}>
+        <EditProductForm selectedProduct={selectedProduct} setShowEditModal={setShowEditModal} />
+      </EditModal>
     </div>
   );
 }

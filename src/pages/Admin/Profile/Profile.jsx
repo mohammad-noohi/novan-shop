@@ -17,6 +17,7 @@ export default function Profile() {
     email: user.email,
     profile: null,
   });
+
   const [editFormErrors, setEditFormErrors] = useState({
     firstname: "",
     lastname: "",
@@ -31,20 +32,21 @@ export default function Profile() {
     if (!f) return;
 
     // validate file before convert
-    const validTypes = ["image/jpg", "image/png"];
+    const validTypes = ["image/jpg", "image/jpeg", "image/png", "image/webp"];
     if (!validTypes.includes(f.type)) {
-      setEditFormErrors(prev => ({ ...prev, profile: "File must be JPG or PNG" }));
+      setEditFormErrors(prev => ({ ...prev, profile: "File must be JPG/JPEG or PNG" }));
       return;
     }
 
     if (f.size > 5 * 1024 * 1024) {
-      setEditFormErrors(prev => ({ ...prev, profile: "File must be less thant 5 MB" }));
+      setEditFormErrors(prev => ({ ...prev, profile: "File must be less thant 5MB" }));
       return;
     }
 
     // Because I use json-server must convert the file to base64
     const reader = new FileReader();
     reader.onloadend = () => {
+      // reader.result => base64 string
       setEditForm(prev => ({ ...prev, profile: reader.result }));
       setPreview(reader.result);
     };
@@ -96,6 +98,7 @@ export default function Profile() {
     }
 
     try {
+      setEditForm(prev => ({ ...prev, loading: true }));
       const resp = await fetch(`http://localhost:3000/users/${user.id}`, {
         method: "PATCH",
         headers: {
@@ -132,6 +135,8 @@ export default function Profile() {
       toast.success("User info changed successfully");
     } catch (err) {
       toast.error(err.message);
+    } finally {
+      setEditForm(prev => ({ ...prev, loading: false }));
     }
   }
 
@@ -245,7 +250,7 @@ export default function Profile() {
                 </div>
 
                 <button className="py-1 w-full sm:w-auto px-4 text-lg capitalize rounded-lg bg-slate-200 hover:bg-slate-300 transition-colors cursor-pointer dark:bg-slate-700 dark:hover:bg-slate-600">
-                  Save
+                  {editForm.loading ? "editing..." : "save"}
                 </button>
               </div>
             </form>

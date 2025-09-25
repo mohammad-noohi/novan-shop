@@ -158,12 +158,12 @@
   "products": [
     {
       "id": 101,
-      "title": "Apple MacBook Pro 16 M2 Pro",
+      "title": "Apple MacBook Pro 16 M1 Pro",
       "category": "laptop",
       "brand": "Apple",
-      "price": 1199234,
-      "discount": 5,
-      "stock": 20,
+      "price": 3200,
+      "discount": "20",
+      "stock": "20",
       "rate": 1,
       "colors": [
         "space gray",
@@ -191,7 +191,7 @@
       "title": "Dell XPS 15 9520",
       "category": "laptop",
       "brand": "Dell",
-      "price": 899,
+      "price": 1200,
       "discount": 10,
       "stock": 12,
       "rate": 4,
@@ -221,7 +221,7 @@
       "title": "HP Spectre x360 16",
       "category": "laptop",
       "brand": "HP",
-      "price": 799,
+      "price": 899,
       "discount": 12,
       "stock": 5,
       "rate": 3,
@@ -428,7 +428,7 @@
     },
     {
       "id": 213,
-      "title": "Xiaomi Redmi Note 13 Pro+ 5G",
+      "title": "Xiaomi Redmi Note 14 Pro+ 5G",
       "category": "smartphone",
       "brand": "Xiaomi",
       "price": 12990000,
@@ -976,6 +976,31 @@
         "os": "Android 14, FuntouchOS"
       },
       "caption": "Zeiss-powered flagship with Dimensity 9300 processor."
+    },
+    {
+      "title": "Dolores ex ex in seq",
+      "category": "Maxime tempor itaque",
+      "brand": "Qui et modi nihil ab",
+      "price": 68,
+      "discount": 65,
+      "stock": 8,
+      "rate": 5,
+      "caption": "Anim officia at nobi",
+      "createdAt": "2025-09-25T16:26:52.311Z",
+      "id": 221
+    },
+    {
+      "title": "Voluptas dolorum mai",
+      "category": "Iure eligendi quia e",
+      "brand": "Omnis perferendis ev",
+      "price": 98,
+      "discount": 17,
+      "stock": 10,
+      "rate": 5,
+      "caption": "Provident ea provid",
+      "createdAt": "2025-09-25T16:27:54.193Z",
+      "mainImage": "",
+      "id": 222
     }
   ],
   "carts": [
