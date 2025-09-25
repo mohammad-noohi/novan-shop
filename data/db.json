@@ -162,12 +162,11 @@
       "category": "laptop",
       "brand": "Apple",
       "price": 3200,
-      "discount": "20",
-      "stock": "20",
+      "discount": 23,
+      "stock": 20,
       "rate": 1,
       "colors": [
-        "space gray",
-        "silver"
+        "#1F2937"
       ],
       "mainImage": "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
       "gallery": [
@@ -196,8 +195,8 @@
       "stock": 12,
       "rate": 4,
       "colors": [
-        "silver",
-        "black"
+        "#F59E0B",
+        "#10B981"
       ],
       "mainImage": "https://images.unsplash.com/photo-1621635186925-7d07c0f7d01c",
       "gallery": [
@@ -226,8 +225,9 @@
       "stock": 5,
       "rate": 3,
       "colors": [
-        "nightfall black",
-        "poseidon blue"
+        "#3B82F6",
+        "#9333EA",
+        "#F87171"
       ],
       "mainImage": "images/products/hp-spectre-x360-16.png",
       "gallery": [
@@ -256,7 +256,10 @@
       "stock": 8,
       "rate": 3,
       "colors": [
-        "black"
+        "#6B7280",
+        "#EF4444",
+        "#F59E0B",
+        "#10B981"
       ],
       "mainImage": "images/products/Lenovo-ThinkPad-X1-Carbon-Gen-11.png",
       "gallery": [
@@ -285,8 +288,7 @@
       "stock": 4,
       "rate": 2,
       "colors": [
-        "moonlight white",
-        "esports black"
+        "#2563EB"
       ],
       "mainImage": "images/products/Asus-ROG-Zephyrus-G14.png",
       "gallery": [
@@ -315,7 +317,8 @@
       "stock": 19,
       "rate": 5,
       "colors": [
-        "carbon gray"
+        "#E11D48",
+        "#14B8A6"
       ],
       "mainImage": "images/products/MSI-Creator-Z16.png",
       "gallery": [
@@ -344,7 +347,9 @@
       "stock": 18,
       "rate": 1,
       "colors": [
-        "black"
+        "#D97706",
+        "#6D28D9",
+        "#0EA5E9"
       ],
       "mainImage": "https://images.unsplash.com/photo-1625567892123-3c4d5e0f6f7g",
       "gallery": [
@@ -373,10 +378,10 @@
       "stock": 29,
       "rate": 4,
       "colors": [
-        "lime",
-        "graphite",
-        "violet",
-        "white"
+        "#1E3A8A",
+        "#475569",
+        "#FBBF24",
+        "#84CC16"
       ],
       "mainImage": "images/products/Galaxy-A54-5g.png",
       "gallery": [
@@ -405,9 +410,7 @@
       "stock": 25,
       "rate": 4,
       "colors": [
-        "midnight",
-        "starlight",
-        "product red"
+        "#DC2626"
       ],
       "mainImage": "images/products/Iphon_SE_2020.png",
       "gallery": [
@@ -436,9 +439,8 @@
       "stock": 35,
       "rate": 4,
       "colors": [
-        "black",
-        "blue",
-        "white"
+        "#4ADE80",
+        "#A78BFA"
       ],
       "mainImage": "images/products/Xiaomi_Redmi_Note_13_Pro_Plus_5G.png",
       "gallery": [
@@ -467,9 +469,9 @@
       "stock": 28,
       "rate": 4,
       "colors": [
-        "purple",
-        "black",
-        "white"
+        "#F472B6",
+        "#FACC15",
+        "#22D3EE"
       ],
       "mainImage": "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
       "gallery": [
@@ -498,8 +500,10 @@
       "stock": 40,
       "rate": 4,
       "colors": [
-        "black",
-        "white"
+        "#0F172A",
+        "#9CA3AF",
+        "#F97316",
+        "#34D399"
       ],
       "mainImage": "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
       "gallery": [
@@ -528,9 +532,7 @@
       "stock": 50,
       "rate": 3,
       "colors": [
-        "dark blue",
-        "light blue",
-        "silver"
+        "#2563EB"
       ],
       "mainImage": "images/products/Samsung_Galaxy_M14-removebg-preview.png",
       "gallery": [
@@ -559,8 +561,8 @@
       "stock": 60,
       "rate": 3,
       "colors": [
-        "magic black",
-        "variable gold"
+        "#F43F5E",
+        "#06B6D4"
       ],
       "mainImage": "images/products/Infinix_Note_30_Pro.png",
       "gallery": [
@@ -589,8 +591,9 @@
       "stock": 44,
       "rate": 3,
       "colors": [
-        "so grey",
-        "so purple"
+        "#EAB308",
+        "#EC4899",
+        "#8B5CF6"
       ],
       "mainImage": "images/products/Nokia_G42.png",
       "gallery": [
@@ -619,8 +622,10 @@
       "stock": 38,
       "rate": 4,
       "colors": [
-        "serenity blue",
-        "dark welkin"
+        "#047857",
+        "#FCD34D",
+        "#1E40AF",
+        "#991B1B"
       ],
       "mainImage": "images/products/Tecno_Camon_20_Premier_5G.png",
       "gallery": [
@@ -649,8 +654,7 @@
       "stock": 32,
       "rate": 4,
       "colors": [
-        "caneel bay",
-        "black beauty"
+        "#9CA3AF"
       ],
       "mainImage": "images/products/Motorola_Edge_40_Neo.png",
       "gallery": [
@@ -679,10 +683,8 @@
       "stock": 0,
       "rate": 5,
       "colors": [
-        "black titanium",
-        "white titanium",
-        "blue titanium",
-        "natural titanium"
+        "#38BDF8",
+        "#FB923C"
       ],
       "mainImage": "images/products/Iphone_15_pro_max.png",
       "gallery": [
@@ -711,10 +713,9 @@
       "stock": 20,
       "rate": 5,
       "colors": [
-        "titanium black",
-        "titanium gray",
-        "titanium violet",
-        "titanium yellow"
+        "#A3E635",
+        "#C084FC",
+        "#F87171"
       ],
       "mainImage": "images/products/Samsung_Galaxy_S24_Ultra.png",
       "gallery": [
@@ -743,9 +744,10 @@
       "stock": 18,
       "rate": 4,
       "colors": [
-        "obsidian",
-        "porcelain",
-        "bay"
+        "#0D9488",
+        "#F59E0B",
+        "#3B82F6",
+        "#DC2626"
       ],
       "mainImage": "images/products/Google_Pixel_8_Pro.png",
       "gallery": [
@@ -774,8 +776,7 @@
       "stock": 25,
       "rate": 4,
       "colors": [
-        "flowy emerald",
-        "silky black"
+        "#1E293B"
       ],
       "mainImage": "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
       "gallery": [
@@ -804,9 +805,8 @@
       "stock": 20,
       "rate": 5,
       "colors": [
-        "black",
-        "white",
-        "blue"
+        "#60A5FA",
+        "#F472B6"
       ],
       "mainImage": "images/products/Xiaomi_14_Ultra.png",
       "gallery": [
@@ -835,9 +835,9 @@
       "stock": 0,
       "rate": 4,
       "colors": [
-        "black",
-        "platinum silver",
-        "khaki green"
+        "#22C55E",
+        "#FACC15",
+        "#3B82F6"
       ],
       "mainImage": "images/products/sony-xperia-1-vi.png",
       "gallery": [
@@ -866,7 +866,10 @@
       "stock": 15,
       "rate": 5,
       "colors": [
-        "phantom black"
+        "#7C3AED",
+        "#FBBF24",
+        "#EF4444",
+        "#2DD4BF"
       ],
       "mainImage": "images/products/Asus_ROG_Phone_8_Pro.png",
       "gallery": [
@@ -895,8 +898,7 @@
       "stock": 18,
       "rate": 4,
       "colors": [
-        "rococo pearl",
-        "black"
+        "#334155"
       ],
       "mainImage": "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
       "gallery": [
@@ -925,9 +927,8 @@
       "stock": 22,
       "rate": 4,
       "colors": [
-        "black",
-        "green",
-        "brown"
+        "#FB7185",
+        "#4ADE80"
       ],
       "mainImage": "images/products/Oppo_Find_X6_Pro.png",
       "gallery": [
@@ -956,9 +957,9 @@
       "stock": 20,
       "rate": 4,
       "colors": [
-        "black",
-        "white",
-        "orange"
+        "#C084FC",
+        "#FCD34D",
+        "#60A5FA"
       ],
       "mainImage": "https://images.unsplash.com/photo-1612831455543-2e348c0f04b8",
       "gallery": [

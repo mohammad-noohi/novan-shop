@@ -113,18 +113,18 @@ export default function Products() {
 
     // search in title and description
     if (query.search.trim()) {
-      const term = query.search.toLowerCase();
+      const term = query.search.toLowerCase().trim();
       result = result.filter(p => p.title.toLowerCase().includes(term) || p.caption?.toLowerCase().includes(term));
     }
 
     // category filter
     if (query.filters.category !== "all") {
-      result = result.filter(p => p.category === query.filters.category);
+      result = result.filter(p => p.category.toLowerCase() === query.filters.category.toLowerCase());
     }
 
     // brand filter
     if (query.filters.brand !== "all") {
-      result = result.filter(p => p.brand === query.filters.brand);
+      result = result.filter(p => p.brand.toLowerCase() === query.filters.brand.toLowerCase());
     }
 
     // stock filter
@@ -630,15 +630,16 @@ export default function Products() {
                 <li>Discount: {selectedProduct?.discount}%</li>
                 <li>Stock: {selectedProduct?.stock}</li>
                 <li>Rate: {selectedProduct?.rate}</li>
-                <li className="flex items-center gap-3">
-                  Colors:
-                  <ul className="flex items-center gap-2">
-                    <li className="size-6 ring ring-offset-2 ring-slate-300 bg-blue-500 rounded-full"></li>
-                    <li className="size-6 ring ring-offset-2 ring-slate-300 bg-red-500 rounded-full"></li>
-                    <li className="size-6 ring ring-offset-2 ring-slate-300 bg-green-500 rounded-full"></li>
-                    <li className="size-6 ring ring-offset-2 ring-slate-300 bg-amber-500 rounded-full"></li>
-                  </ul>
-                </li>
+                {selectedProduct?.colors.length !== 0 ? (
+                  <li className="flex items-center gap-3">
+                    Colors:
+                    <ul className="flex items-center gap-2">
+                      {selectedProduct?.colors.map(color => (
+                        <li className="size-6 ring ring-offset-2 ring-slate-300 rounded-full" style={{ backgroundColor: color }}></li>
+                      ))}
+                    </ul>
+                  </li>
+                ) : null}
               </ul>
             </div>
           </div>
