@@ -34,6 +34,7 @@ export default function Products() {
   const [showViewModal, setShowViewModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+
   let pages = null;
 
   const [query, setQuery] = useState({
@@ -177,6 +178,8 @@ export default function Products() {
 
     return result;
   }
+
+  const processedProducts = visibleProducts();
 
   return (
     <div className="min-h-screen bg-slate-100 dark:bg-app-dark p-5">
@@ -491,7 +494,7 @@ export default function Products() {
           </div>
 
           {/* table */}
-          {visibleProducts().length ? (
+          {processedProducts.length ? (
             <>
               <div className="overflow-x-auto">
                 {/* products table */}
@@ -511,7 +514,7 @@ export default function Products() {
                     </tr>
                   </thead>
                   <tbody className="*:even:bg-slate-50 dark:*:even:bg-slate-900 *:transition-colors *:hover:bg-slate-100 dark:*:hover:bg-slate-800">
-                    {visibleProducts().map(p => (
+                    {processedProducts.map(p => (
                       <tr key={p.id} className="*:border *:p-2 *:border-slate-200 dark:*:border-slate-700 ">
                         <td>{p.id}</td>
                         <td>
@@ -637,29 +640,31 @@ export default function Products() {
             <p className="text-slate-500 mt-2">{selectedProduct?.caption}</p>
           </div>
 
-          <div className="overflow-x-auto mt-5">
-            <h4 className="capitalize lgt:text-xl font-semibold">Specifications:</h4>
-            <table className="bg-white dark:bg-app-dark text-nowrap w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
-              <thead>
-                <tr className="*:border *:border-slate-200 dark:*:border-slate-700 *:uppercase *:p-3 bg-slate-50 dark:bg-slate-900">
-                  {Object.keys(selectedProduct?.specs || {}).map(key => (
-                    <th className="text-sm" key={key}>
-                      {key}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="*:even:bg-slate-50 dark:*:even:bg-slate-900 *:transition-colors *:hover:bg-slate-100 dark:*:hover:bg-slate-800">
-                <tr className="*:border *:p-2 *:border-slate-200 dark:*:border-slate-700 ">
-                  {Object.values(selectedProduct?.specs || {}).map(value => (
-                    <td className="text-sm lg:text-base" key={value}>
-                      {value}
-                    </td>
-                  ))}
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          {selectedProduct?.specs.length > 0 ? (
+            <div className="overflow-x-auto mt-5">
+              <h4 className="capitalize lgt:text-xl font-semibold">Specifications:</h4>
+              <table className="bg-white dark:bg-app-dark text-nowrap w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
+                <thead>
+                  <tr className="*:border *:border-slate-200 dark:*:border-slate-700 *:uppercase *:p-3 bg-slate-50 dark:bg-slate-900">
+                    {Object.keys(selectedProduct?.specs || {}).map(key => (
+                      <th className="text-sm" key={key}>
+                        {key}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="*:even:bg-slate-50 dark:*:even:bg-slate-900 *:transition-colors *:hover:bg-slate-100 dark:*:hover:bg-slate-800">
+                  <tr className="*:border *:p-2 *:border-slate-200 dark:*:border-slate-700 ">
+                    {Object.values(selectedProduct?.specs || {}).map(value => (
+                      <td className="text-sm lg:text-base" key={value}>
+                        {value}
+                      </td>
+                    ))}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          ) : null}
         </div>
       </ViewModal>
 

@@ -1,6 +1,6 @@
 import { X } from "lucide-react";
 import CartDrawerProduct from "./CartDrawerProduct";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "motion/react"; // eslint-disable-line
@@ -9,6 +9,7 @@ import { useCartContext } from "../contexts/CartContext/useCartContext";
 export default function CartDrawer({ show, onClose }) {
   const navigate = useNavigate();
   const { products, cart } = useCartContext();
+  const overlayRef = useRef(null);
 
   const cartProducts = cart.map(item => {
     const product = products.find(p => p.id === item.productId);
@@ -63,12 +64,19 @@ export default function CartDrawer({ show, onClose }) {
       document.body.style.paddingRight = ``;
     };
   }, [show]);
+
+  function handleCloseByOverlay(e) {
+    if (overlayRef.current && overlayRef.current === e.target) {
+      onClose();
+    }
+  }
+
   /*-------------- JSX --------------*/
 
   return createPortal(
     <AnimatePresence>
       {show && (
-        <div onClick={onClose} className="fixed inset-0 min-w-screen min-h-screen bg-black/50 backdrop-blur-xs flex items-center justify-center z-10">
+        <div ref={overlayRef} onClick={handleCloseByOverlay} className="fixed inset-0 min-w-screen min-h-screen bg-black/50 backdrop-blur-xs flex items-center justify-center z-10">
           <motion.div
             key="cart-drawer"
             initial={{ x: "-100%" }}

@@ -430,36 +430,6 @@
       "caption": "Budget-friendly iPhone with flagship-level performance."
     },
     {
-      "id": 213,
-      "title": "Xiaomi Redmi Note 14 Pro+ 5G",
-      "category": "smartphone",
-      "brand": "Xiaomi",
-      "price": 12990000,
-      "discount": 7,
-      "stock": 35,
-      "rate": 4,
-      "colors": [
-        "#4ADE80",
-        "#A78BFA"
-      ],
-      "mainImage": "images/products/Xiaomi_Redmi_Note_13_Pro_Plus_5G.png",
-      "gallery": [
-        "images/products/Xiaomi_Redmi_Note_13_Pro_Plus_5G.png",
-        "https://images.unsplash.com/photo-1612831455544-2e348c0f04b9",
-        "https://images.unsplash.com/photo-1612831455545-2e348c0f04ba"
-      ],
-      "specs": {
-        "cpu": "MediaTek Dimensity 7200-Ultra",
-        "ram": "8 GB / 12 GB",
-        "storage": "128 GB / 256 GB / 512 GB",
-        "display": "6.67-inch AMOLED, 120Hz",
-        "camera": "200MP + 8MP + 2MP",
-        "battery": "5000 mAh",
-        "os": "Android 13, MIUI"
-      },
-      "caption": "Affordable mid-ranger with 200MP flagship camera."
-    },
-    {
       "id": 214,
       "title": "Realme GT Neo 5",
       "category": "smartphone",
@@ -979,28 +949,19 @@
       "caption": "Zeiss-powered flagship with Dimensity 9300 processor."
     },
     {
-      "title": "Dolores ex ex in seq",
-      "category": "Maxime tempor itaque",
-      "brand": "Qui et modi nihil ab",
-      "price": 68,
-      "discount": 65,
-      "stock": 8,
+      "title": "Ullam laboriosam co",
+      "category": "Sunt non non eiusmod",
+      "brand": "Irure quis laboriosa",
+      "price": "45",
+      "discount": "34",
+      "stock": "46",
       "rate": 5,
-      "caption": "Anim officia at nobi",
-      "createdAt": "2025-09-25T16:26:52.311Z",
-      "id": 221
-    },
-    {
-      "title": "Voluptas dolorum mai",
-      "category": "Iure eligendi quia e",
-      "brand": "Omnis perferendis ev",
-      "price": 98,
-      "discount": 17,
-      "stock": 10,
-      "rate": 5,
-      "caption": "Provident ea provid",
-      "createdAt": "2025-09-25T16:27:54.193Z",
-      "mainImage": "",
+      "caption": "Quos vitae consequat fadf adf adf adf a df adsf a ds fa sd fa sdf asdf a sdfas df",
+      "createdAt": "2025-09-27T13:13:29.307Z",
+      "mainImage": null,
+      "colors": [],
+      "specs": [],
+      "gallery": [],
       "id": 222
     }
   ],

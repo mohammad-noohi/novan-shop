@@ -153,6 +153,10 @@ export default function AddProductForm() {
       caption: form.caption.trim(),
       createdAt: new Date().toISOString(),
       mainImage: form.file,
+      // این قسمت فعلا خالی گذاشته شده چون موقع ساخت یک محصول جدید باید این مقادیر رو هم بگیریم اما فعلا برای سادگی کار این کارو نکردیم و بعد توسعه میدیم
+      colors: [],
+      specs: [],
+      gallery: [],
     };
 
     try {

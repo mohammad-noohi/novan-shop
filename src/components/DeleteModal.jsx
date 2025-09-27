@@ -2,9 +2,11 @@ import { createPortal } from "react-dom";
 import { CircleX } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react"; // eslint-disable-line
 // import Overlay from "./Overlay";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export default function DeleteModal({ show, onClose, onConfirm, title = "", text = "Are you sure ?", confirmText = "confirm", cancelText = "cancel", footerText = "your action can't undo" }) {
+  const overlayRef = useRef(null);
+
   function handleConfirm() {
     onConfirm();
     onClose();
@@ -44,10 +46,19 @@ export default function DeleteModal({ show, onClose, onConfirm, title = "", text
     };
   }, [show]);
 
+  function handleCloseByOverlay(e) {
+    if (overlayRef.current && overlayRef.current === e.target) {
+      console.log("click on overlay");
+      onClose();
+    } else {
+      console.log("close");
+    }
+  }
+
   return createPortal(
     <AnimatePresence>
       {show && (
-        <div onClick={onClose} className="fixed inset-0 min-w-screen min-h-screen bg-black/50 backdrop-blur-xs flex items-center justify-center z-10">
+        <div ref={overlayRef} onClick={handleCloseByOverlay} className="fixed inset-0 min-w-screen min-h-screen bg-black/50 backdrop-blur-xs flex items-center justify-center z-10">
           <motion.div
             initial={{
               y: -20,

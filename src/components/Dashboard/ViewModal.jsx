@@ -1,9 +1,11 @@
 import { AnimatePresence, motion } from "motion/react"; // eslint-disable-line
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export default function ViewModal({ show, onClose, children }) {
+  const overlayRef = useRef(null);
+
   /* Close Modal With ESC Key */
   useEffect(() => {
     function handleKey(e) {
@@ -37,10 +39,16 @@ export default function ViewModal({ show, onClose, children }) {
     };
   }, [show]);
 
+  function handleCloseByOverlay(e) {
+    if (overlayRef.current && overlayRef.current === e.target) {
+      onClose();
+    }
+  }
+
   return createPortal(
     <AnimatePresence>
       {show && (
-        <div onClick={onClose} className="fixed inset-0 min-h-screen min-w-screen bg-black/50 backdrop-blur-xs flex items-center justify-center z-10">
+        <div onClick={handleCloseByOverlay} className="fixed inset-0 min-h-screen min-w-screen bg-black/50 backdrop-blur-xs flex items-center justify-center z-10">
           <motion.div
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
