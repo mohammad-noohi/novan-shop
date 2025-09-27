@@ -5,7 +5,7 @@ const AuthContext = createContext();
 
 function AuthProvider({ children }) {
   /*------------ States ------------*/
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // قبلا مقدارش صحیح بود
   const [error, setError] = useState("");
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);

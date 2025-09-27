@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
 import { CircleX } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react"; // eslint-disable-line
-import Overlay from "./Overlay";
+// import Overlay from "./Overlay";
 import { useEffect } from "react";
 
 export default function DeleteModal({ show, onClose, onConfirm, title = "", text = "Are you sure ?", confirmText = "confirm", cancelText = "cancel", footerText = "your action can't undo" }) {
@@ -24,10 +24,30 @@ export default function DeleteModal({ show, onClose, onConfirm, title = "", text
     };
   }, [onClose]);
 
+  useEffect(() => {
+    // disble scroll event when modal show & handle shift layout with scrollbar
+    if (show) {
+      const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.paddingRight = `${scrollBarWidth}px`;
+    } else {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      document.body.style.paddingRight = ``;
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      document.body.style.paddingRight = ``;
+    };
+  }, [show]);
+
   return createPortal(
     <AnimatePresence>
       {show && (
-        <>
+        <div onClick={onClose} className="fixed inset-0 min-w-screen min-h-screen bg-black/50 backdrop-blur-xs flex items-center justify-center z-10">
           <motion.div
             initial={{
               y: -20,
@@ -42,7 +62,7 @@ export default function DeleteModal({ show, onClose, onConfirm, title = "", text
               y: -20,
               opacity: 0,
             }}
-            className="fixed top-1/2 left-1/2 -translate-1/2 bg-white dark:text-white dark:bg-suface-dark max-w-sm w-full  rounded-lg z-20 ">
+            className=" bg-white max-h-[80vh] dark:text-white dark:bg-suface-dark max-w-sm w-full rounded-lg flex flex-col">
             {/* header */}
             <div className="flex items-center justify-between p-3">
               <h5 className="dark:text-white text-2xl capitalize">{title}</h5>
@@ -51,7 +71,7 @@ export default function DeleteModal({ show, onClose, onConfirm, title = "", text
               </button>
             </div>
             {/* body */}
-            <div className="mt-2 p-3">
+            <div className="mt-2 p-3 overflow-y-auto grow">
               <p className="text-lg text-center">{text}</p>
               <div className="mt-6 flex items-center justify-center gap-4">
                 <button
@@ -71,8 +91,7 @@ export default function DeleteModal({ show, onClose, onConfirm, title = "", text
               <p className="text-slate-600 text-center text-sm">{footerText}</p>
             </div>
           </motion.div>
-          <Overlay onClose={onClose} />
-        </>
+        </div>
       )}
     </AnimatePresence>,
     document.querySelector("#modals-root")

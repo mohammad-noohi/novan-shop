@@ -25,6 +25,8 @@ import ViewModal from "@/components/Dashboard/ViewModal";
 import EditModal from "@/components/Dashboard/EditModal";
 import AddProductForm from "@/components/Dashboard/AddProductForm";
 import EditProductForm from "@/components/Dashboard/EditProductForm";
+import CustomPagination from "@/components/CustomPagination";
+import FallbackImage from "@/components/FallbackImage";
 
 export default function Products() {
   const { products, getAllProducts } = useCartContext();
@@ -190,145 +192,155 @@ export default function Products() {
           <h4 className="text-xl font-semibold capitalize">filtering</h4>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-5">
-            {/* category filter */}
-            <Select
-              value={query.filters.category}
-              onValueChange={value => {
-                setQuery(prev => {
-                  return { ...prev, filters: { ...prev.filters, category: value } };
-                });
-              }}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select a category" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Category</SelectLabel>
-                  <SelectItem value="all">all</SelectItem>
-                  {categoryItems.map(category => (
-                    <SelectItem key={category} value={category}>
-                      {category}
+            <div>
+              <span>Category</span>
+              <Select
+                value={query.filters.category}
+                onValueChange={value => {
+                  setQuery(prev => {
+                    return { ...prev, filters: { ...prev.filters, category: value } };
+                  });
+                }}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Category</SelectLabel>
+                    <SelectItem value="all">all</SelectItem>
+                    {categoryItems.map(category => (
+                      <SelectItem key={category} value={category}>
+                        {category}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <span>Brand</span>
+              <Select
+                value={query.filters.brand}
+                onValueChange={value => {
+                  setQuery(prev => {
+                    return { ...prev, filters: { ...prev.filters, brand: value } };
+                  });
+                }}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a brand" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Brand</SelectLabel>
+                    <SelectItem value="all">all</SelectItem>
+                    {brandItems.map(brand => (
+                      <SelectItem key={brand} value={brand}>
+                        {brand}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <span>Stock</span>
+              <Select
+                value={query.filters.stock}
+                onValueChange={value => {
+                  setQuery(prev => {
+                    return { ...prev, filters: { ...prev.filters, stock: value } };
+                  });
+                }}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a stock status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Stock</SelectLabel>
+                    <SelectItem value="all">all</SelectItem>
+                    <SelectItem value="instock">in stock</SelectItem>
+                    <SelectItem value="outofstock">out of stock</SelectItem>
+                    <SelectItem value="lowstock">low stock</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <span>Discount</span>
+              <Select
+                value={query.filters.discount}
+                onValueChange={value => {
+                  setQuery(prev => {
+                    return { ...prev, filters: { ...prev.filters, discount: value } };
+                  });
+                }}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a discount" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Discount</SelectLabel>
+                    <SelectItem value="all">all</SelectItem>
+                    <SelectItem value="nodiscount">no discount</SelectItem>
+                    <SelectItem value="lowdiscount">1%-10%</SelectItem>
+                    <SelectItem value="highdiscount">10%-100%</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <span>Rate</span>
+              <Select
+                value={query.filters.rate}
+                onValueChange={value => {
+                  setQuery(prev => {
+                    return { ...prev, filters: { ...prev.filters, rate: value } };
+                  });
+                }}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a rate" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Rate</SelectLabel>
+                    <SelectItem value="all">all</SelectItem>
+                    <SelectItem value="1">
+                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
                     </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-            {/* brand filter */}
-            <Select
-              value={query.filters.brand}
-              onValueChange={value => {
-                setQuery(prev => {
-                  return { ...prev, filters: { ...prev.filters, brand: value } };
-                });
-              }}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select a brand" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Brand</SelectLabel>
-                  <SelectItem value="all">all</SelectItem>
-                  {brandItems.map(brand => (
-                    <SelectItem key={brand} value={brand}>
-                      {brand}
+                    <SelectItem value="2">
+                      <div className="flex items-center">
+                        <Star className="size-4 text-yellow-500 fill-yellow-500" />
+                        <Star className="size-4 text-yellow-500 fill-yellow-500" />
+                      </div>
                     </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-            {/* stock filter */}
-            <Select
-              value={query.filters.stock}
-              onValueChange={value => {
-                setQuery(prev => {
-                  return { ...prev, filters: { ...prev.filters, stock: value } };
-                });
-              }}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select a stock status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Stock</SelectLabel>
-                  <SelectItem value="all">all</SelectItem>
-                  <SelectItem value="instock">in stock</SelectItem>
-                  <SelectItem value="outofstock">out of stock</SelectItem>
-                  <SelectItem value="lowstock">low stock</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-            {/* discount filter */}
-            <Select
-              value={query.filters.discount}
-              onValueChange={value => {
-                setQuery(prev => {
-                  return { ...prev, filters: { ...prev.filters, discount: value } };
-                });
-              }}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select a discount" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Discount</SelectLabel>
-                  <SelectItem value="all">all</SelectItem>
-                  <SelectItem value="nodiscount">no discount</SelectItem>
-                  <SelectItem value="lowdiscount">1%-10%</SelectItem>
-                  <SelectItem value="highdiscount">10%-100%</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-            {/* rate filter */}
-            <Select
-              value={query.filters.rate}
-              onValueChange={value => {
-                setQuery(prev => {
-                  return { ...prev, filters: { ...prev.filters, rate: value } };
-                });
-              }}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select a rate" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Rate</SelectLabel>
-                  <SelectItem value="all">all</SelectItem>
-                  <SelectItem value="1">
-                    <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                  </SelectItem>
-                  <SelectItem value="2">
-                    <div className="flex items-center">
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                    </div>
-                  </SelectItem>
-                  <SelectItem value="3">
-                    <div className="flex items-center">
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                    </div>
-                  </SelectItem>
-                  <SelectItem value="4">
-                    <div className="flex items-center">
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                    </div>
-                  </SelectItem>
-                  <SelectItem value="5">
-                    <div className="flex items-center">
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                      <Star className="size-4 text-yellow-500 fill-yellow-500" />
-                    </div>
-                  </SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+                    <SelectItem value="3">
+                      <div className="flex items-center">
+                        <Star className="size-4 text-yellow-500 fill-yellow-500" />
+                        <Star className="size-4 text-yellow-500 fill-yellow-500" />
+                        <Star className="size-4 text-yellow-500 fill-yellow-500" />
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="4">
+                      <div className="flex items-center">
+                        <Star className="size-4 text-yellow-500 fill-yellow-500" />
+                        <Star className="size-4 text-yellow-500 fill-yellow-500" />
+                        <Star className="size-4 text-yellow-500 fill-yellow-500" />
+                        <Star className="size-4 text-yellow-500 fill-yellow-500" />
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="5">
+                      <div className="flex items-center">
+                        <Star className="size-4 text-yellow-500 fill-yellow-500" />
+                        <Star className="size-4 text-yellow-500 fill-yellow-500" />
+                        <Star className="size-4 text-yellow-500 fill-yellow-500" />
+                        <Star className="size-4 text-yellow-500 fill-yellow-500" />
+                        <Star className="size-4 text-yellow-500 fill-yellow-500" />
+                      </div>
+                    </SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
           {/* --------------- Sortign Section ------------------- */}
@@ -504,7 +516,7 @@ export default function Products() {
                         <td>{p.id}</td>
                         <td>
                           <div className="size-12  overflow-hidden mx-auto">
-                            <img src={`/${p.mainImage}`} alt="avatar image" className="size-full" />
+                            <FallbackImage src={`/${p.mainImage}`} alt="avatar image" className="size-full object-cover" />
                           </div>
                         </td>
                         <td>{p.title}</td>
@@ -570,31 +582,7 @@ export default function Products() {
               </div>
               <div className="flex items-end justify-between flex-wrap-reverse mt-5 gap-5">
                 {/* pagination */}
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={prevPage}
-                    disabled={query.pagination.page === 1}
-                    className="size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-50 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white disabled:opacity-30 disabled:cursor-not-allowed">
-                    <ChevronLeft className="size-4" />
-                  </button>
-                  {Array.from({ length: pages }, (_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => changeCurrentPage(i + 1)}
-                      className={`size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 dark:border-slate-800  ${
-                        i + 1 === query.pagination.page ? "bg-slate-500 text-white dark:bg-slate-700" : "bg-slate-50 dark:bg-suface-dark"
-                      } cursor-pointer dark:text-white `}>
-                      {i + 1}
-                    </button>
-                  ))}
-
-                  <button
-                    onClick={nextPage}
-                    disabled={query.pagination.page === pages}
-                    className="size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-50 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white disabled:opacity-30 disabled:cursor-not-allowed">
-                    <ChevronRight className="size-4" />
-                  </button>
-                </div>
+                <CustomPagination currentPage={query.pagination.page} pages={pages} onChangePage={changeCurrentPage} onPrevPage={prevPage} onNextPage={nextPage} />
 
                 <span className="capitalize text-lg text-slate-400">total products : {products.length}</span>
               </div>
@@ -614,7 +602,7 @@ export default function Products() {
         <div className="p-5">
           <div className="flex flex-col sm:flex-row items-start gap-10">
             <div className="w-70 shrink-0 flex mx-auto md:mx-0">
-              <img src={`/${selectedProduct?.mainImage}`} alt="" className="size-full drop-shadow-[20px_20px_8px_#3737375e] dark:drop-shadow-[20px_20px_8px_#1c2543d4]" />
+              <FallbackImage src={`/${selectedProduct?.mainImage}`} alt="" className="size-full drop-shadow-[20px_20px_8px_#3737375e] dark:drop-shadow-[20px_20px_8px_#1c2543d4]" />
             </div>
 
             <div>

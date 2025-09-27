@@ -1,5 +1,4 @@
 import { createPortal } from "react-dom";
-import Overlay from "../Overlay";
 import { AnimatePresence, motion } from "motion/react"; // eslint-disable-line
 import { X } from "lucide-react";
 import { useEffect } from "react";
@@ -18,10 +17,33 @@ export default function EditModal({ show, onClose, children }) {
     };
   }, [onClose]);
 
+  useEffect(() => {
+    // disble scroll event when modal show & handle shift layout with scrollbar
+    if (show) {
+      const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.paddingRight = `${scrollBarWidth}px`;
+    } else {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      document.body.style.paddingRight = ``;
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      document.body.style.paddingRight = ``;
+    };
+  }, [show]);
+
   return createPortal(
     <AnimatePresence>
       {show && (
-        <>
+        <div
+          onClick={onClose}
+          className="fixed inset-0 min-h-screen min-w-screen
+         bg-black/50 backdrop-blur-xs flex items-center justify-center z-10">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -33,11 +55,9 @@ export default function EditModal({ show, onClose, children }) {
                 <X className="size-6" />
               </button>
             </div>
-            <div className="p-3 max-h-[90vh] overflow-y-auto ">{children}</div>
+            <div className="p-3 max-h-[90vh] overflow-y-auto">{children}</div>
           </motion.div>
-
-          <Overlay onClose={onClose} />
-        </>
+        </div>
       )}
     </AnimatePresence>,
     document.querySelector("#modals-root")

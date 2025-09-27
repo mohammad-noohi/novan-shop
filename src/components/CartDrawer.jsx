@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "motion/react"; // eslint-disable-line
 import { useCartContext } from "../contexts/CartContext/useCartContext";
-import Overlay from "./Overlay";
+// import Overlay from "./Overlay";
 
 export default function CartDrawer({ show, onClose }) {
   const navigate = useNavigate();
@@ -99,7 +99,7 @@ export default function CartDrawer({ show, onClose }) {
           </motion.div>
 
           {/* overlay */}
-          <Overlay onClose={onClose} />
+          {/* <Overlay onClose={onClose} /> */}
         </>
       )}
     </AnimatePresence>,
