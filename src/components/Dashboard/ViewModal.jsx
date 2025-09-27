@@ -18,21 +18,22 @@ export default function ViewModal({ show, onClose, children }) {
   }, [onClose]);
 
   useEffect(() => {
+    // disble scroll event when modal show & handle shift layout with scrollbar
     if (show) {
       const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
-      document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
-      document.documentElement.style.paddingRight = `${scrollBarWidth}px`;
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.paddingRight = `${scrollBarWidth}px`;
     } else {
-      document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
-      document.documentElement.style.paddingRight = ``;
+      document.documentElement.style.overflow = "";
+      document.body.style.paddingRight = ``;
     }
 
     return () => {
-      document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
-      document.documentElement.style.paddingRight = ``;
+      document.documentElement.style.overflow = "";
+      document.body.style.paddingRight = ``;
     };
   }, [show]);
 
@@ -45,7 +46,7 @@ export default function ViewModal({ show, onClose, children }) {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -20, opacity: 0 }}
             transition={{ duration: 0.3, ease: "linear" }}
-            className="bg-white dark:text-white dark:bg-suface-dark w-full max-w-[90vw] rounded-lg overflow-hidden">
+            className="bg-white   dark:text-white dark:bg-suface-dark w-full max-w-[90vw] rounded-lg overflow-hidden">
             {/* Header */}
             <div className="p-3 flex justify-end">
               <button onClick={onClose} className="hover:text-red-500 transition-colors cursor-pointer">

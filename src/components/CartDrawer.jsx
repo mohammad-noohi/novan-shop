@@ -5,7 +5,6 @@ import { useNavigate } from "react-router";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "motion/react"; // eslint-disable-line
 import { useCartContext } from "../contexts/CartContext/useCartContext";
-// import Overlay from "./Overlay";
 
 export default function CartDrawer({ show, onClose }) {
   const navigate = useNavigate();
@@ -31,41 +30,52 @@ export default function CartDrawer({ show, onClose }) {
 
   /*-------------- Effects --------------*/
 
-  // disable scroll when drawer show
+  /* Close Modal With ESC Key */
   useEffect(() => {
-    function handleEscKey(e) {
-      console.log(e);
+    function handleKey(e) {
       if (e.key === "Escape") onClose();
     }
 
-    if (show) {
-      // add listener when show is true or can use useCallback do this later to better performance
-      document.addEventListener("keyup", handleEscKey);
-      document.documentElement.style.overflow = "hidden";
-    } else {
-      document.documentElement.style.overflow = "auto";
-    }
+    document.addEventListener("keyup", handleKey);
 
     // clean-up
     return () => {
-      document.removeEventListener("keyup", handleEscKey);
-      document.documentElement.style.overflow = "auto";
+      document.removeEventListener("keyup", handleKey);
     };
-  }, [show, onClose]);
+  }, [onClose]);
 
+  useEffect(() => {
+    // disble scroll event when modal show & handle shift layout with scrollbar
+    if (show) {
+      const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.paddingRight = `${scrollBarWidth}px`;
+    } else {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      document.body.style.paddingRight = ``;
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      document.body.style.paddingRight = ``;
+    };
+  }, [show]);
   /*-------------- JSX --------------*/
 
   return createPortal(
     <AnimatePresence>
       {show && (
-        <>
+        <div onClick={onClose} className="fixed inset-0 min-w-screen min-h-screen bg-black/50 backdrop-blur-xs flex items-center justify-center z-10">
           <motion.div
             key="cart-drawer"
             initial={{ x: "-100%" }}
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ duration: 0.2, ease: "linear" }}
-            className={`fixed top-0 left-0  z-20 bg-white w-xs lg:w-sm h-screen flex flex-col   dark:bg-app-dark dark:border-r border-slate-800 `}>
+            className={`absolute top-0 border-r  left-0  bg-white w-xs lg:w-sm h-screen flex flex-col   dark:bg-app-dark dark:border-r border-slate-200 dark:border-slate-800`}>
             {/* cart header */}
             <div className="flex items-center justify-between p-2 border-b border-slate-200 dark:border-slate-800">
               <h5 className="text-2xl dark:text-white">cart</h5>
@@ -97,10 +107,7 @@ export default function CartDrawer({ show, onClose }) {
               </button>
             </div>
           </motion.div>
-
-          {/* overlay */}
-          {/* <Overlay onClose={onClose} /> */}
-        </>
+        </div>
       )}
     </AnimatePresence>,
     document.querySelector("#drawers-root")
