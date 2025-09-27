@@ -7,7 +7,7 @@ const intialState = { email: "", password: "" };
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const { user, login, loading } = useAuthContext();
+  const { login, loading } = useAuthContext();
   const [form, setForm] = useState(intialState);
   const [errors, setErrors] = useState({});
 
@@ -38,44 +38,6 @@ export default function LoginPage() {
     setForm(intialState);
     setErrors({});
   }
-
-  // async function handleSubmit(e) {
-  //   e.preventDefault();
-
-  //   const validationErrors = validate();
-
-  //   if (Object.keys(validationErrors).length) {
-  //     setErrors(validationErrors);
-  //     return;
-  //   }
-
-  //   toast.promise(login(form), {
-  //     // loading: "login...", // we can use it if need it to show toast in loading state
-  //     success: resp => ({
-  //       message: "login successfully",
-  //       classNames: {
-  //         toast: "dark:bg-suface-dark! dark:bg-suface-dark! dark:border-slate-800! dark:text-white!",
-  //       },
-
-  //       onAutoClose: () => {
-  //         clearForm();
-  //         console.log("after toast => ", resp);
-  //         if (resp.user.role === "admin") {
-  //           navigate("/admin/dashboard");
-  //         } else {
-  //           navigate("/");
-  //         }
-  //       },
-  //       duration: 1500,
-  //     }),
-  //     error: () => ({
-  //       message: "login failed",
-  //       classNames: {
-  //         toast: "dark:bg-suface-dark! dark:bg-suface-dark! dark:border-slate-800! dark:text-white!",
-  //       },
-  //     }),
-  //   });
-  // }
 
   async function handleSubmit(e) {
     e.preventDefault();

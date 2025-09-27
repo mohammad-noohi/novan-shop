@@ -2,21 +2,18 @@ import { Navigate, Outlet, useLocation } from "react-router";
 import { useAuthContext } from "../../contexts/AuthContext/useAuthContext";
 
 export default function PrivateRoute() {
-  const { user, loading } = useAuthContext();
+  const { user, initialLoading } = useAuthContext();
 
   const location = useLocation();
   const isAdminRoute = location.pathname.includes("admin");
 
-  console.log(isAdminRoute);
-  console.log("loading user =>", loading);
+  if (initialLoading) return null;
 
-  if (loading) return null;
-
-  if (!user && !loading) {
+  if (!user && !initialLoading) {
     return <Navigate to="/login" replace />;
   }
 
-  if (!loading && isAdminRoute && user.role !== "admin") {
+  if (!initialLoading && isAdminRoute && user.role !== "admin") {
     return <Navigate to="/login" replace />;
   }
 

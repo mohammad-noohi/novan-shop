@@ -5,7 +5,8 @@ const AuthContext = createContext();
 
 function AuthProvider({ children }) {
   /*------------ States ------------*/
-  const [loading, setLoading] = useState(true); // قبلا مقدارش صحیح بود
+  const [initialLoading, setInitialLoading] = useState(true); // for fetch user
+  const [loading, setLoading] = useState(false); // for login , register , logout
   const [error, setError] = useState("");
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
@@ -73,7 +74,10 @@ function AuthProvider({ children }) {
 
   useEffect(() => {
     const token = localStorage.getItem("novan-user-token"); // string & null
-    if (!token) return;
+    if (!token) {
+      setInitialLoading(false);
+      return;
+    }
 
     // Get user id with jwtDecode package this function extract some information in token string and return as object
     setToken(token);
@@ -82,7 +86,7 @@ function AuthProvider({ children }) {
 
     async function fetchUser() {
       try {
-        setLoading(true);
+        setInitialLoading(true);
         const resp = await fetch(`http://localhost:3000/users/${userID}`);
 
         if (!resp.ok) throw new Error("fetch user info failed");
@@ -94,14 +98,14 @@ function AuthProvider({ children }) {
         setUser(null);
         throw err;
       } finally {
-        setLoading(false);
+        setInitialLoading(false);
       }
     }
 
     fetchUser();
   }, []);
 
-  return <AuthContext.Provider value={{ register, login, logout, setUser, user, error, loading, token }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ register, login, logout, setUser, user, error, loading, initialLoading, token }}>{children}</AuthContext.Provider>;
 }
 
 export { AuthContext, AuthProvider };
