@@ -54,7 +54,7 @@ export default function ViewModal({ show, onClose, children }) {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -20, opacity: 0 }}
             transition={{ duration: 0.3, ease: "linear" }}
-            className="bg-white   dark:text-white dark:bg-suface-dark w-full max-w-[90vw] rounded-lg overflow-hidden">
+            className="bg-white   dark:text-white dark:bg-suface-dark  max-w-[90vw] rounded-lg overflow-hidden">
             {/* Header */}
             <div className="p-3 flex justify-end">
               <button onClick={onClose} className="hover:text-red-500 transition-colors cursor-pointer">

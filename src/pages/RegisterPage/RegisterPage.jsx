@@ -19,7 +19,7 @@ const emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 export default function RegisterPage() {
   const navigate = useNavigate();
-  const { register, loading } = useAuthContext();
+  const { register, loading, login } = useAuthContext();
   const [form, setForm] = useState(intialState);
   const [errors, setErrors] = useState({});
   const [passwordRules, setPasswordRules] = useState({
@@ -139,6 +139,7 @@ export default function RegisterPage() {
         },
         onAutoClose: () => {
           clearForm();
+          login({ email: userData.email, password: userData.password });
           navigate("/");
         },
         duration: 1000,

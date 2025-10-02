@@ -3,7 +3,7 @@ import FilterProducts from "@/components/Dashboard/Products/FilterProducts";
 import SortProducts from "@/components/Dashboard/Products/SortProducts";
 import { useProducts } from "@/components/Dashboard/Products/useProducts";
 import ProductViewModal from "@/components/Dashboard/Products/ProductViewModal";
-import AddProductForm from "@/components/Dashboard/AddProductForm";
+import AddProductForm from "@/components/Dashboard/Products/AddProductForm";
 import DeleteModal from "@/components/DeleteModal";
 import EditModal from "@/components/Dashboard/EditModal";
 import EditProductForm from "@/components/Dashboard/EditProductForm";
@@ -54,7 +54,6 @@ export default function Products() {
           processedProducts={processedProducts}
           products={products}
           setQuery={setQuery}
-          setSelectedProduct={setSelectedProduct}
           setSelectedProduct={setSelectedProduct}
           setShowDeleteProductModal={setShowDeleteProductModal}
           setShowEditModal={setShowEditModal}

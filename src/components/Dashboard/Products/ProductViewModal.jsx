@@ -42,7 +42,7 @@ export default function ProductViewModal({ showViewModal, setShowViewModal, sele
           <p className="text-slate-500 mt-2">{selectedProduct?.caption}</p>
         </div>
 
-        {selectedProduct?.specs.length > 0 ? (
+        {selectedProduct && Object.keys(selectedProduct.specs).length > 0 ? (
           <div className="overflow-x-auto mt-5">
             <h4 className="capitalize lgt:text-xl font-semibold">Specifications:</h4>
             <table className="bg-white dark:bg-app-dark text-nowrap w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">

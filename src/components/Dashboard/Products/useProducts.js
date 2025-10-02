@@ -67,12 +67,7 @@ function useProducts() {
         method: "DELETE",
       });
 
-      console.log(resp); // من شرط زیر رو غیر فعال کردم چون ارور ۵۰۰ میداد ولی محصول حذف میشد و خب نمیدونم مشکل از چیه ؟
-
-      // if (![200, 204, 404].includes(resp.status)) {
-      //   throw new Error(`Failed to delete product. Status: ${resp.status}`);
-      // }
-
+      if (!resp.ok) throw new Error("Failed to delete product");
       toast.success("Product deleted successfully");
 
       // update products

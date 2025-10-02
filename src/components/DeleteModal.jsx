@@ -20,7 +20,6 @@ export default function DeleteModal({ show, onClose, onConfirm, title = "", text
 
     document.addEventListener("keyup", handleKey);
 
-    // clean-up
     return () => {
       document.removeEventListener("keyup", handleKey);
     };
@@ -48,10 +47,7 @@ export default function DeleteModal({ show, onClose, onConfirm, title = "", text
 
   function handleCloseByOverlay(e) {
     if (overlayRef.current && overlayRef.current === e.target) {
-      console.log("click on overlay");
       onClose();
-    } else {
-      console.log("close");
     }
   }
 

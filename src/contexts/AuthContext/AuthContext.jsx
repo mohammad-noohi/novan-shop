@@ -24,8 +24,6 @@ function AuthProvider({ children }) {
       });
 
       if (!resp.ok) throw new Error("Register failed");
-
-      await login({ email: userInfo.email, password: userInfo.password });
     } catch (err) {
       console.log(err.message);
       throw err;

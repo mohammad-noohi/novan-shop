@@ -1,42 +1,144 @@
 import { useEffect, useState } from "react";
 import FallbackImage from "@/components/FallbackImage";
-import { Eye, Pencil, Trash, EllipsisVertical, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import DeleteModal from "@/components/DeleteModal";
+import EditModal from "@/components/Dashboard/EditModal";
+import ViewModal from "@/components/Dashboard/ViewModal";
+import { toast } from "sonner";
+import AddUserForm from "@/components/Dashboard/Users/AddUserForm";
+import EditUserForm from "@/components/Dashboard/Users/EditUserForm";
+import EditUserPassForm from "@/components/Dashboard/Users/EditUserPassForm";
+import UsersTable from "@/components/Dashboard/Users/UsersTable";
+import FilterUsers from "@/components/Dashboard/Users/FilterUsers";
+import SortUsers from "@/components/Dashboard/Users/SortUsers";
 
 export default function Users() {
   const [users, setUsers] = useState([]);
-  const [loadingUsers, setLoadingUsers] = useState(false);
+  const [loadingUsers, setLoadingUsers] = useState(false); // maybe i need it
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [modals, setModals] = useState({
+    view: false,
+    edit: false,
+    delete: false,
+    password: false,
+  });
 
-  useEffect(() => {
-    async function fetchUsers() {
-      try {
-        setLoadingUsers(true);
-        const resp = await fetch("http://localhost:3000/users");
-        if (!resp.ok) throw new Error("Failed to get users data");
-        const data = await resp.json();
-        setUsers(data);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setLoadingUsers(false);
+  let pages = null;
+
+  const [query, setQuery] = useState({
+    search: "",
+    filters: {
+      role: "all",
+    },
+    sort: "none",
+    pagination: {
+      page: 1,
+      perPages: 10,
+    },
+  });
+
+  function changeCurrentPage(num) {
+    setQuery(prev => ({ ...prev, pagination: { ...prev.pagination, page: num } }));
+  }
+
+  function prevPage() {
+    setQuery(prev => {
+      if (prev.pagination.page > 1) {
+        return { ...prev, pagination: { ...prev.pagination, page: prev.pagination.page - 1 } };
       }
+
+      return prev;
+    });
+  }
+
+  function nextPage() {
+    setQuery(prev => {
+      if (prev.pagination.page < pages) {
+        return { ...prev, pagination: { ...prev.pagination, page: prev.pagination.page + 1 } };
+      }
+
+      return prev;
+    });
+  }
+
+  function visibleUseres() {
+    let result = [...users]; // copy of users
+
+    // search
+    if (query.search.trim()) {
+      const term = query.search.toLowerCase().trim();
+
+      result = result.filter(user => {
+        if (user.firstname.toLowerCase().trim().includes(term) || user.lastname.toLowerCase().trim().includes(term) || user.email.toLowerCase().trim().includes(term)) {
+          return user;
+        }
+      });
     }
 
+    // filtering
+    if (query.filters.role !== "all") {
+      result = result.filter(user => user.role.toLowerCase() === query.filters.role.toLowerCase());
+    }
+
+    // sorting
+    result.sort((a, b) => {
+      const sortType = query.sort;
+
+      if (sortType === "firstname-asc") return a.firstname.localeCompare(b.firstname);
+      if (sortType === "firstname-desc") return b.firstname.localeCompare(a.firstname);
+      if (sortType === "lastname-asc") return a.lastname.localeCompare(b.lastname);
+      if (sortType === "lastname-desc") return b.lastname.localeCompare(a.lastname);
+      if (sortType === "date-asc") return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+      if (sortType === "date-desc") return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+
+      return 0;
+    });
+
+    // Paginated Result
+    const endIndex = query.pagination.page * query.pagination.perPages;
+    const startIndex = endIndex - query.pagination.perPages;
+    pages = Math.ceil(result.length / query.pagination.perPages);
+    result = result.slice(startIndex, endIndex);
+
+    return result;
+  }
+
+  const processedUsers = visibleUseres();
+
+  async function deleteUser() {
+    try {
+      const token = localStorage.getItem("novan-user-token");
+      if (!token) throw new Error("No Token Found");
+      const resp = await fetch(`http://localhost:3000/users/${selectedUser.id}`, {
+        method: "DELETE",
+      });
+
+      if (!resp.ok) throw new Error("Failed to delete user");
+
+      await fetchUsers();
+      toast.success("user delete successfully");
+    } catch (err) {
+      toast.error(err.message);
+      console.log(err);
+    }
+  }
+
+  async function fetchUsers() {
+    try {
+      setLoadingUsers(true);
+      const resp = await fetch("http://localhost:3000/users");
+      if (!resp.ok) throw new Error("Failed to get users data");
+      const data = await resp.json();
+      setUsers(data);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoadingUsers(false);
+    }
+  }
+
+  useEffect(() => {
     fetchUsers();
   }, []);
 
@@ -46,221 +148,84 @@ export default function Users() {
       <p className="text-slate-500">Manage your Users as you wish!</p>
 
       <div className="mt-10">
-        {/* Add New User Form */}
-        <div className="bg-white dark:bg-suface-dark border border-slate-200 dark:border-slate-800 p-5 rounded-lg">
-          <h4 className="text-xl font-semibold capitalize">add user</h4>
-          <form className="mt-5">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              <div>
-                <Input type="text" placeholder="firstname" />
-              </div>
-              <div>
-                <Input type="text" placeholder="lastname" />
-              </div>
-              <div>
-                <Input type="email" placeholder="email" />
-              </div>
-              <div>
-                <Input type="text" placeholder="username" />
-              </div>
-              <div>
-                <Select>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select user role" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>Role</SelectLabel>
-                      <SelectItem value="admin">admin</SelectItem>
-                      <SelectItem value="user">user</SelectItem>
-                      <SelectItem value="editor">editor</SelectItem>
-                      <SelectItem value="manager">manager</SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
-            <button className="py-1 px-4 mt-5 bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 rounded-lg text-lg capitalize cursor-pointer hover:bg-slate-300  transition-colors">
-              add user
-            </button>
-          </form>
-        </div>
+        <AddUserForm users={users} fetchUsers={fetchUsers} />
 
         {/* Toolbar Section*/}
         <div className="bg-white dark:bg-suface-dark border border-slate-200 dark:border-slate-800 mt-10 p-5 rounded-lg">
-          {/* --------------- Filtering Section ------------------- */}
-          <h4 className="text-xl font-semibold capitalize">filtering</h4>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-5">
-            <Select>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="filter by role" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="admin">admin</SelectItem>
-                <SelectItem value="editor">editor</SelectItem>
-                <SelectItem value="user">user</SelectItem>
-                <SelectItem value="manager">manager</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* --------------- Sortign Section ------------------- */}
-          <h4 className="text-xl font-semibold capitalize mt-5">Sorting</h4>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-5">
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="sort by firstname" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="name-asc">A - Z</SelectItem>
-                <SelectItem value="name-desc">Z - A</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="sort by lastname" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="name-asc">A - Z</SelectItem>
-                <SelectItem value="name-desc">Z - A</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="sort by date" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="date-asc">oldest first</SelectItem>
-                <SelectItem value="date-desc">newest first</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+          <FilterUsers query={query} setQuery={setQuery} />
+          <SortUsers query={query} setQuery={setQuery} />
         </div>
 
         {/* Table Section*/}
         <div className="bg-white dark:bg-suface-dark mt-10 p-5 rounded-lg">
           <div className="flex items-center gap-3 flex-wrap justify-between">
-            <Input className="max-w-100" type="search" placeholder="search user by name" />
+            <Input value={query.search} onChange={e => setQuery(prev => ({ ...prev, search: e.target.value }))} className="max-w-100" type="search" placeholder="search user by name" />
 
             <div className="flex items-center gap-3">
               <p>rows per page :</p>
-              <Select id="rows-per-page">
+              <Select value={query.pagination.perPages} onValueChange={value => setQuery(prev => ({ ...prev, pagination: { ...prev.pagination, perPages: value } }))} id="rows-per-page">
                 <SelectTrigger className="w-auto">
                   <SelectValue placeholder="8" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>rows</SelectLabel>
-                    <SelectItem value="5">5</SelectItem>
-                    <SelectItem value="10">10</SelectItem>
-                    <SelectItem value="15">15</SelectItem>
-                    <SelectItem value="20">20</SelectItem>
-                    <SelectItem value="25">25</SelectItem>
-                    <SelectItem value="30">30</SelectItem>
+                    <SelectItem value={5}>5</SelectItem>
+                    <SelectItem value={10}>10</SelectItem>
+                    <SelectItem value={15}>15</SelectItem>
+                    <SelectItem value={20}>20</SelectItem>
+                    <SelectItem value={25}>25</SelectItem>
+                    <SelectItem value={30}>30</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
             </div>
           </div>
 
-          {users.length !== 0 ? (
-            <>
-              <div className="overflow-x-auto">
-                <table className="bg-white dark:bg-app-dark text-nowrap w-full mt-5 text-center border-separate border-spacing-0 rounded-lg overflow-hidden">
-                  <thead>
-                    <tr className="*:border *:border-slate-200 dark:*:border-slate-700 *:uppercase *:p-3 bg-slate-50 dark:bg-slate-900">
-                      <th>id</th>
-                      <th>avatar</th>
-                      <th>firstname</th>
-                      <th>lastname</th>
-                      <th>email</th>
-                      <th>username</th>
-                      <th>role</th>
-
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody className="*:even:bg-slate-50 dark:*:even:bg-slate-900 *:transition-colors *:hover:bg-slate-100 dark:*:hover:bg-slate-800">
-                    <tr className="*:border *:p-2 *:border-slate-200 dark:*:border-slate-700 ">
-                      <td>234</td>
-                      <td>
-                        <div className="size-12  overflow-hidden mx-auto">
-                          <FallbackImage src={`#`} alt="avatar image" className="size-full object-cover" />
-                        </div>
-                      </td>
-                      <td>mohammad</td>
-                      <td>noohi</td>
-                      <td>noohi.m98@gmail.com</td>
-                      <td>noohi1998</td>
-                      <td>admin</td>
-
-                      <td className="flex items-center gap-2 justify-center">
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            {/* <Button variant="outline">Open</Button> */}
-                            <button>
-                              <EllipsisVertical />
-                            </button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent className="w-56" align="start">
-                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-
-                            <DropdownMenuItem>
-                              <Eye className="size-4" />
-                              <span>view</span>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                              <Pencil className="size-4" />
-                              <span>edit</span>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="hover:bg-red-100! text-red-500 hover:text-red-500!">
-                              <Trash className="size-4" />
-                              <span>delete</span>
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <div className="flex items-end justify-between flex-wrap-reverse mt-5 gap-5">
-                {/* pagination */}
-                <div className="flex items-center gap-3">
-                  <button className="size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-50 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white disabled:opacity-30 disabled:cursor-not-allowed">
-                    <ChevronLeft className="size-4" />
-                  </button>
-                  <button
-                    className={`size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-50 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white `}>
-                    1
-                  </button>
-                  <button
-                    className={` size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-300 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white `}>
-                    2
-                  </button>
-                  <button
-                    className={`size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-50 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white `}>
-                    3
-                  </button>
-                  <button className="size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 bg-slate-50 cursor-pointer dark:bg-suface-dark dark:border-slate-800 dark:text-white disabled:opacity-30 disabled:cursor-not-allowed">
-                    <ChevronRight className="size-4" />
-                  </button>
-                </div>
-
-                <span className="capitalize text-lg text-slate-400">total users : 200</span>
-              </div>
-            </>
-          ) : (
-            <p>no users found</p>
-          )}
+          <UsersTable
+            changeCurrentPage={changeCurrentPage}
+            users={users}
+            nextPage={nextPage}
+            pages={pages}
+            prevPage={prevPage}
+            processedUsers={processedUsers}
+            query={query}
+            setModals={setModals}
+            setSelectedUser={setSelectedUser}
+          />
         </div>
       </div>
+
+      {selectedUser && (
+        <>
+          <ViewModal show={modals.view} onClose={() => setModals(prev => ({ ...prev, view: false }))}>
+            <div className="p-3 flex items-start gap-8">
+              <div className="borde overflow-hidden relative size-50 rounded-full ring-4 ring-offset-4 ring-slate-200 dark:ring-slate-600 dark:ring-offset-app-dark shrink-0">
+                <FallbackImage className="size-full object-cover " src={`/${selectedUser.profile}`} />
+              </div>
+              <div>
+                <h4 className="text-4xl font-bold capitalize">
+                  {selectedUser.firstname} {selectedUser.lastname}
+                </h4>
+                <p className="text-2xl text-slate-600 dark:text-slate-500">{selectedUser.username}</p>
+                <p className="text-slate-600 dark:text-slate-500">{selectedUser.email}</p>
+                <p className="text-slate-600 dark:text-slate-500">{selectedUser.createdAt?.split("T")[0]}</p>
+                <p className=" uppercase mt-5 font-semibold py-1 px-3 inline-block rounded-full bg-slate-200 dark:bg-slate-700">{selectedUser.role}</p>
+              </div>
+            </div>
+          </ViewModal>
+
+          <EditModal show={modals.edit} onClose={() => setModals(prev => ({ ...prev, edit: false }))}>
+            <EditUserForm fetchUsers={fetchUsers} onCloseModal={() => setModals(prev => ({ ...prev, edit: false }))} users={users} selectedUser={selectedUser} />
+          </EditModal>
+
+          <EditModal show={modals.password} onClose={() => setModals(prev => ({ ...prev, password: false }))}>
+            <EditUserPassForm fetchUsers={fetchUsers} onCloseModal={() => setModals(prev => ({ ...prev, password: false }))} selectedUser={selectedUser} />
+          </EditModal>
+
+          <DeleteModal onConfirm={deleteUser} show={modals.delete} onClose={() => setModals(prev => ({ ...prev, delete: false }))} text="Are you sure want to delete this user ?" />
+        </>
+      )}
     </div>
   );
 }
