@@ -159,7 +159,7 @@ function useProducts() {
       setProducts(loadedProducts);
       setLoadingPage(false);
     })();
-  }, [getAllProducts]);
+  }, []);
 
   return {
     products,
