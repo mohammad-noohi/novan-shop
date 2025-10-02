@@ -11,14 +11,84 @@ import UsersTable from "@/components/Dashboard/Users/UsersTable";
 import FilterUsers from "@/components/Dashboard/Users/FilterUsers";
 import SortUsers from "@/components/Dashboard/Users/SortUsers";
 import { useUsers } from "@/components/Dashboard/Users/userUsers";
+import { FileText, Sheet } from "lucide-react";
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
+import * as XLSX from "xlsx";
 
 export default function Users() {
   const { users, fetchUsers, query, setQuery, pages, changeCurrentPage, nextPage, prevPage, processedUsers, modals, setModals, selectedUser, setSelectedUser, deleteUser } = useUsers();
 
+  function exportToPDF() {
+    if (!users || users.length === 0) {
+      alert("هیچ کاربری برای اکسپورت وجود ندارد.");
+      return;
+    }
+
+    const doc = new jsPDF();
+
+    const columns = ["ID", "First Name", "Last Name", "Username", "Email", "Role", "Created At"];
+    const rows = users.map(u => [
+      u.id,
+      u.firstname,
+      u.lastname,
+      u.username,
+      u.email,
+      u.role,
+      u.createdAt ? u.createdAt.split("T")[0] : "", // فقط تاریخ
+    ]);
+
+    autoTable(doc, {
+      head: [columns],
+      body: rows,
+      startY: 20,
+    });
+
+    doc.text("Users Report", 14, 15);
+    doc.save("users.pdf");
+  }
+
+  function exportToExcel() {
+    if (!users || users.length === 0) {
+      alert("هیچ کاربری برای اکسپورت وجود ندارد.");
+      return;
+    }
+
+    const filtered = users.map(u => ({
+      ID: u.id,
+      "First Name": u.firstname,
+      "Last Name": u.lastname,
+      Username: u.username,
+      Email: u.email,
+      Role: u.role,
+      "Created At": u.createdAt ? u.createdAt.split("T")[0] : "",
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(filtered);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Users");
+
+    XLSX.writeFile(workbook, "users.xlsx");
+  }
+
   return (
     <div className="min-h-screen bg-slate-100 dark:bg-app-dark p-5">
-      <h2 className="text-2xl font-bold">Users</h2>
-      <p className="text-slate-500">Manage your Users as you wish!</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold">Users</h2>
+          <p className="text-slate-500">Manage your Users as you wish!</p>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <span>export: </span>
+          <button className="cursor-pointer" onClick={exportToPDF}>
+            <FileText />
+          </button>
+          <button className="cursor-pointer" onClick={exportToExcel}>
+            <Sheet />
+          </button>
+        </div>
+      </div>
 
       <div className="mt-10">
         <AddUserForm users={users} fetchUsers={fetchUsers} />
