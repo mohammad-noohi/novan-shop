@@ -120,7 +120,7 @@
       "brand": "Apple",
       "price": 3200,
       "discount": 23,
-      "stock": 20,
+      "stock": 18,
       "rate": 1,
       "colors": [
         "#1F2937"
@@ -149,7 +149,7 @@
       "brand": "Dell",
       "price": 1200,
       "discount": 10,
-      "stock": 12,
+      "stock": 11,
       "rate": 4,
       "colors": [
         "#F59E0B",
@@ -179,7 +179,7 @@
       "brand": "HP",
       "price": 899,
       "discount": 12,
-      "stock": 5,
+      "stock": 1,
       "rate": 3,
       "colors": [
         "#3B82F6",
@@ -210,7 +210,7 @@
       "brand": "Lenovo",
       "price": 849,
       "discount": 8,
-      "stock": 8,
+      "stock": 7,
       "rate": 3,
       "colors": [
         "#6B7280",
@@ -271,7 +271,7 @@
       "brand": "MSI",
       "price": 1059,
       "discount": 7,
-      "stock": 19,
+      "stock": 18,
       "rate": 5,
       "colors": [
         "#E11D48",
@@ -332,7 +332,7 @@
       "brand": "Samsung",
       "price": 14990000,
       "discount": 8,
-      "stock": 29,
+      "stock": 28,
       "rate": 4,
       "colors": [
         "#1E3A8A",
@@ -364,7 +364,7 @@
       "brand": "Apple",
       "price": 17990000,
       "discount": 5,
-      "stock": 25,
+      "stock": 24,
       "rate": 4,
       "colors": [
         "#DC2626"
@@ -925,197 +925,83 @@
   "carts": [
     {
       "userId": 13,
-      "items": [
-        {
-          "productId": 103,
-          "count": 3
-        }
-      ],
+      "items": [],
       "id": 1
+    },
+    {
+      "userId": 3,
+      "items": [],
+      "id": 2
+    },
+    {
+      "userId": 2,
+      "items": [],
+      "id": 3
+    },
+    {
+      "userId": 30,
+      "items": [],
+      "id": 4
     }
   ],
   "orders": [
     {
-      "userId": 13,
+      "userId": 3,
       "items": [
         {
           "productId": 102,
           "count": 1
+        },
+        {
+          "productId": 103,
+          "count": 1
+        },
+        {
+          "productId": 104,
+          "count": 1
         }
       ],
       "status": "paid",
-      "createdAt": "2025-09-08T21:10:50.977Z",
-      "totalPrice": 899,
-      "finalPrice": 0,
+      "createdAt": "2025-10-02T17:53:56.597Z",
+      "totalPrice": 2948,
+      "finalPrice": 2948,
       "id": 1
     },
     {
       "userId": 13,
       "items": [
         {
-          "productId": 101,
-          "count": 1
-        }
-      ],
-      "status": "paid",
-      "createdAt": "2025-09-08T21:12:37.966Z",
-      "totalPrice": 1199234,
-      "finalPrice": 0,
-      "id": 2
-    },
-    {
-      "userId": 13,
-      "items": [
-        {
-          "productId": 102,
-          "count": 1
-        }
-      ],
-      "status": "paid",
-      "createdAt": "2025-09-12T14:29:57.568Z",
-      "totalPrice": 899,
-      "finalPrice": 899,
-      "id": 3
-    },
-    {
-      "userId": 13,
-      "items": [
-        {
-          "productId": 102,
-          "count": 1
-        }
-      ],
-      "status": "paid",
-      "createdAt": "2025-09-12T14:30:47.991Z",
-      "totalPrice": 899,
-      "finalPrice": 899,
-      "id": 4
-    },
-    {
-      "userId": 13,
-      "items": [
-        {
-          "productId": 102,
-          "count": 15
-        }
-      ],
-      "status": "paid",
-      "createdAt": "2025-09-13T09:16:28.851Z",
-      "totalPrice": 13485,
-      "finalPrice": 13485,
-      "id": 5
-    },
-    {
-      "userId": 13,
-      "items": [
-        {
           "productId": 103,
-          "count": 13
-        }
-      ],
-      "status": "paid",
-      "createdAt": "2025-09-13T09:17:21.999Z",
-      "totalPrice": 10387,
-      "finalPrice": 10387,
-      "id": 6
-    },
-    {
-      "userId": 13,
-      "items": [
-        {
-          "productId": 104,
-          "count": 14
-        }
-      ],
-      "status": "paid",
-      "createdAt": "2025-09-13T09:20:31.752Z",
-      "totalPrice": 11886,
-      "finalPrice": 11886,
-      "id": 7
-    },
-    {
-      "userId": 13,
-      "items": [
-        {
-          "productId": 101,
-          "count": 10
-        }
-      ],
-      "status": "paid",
-      "createdAt": "2025-09-13T09:22:00.588Z",
-      "totalPrice": 11992340,
-      "finalPrice": 11992340,
-      "id": 8
-    },
-    {
-      "userId": 13,
-      "items": [
-        {
-          "productId": 105,
-          "count": 12
-        }
-      ],
-      "status": "paid",
-      "createdAt": "2025-09-13T09:33:49.152Z",
-      "totalPrice": 11388,
-      "finalPrice": 11388,
-      "id": 9
-    },
-    {
-      "userId": 13,
-      "items": [
-        {
-          "productId": 206,
-          "count": 12
-        }
-      ],
-      "status": "paid",
-      "createdAt": "2025-09-13T09:37:16.110Z",
-      "totalPrice": 515880000,
-      "finalPrice": 515880000,
-      "id": 10
-    },
-    {
-      "userId": 13,
-      "items": [
-        {
-          "productId": 201,
-          "count": 15
-        }
-      ],
-      "status": "paid",
-      "createdAt": "2025-09-13T09:39:29.146Z",
-      "totalPrice": 824850000,
-      "finalPrice": 824850000,
-      "id": 11
-    },
-    {
-      "userId": 13,
-      "items": [
+          "count": 3
+        },
         {
           "productId": 211,
           "count": 1
-        }
-      ],
-      "status": "paid",
-      "createdAt": "2025-09-13T09:47:03.217Z",
-      "totalPrice": 14990000,
-      "finalPrice": 14990000,
-      "id": 12
-    },
-    {
-      "userId": 13,
-      "items": [
+        },
         {
-          "productId": 218,
+          "productId": 212,
           "count": 1
         }
       ],
       "status": "paid",
-      "createdAt": "2025-09-14T20:17:59.846Z",
-      "totalPrice": 6590000,
-      "finalPrice": 6590000,
-      "id": 13
+      "createdAt": "2025-10-02T17:54:29.069Z",
+      "totalPrice": 32982697,
+      "finalPrice": 32982697,
+      "id": 2
+    },
+    {
+      "userId": 2,
+      "items": [
+        {
+          "productId": 106,
+          "count": 1
+        }
+      ],
+      "status": "paid",
+      "createdAt": "2025-10-02T17:59:32.666Z",
+      "totalPrice": 1059,
+      "finalPrice": 1059,
+      "id": 3
     }
   ],
   "discounts": [
@@ -1163,7 +1049,7 @@
       "expiresAt": "2025-10-31T23:59:59.000Z",
       "usageLimit": 50,
       "usedCount": 3,
-      "minPurchase": 1000000,
+      "minPurchase": 1000,
       "stackable": false,
       "userId": 2,
       "allowMultipleUse": false

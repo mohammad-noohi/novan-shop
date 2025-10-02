@@ -128,7 +128,7 @@ export default function RegisterPage() {
       return;
     }
 
-    const userData = { ...form, role: "user", usedDiscounts: [] };
+    const userData = { ...form, role: "user", usedDiscounts: [], createdAt: new Date().toISOString() };
 
     toast.promise(register(userData), {
       success: () => ({

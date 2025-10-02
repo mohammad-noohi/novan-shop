@@ -111,7 +111,7 @@ export default function CartPage() {
                   </p>
                   <p className="flex items-center justify-between">
                     <span className="text-lg font-bold dark:text-white">final price:</span>
-                    <span className="text-lg font-bold text-brand dark:text-indigo-500">${finalPrice}</span>
+                    <span className="text-lg font-bold text-brand dark:text-indigo-500">${finalPrice.toLocaleString()}</span>
                   </p>
 
                   <button
@@ -126,14 +126,16 @@ export default function CartPage() {
           </div>
         </section>
 
-        <section className="mt-10">
-          <h2 className="text-2xl font-bold dark:text-white">Related Products</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-5">
-            {relatedProducts.map(product => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </section>
+        {relatedProducts.length > 0 ? (
+          <section className="mt-10">
+            <h2 className="text-2xl font-bold dark:text-white">Related Products</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-5">
+              {relatedProducts.map(product => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </section>
+        ) : null}
       </div>
     </main>
   );

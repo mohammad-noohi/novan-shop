@@ -64,6 +64,11 @@ tbody tr:last-child td:first-child {
 .dark ::-webkit-scrollbar-thumb {
   @apply bg-muted-dark;
 }
+
+/* remove background when hover on barchart */
+.recharts-rectangle.recharts-tooltip-cursor {
+  fill: transparent;
+}
 /* 
 
 success => green-500
