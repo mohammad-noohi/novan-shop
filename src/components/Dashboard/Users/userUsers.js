@@ -3,7 +3,7 @@ import { toast } from "sonner";
 
 function useUsers() {
   const [users, setUsers] = useState([]);
-  const [loadingUsers, setLoadingUsers] = useState(false); // maybe i need it
+  const [loadingUsers, setLoadingUsers] = useState(true); // maybe i need it
   const [selectedUser, setSelectedUser] = useState(null);
   const [modals, setModals] = useState({
     view: false,
@@ -130,7 +130,7 @@ function useUsers() {
     fetchUsers();
   }, []);
 
-  return { users, fetchUsers, query, setQuery, pages, changeCurrentPage, nextPage, prevPage, processedUsers, modals, setModals, selectedUser, setSelectedUser, deleteUser };
+  return { loadingUsers, users, fetchUsers, query, setQuery, pages, changeCurrentPage, nextPage, prevPage, processedUsers, modals, setModals, selectedUser, setSelectedUser, deleteUser };
 }
 
 export { useUsers };

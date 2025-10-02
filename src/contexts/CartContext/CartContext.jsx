@@ -10,7 +10,6 @@ function CartProvider({ children }) {
   const { user } = useAuthContext();
   const [products, setProducts] = useState([]);
   const [productsLoading, setProductsLoading] = useState(false);
-
   const [cart, setCart] = useState([]);
   const [cartId, setCartId] = useState(null);
   const [cartLoading, setCartLoading] = useState(false);
