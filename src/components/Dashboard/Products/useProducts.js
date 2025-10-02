@@ -1,9 +1,12 @@
 import { useCartContext } from "@/contexts/CartContext/useCartContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 function useProducts() {
-  const { products, getAllProducts } = useCartContext();
+  // اینجا صرفا چون میخواستم اسکلتون به درستی اعمال بشه از یه استیت لوکال برای محصولات و لودینگ استفاده کردم و اگر از همون محصولات و استیت کانتکس استفاده میکردم چون خیلی سریع این اتفاق می افتاد و اسکلتون دیده نمیشد
+  const { getAllProducts } = useCartContext();
+  const [products, setProducts] = useState([]);
+  const [loadingPage, setLoadingPage] = useState(true);
   const [showDeleteProductModal, setShowDeleteProductModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -150,8 +153,17 @@ function useProducts() {
 
   const processedProducts = visibleProducts();
 
+  useEffect(() => {
+    (async () => {
+      const loadedProducts = await getAllProducts();
+      setProducts(loadedProducts);
+      setLoadingPage(false);
+    })();
+  }, [getAllProducts]);
+
   return {
     products,
+    loadingPage,
     showDeleteProductModal,
     showViewModal,
     showEditModal,

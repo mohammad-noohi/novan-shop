@@ -9,7 +9,7 @@ function CartProvider({ children }) {
   const { discountsList } = useDiscountContext();
   const { user } = useAuthContext();
   const [products, setProducts] = useState([]);
-  const [productsLoading, setProductsLoading] = useState(false);
+  const [productsLoading, setProductsLoading] = useState(true);
   const [cart, setCart] = useState([]);
   const [cartId, setCartId] = useState(null);
   const [cartLoading, setCartLoading] = useState(false);
@@ -55,6 +55,7 @@ function CartProvider({ children }) {
       const resp = await fetch("http://localhost:3000/products");
       const data = await resp.json();
       setProducts(data);
+      return data;
     } catch (err) {
       console.log("Get products error:", err.message);
     } finally {
