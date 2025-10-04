@@ -17,7 +17,7 @@ export default function ViewModal({ show, onClose, children }) {
     return () => {
       document.removeEventListener("keyup", handleKey);
     };
-  }, [onClose]);
+  }, []);
 
   useEffect(() => {
     // disble scroll event when modal show & handle shift layout with scrollbar
@@ -48,7 +48,7 @@ export default function ViewModal({ show, onClose, children }) {
   return createPortal(
     <AnimatePresence>
       {show && (
-        <div onClick={handleCloseByOverlay} className="fixed inset-0 min-h-screen min-w-screen bg-black/50 backdrop-blur-xs flex items-center justify-center z-10">
+        <div ref={overlayRef} onClick={handleCloseByOverlay} className="fixed inset-0 min-h-screen min-w-screen bg-black/50 backdrop-blur-xs flex items-center justify-center z-10">
           <motion.div
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}

@@ -23,7 +23,7 @@ export default function DeleteModal({ show, onClose, onConfirm, title = "", text
     return () => {
       document.removeEventListener("keyup", handleKey);
     };
-  }, [onClose]);
+  }, []);
 
   useEffect(() => {
     // disble scroll event when modal show & handle shift layout with scrollbar

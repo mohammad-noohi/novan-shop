@@ -5,32 +5,31 @@ import { Calendar } from "@/components/ui/calendar";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
-export default function DatePicker({ lableText }) {
+export default function DatePicker({ labelText, selected, onSelect }) {
   const [open, setOpen] = useState(false);
-  const [date, setDate] = useState(null); // فقط null یا تاریخ ذخیره میشه
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-3 ">
       <Label htmlFor="date" className="px-1 shrink-0">
-        {lableText}
+        {labelText}
       </Label>
       <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <Button variant="outline" id="date" className="w-full justify-between font-normal">
-            {date ? date.toLocaleDateString() : "Select date"}
+        <PopoverTrigger className="dark:bg-transparent" asChild>
+          <Button variant="outline" id="date" className="w-full dark:hover:bg-app-dark justify-between font-normal">
+            {selected ? selected.toLocaleDateString() : "Select date"}
             <ChevronDownIcon />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-72 p-4 rounded-lg shadow-md bg-white overflow-hidden" align="start">
+        <PopoverContent className="w-72 p-4 rounded-lg shadow-md bg-white dark:bg-suface-dark overflow-hidden" align="start">
           <Calendar
             mode="single"
-            selected={date}
+            selected={selected}
             captionLayout="dropdown"
-            onSelect={selectedDate => {
-              setDate(selectedDate);
+            onSelect={date => {
+              onSelect?.(date);
               setOpen(false);
             }}
-            className="w-full"
+            className="w-full dark:bg-suface-dark"
           />
         </PopoverContent>
       </Popover>

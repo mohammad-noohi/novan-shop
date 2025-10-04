@@ -211,3 +211,19 @@ radius => rounded-lg
     @apply bg-background text-foreground;
   }
 }
+
+/*------------- Calender Style -------------*/
+/* Today */
+.rdp-day_today {
+  @apply bg-yellow-600 text-yellow-700 font-bold;
+}
+
+/* Hover on Day */
+.rdp-day.rdp-day_button:hover {
+  @apply bg-slate-500 text-white transition-colors;
+}
+
+/* Selected Day */
+.rdp-day_selected {
+  @apply bg-blue-600 text-white;
+}

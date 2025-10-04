@@ -126,13 +126,13 @@ export default function Dashboard() {
       <div className="mt-5 grid gap-5 grid-cols-1 md:grid-cols-2  xl:grid-cols-4 ">
         {/* cart stat */}
 
-        <DashboardCardStat title="Total Users" stat={totalUsers} icon={Users} trendIcon={MoveUp} trendValue="+12.5%" trendColor="text-emerald-500" />
+        <DashboardCardStat title="Total Users" stat={totalUsers} icon={Users} />
 
-        <DashboardCardStat title="Revenu" stat={"$" + totalRevenu.toLocaleString()} icon={ChartSpline} trendIcon={MoveUp} trendValue="+8.2%" trendColor="text-emerald-500" />
+        <DashboardCardStat title="Revenu" stat={"$" + totalRevenu.toLocaleString()} icon={ChartSpline} />
 
-        <DashboardCardStat title="Orders" stat={totalOrders} icon={ShoppingBag} trendIcon={MoveDown} trendValue="-2.1%" trendColor="text-red-500" />
+        <DashboardCardStat title="Orders" stat={totalOrders} icon={ShoppingBag} />
 
-        <DashboardCardStat title="total products" stat={totalProducts} icon={Boxes} trendIcon={MoveUp} trendValue="+5.4%" trendColor="text-emerald-500" />
+        <DashboardCardStat title="total products" stat={totalProducts} icon={Boxes} />
       </div>
 
       {/* Main Stats */}

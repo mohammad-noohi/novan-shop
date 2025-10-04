@@ -60,7 +60,7 @@ export default function EditUserPassForm({ selectedUser, fetchUsers, onCloseModa
     <div className="bg-white dark:bg-suface-dark border border-slate-200 dark:border-slate-800 p-5 rounded-lg max-w-5xl w-full">
       <h4 className="text-xl font-semibold capitalize">Change User Password</h4>
       <form onSubmit={handleSubmit} className="mt-5">
-        <div className="grid grid-cols-1 gap-3">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">
           {/* Password */}
           <div>
             <span>Password</span>

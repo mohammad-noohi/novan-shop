@@ -983,7 +983,7 @@
           "count": 1
         }
       ],
-      "status": "paid",
+      "status": "pending",
       "createdAt": "2025-10-02T17:54:29.069Z",
       "totalPrice": 32982697,
       "finalPrice": 32982697,
@@ -997,7 +997,7 @@
           "count": 1
         }
       ],
-      "status": "paid",
+      "status": "canceled",
       "createdAt": "2025-10-02T17:59:32.666Z",
       "totalPrice": 1059,
       "finalPrice": 1059,

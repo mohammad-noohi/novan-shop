@@ -8,7 +8,9 @@ export default function EditModal({ show, onClose, children }) {
 
   useEffect(() => {
     function handleKey(e) {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+      }
     }
 
     document.addEventListener("keyup", handleKey);
@@ -17,7 +19,7 @@ export default function EditModal({ show, onClose, children }) {
     return () => {
       document.removeEventListener("keyup", handleKey);
     };
-  }, [onClose]);
+  }, []);
 
   useEffect(() => {
     // disble scroll event when modal show & handle shift layout with scrollbar
@@ -49,6 +51,7 @@ export default function EditModal({ show, onClose, children }) {
     <AnimatePresence>
       {show && (
         <div
+          ref={overlayRef}
           onClick={handleCloseByOverlay}
           className="fixed inset-0 min-h-screen min-w-screen
          bg-black/50 backdrop-blur-xs flex items-center justify-center z-10">

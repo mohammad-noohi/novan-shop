@@ -13,7 +13,7 @@ export default function DashboardCardStat({
       <div className="inline-flex items-center justify-center rounded-lg bg-slate-200 dark:bg-slate-800 p-3">{Icon && <Icon className="size-6" />}</div>
       <div>
         <h6 className="text-lg font-semibold text-slate-600 dark:text-slate-300">{title}</h6>
-        <p className="text-2xl font-semibold leading-4">{stat}</p>
+        <p className="text-2xl font-semibold">{stat}</p>
         {trendValue && TrendIcon && (
           <p className={`mt-2 flex items-center gap-1 text-xs ${trendColor}`}>
             <TrendIcon className="size-4" />
