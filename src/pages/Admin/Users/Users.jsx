@@ -18,7 +18,7 @@ import autoTable from "jspdf-autotable";
 import * as XLSX from "xlsx";
 
 export default function Users() {
-  const { loadingUsers, users, fetchUsers, query, setQuery, pages, changeCurrentPage, nextPage, prevPage, processedUsers, modals, setModals, selectedUser, setSelectedUser, deleteUser } = useUsers();
+  const { loadingPage, users, fetchUsers, query, setQuery, pages, changeCurrentPage, nextPage, prevPage, processedUsers, modals, setModals, selectedUser, setSelectedUser, deleteUser } = useUsers();
 
   function exportToPDF() {
     if (!users || users.length === 0) {
@@ -72,7 +72,7 @@ export default function Users() {
     XLSX.writeFile(workbook, "users.xlsx");
   }
 
-  if (loadingUsers) {
+  if (loadingPage) {
     // Shimmer Effect ( Skeleton Effect )
     return (
       <div className="min-h-screen bg-slate-100 dark:bg-app-dark p-5">

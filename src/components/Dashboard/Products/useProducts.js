@@ -157,7 +157,9 @@ function useProducts() {
     (async () => {
       const loadedProducts = await getAllProducts();
       setProducts(loadedProducts);
-      setLoadingPage(false);
+      setTimeout(() => {
+        setLoadingPage(false);
+      }, 1000);
     })();
   }, []);
 

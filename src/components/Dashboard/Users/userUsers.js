@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 function useUsers() {
+  const [loadingPage, setLoadingPage] = useState(true);
   const [users, setUsers] = useState([]);
   const [loadingUsers, setLoadingUsers] = useState(true); // maybe i need it
   const [selectedUser, setSelectedUser] = useState(null);
@@ -127,10 +128,15 @@ function useUsers() {
   }
 
   useEffect(() => {
-    fetchUsers();
+    (async () => {
+      await fetchUsers();
+      setTimeout(() => {
+        setLoadingPage(false);
+      }, 1000);
+    })();
   }, []);
 
-  return { loadingUsers, users, fetchUsers, query, setQuery, pages, changeCurrentPage, nextPage, prevPage, processedUsers, modals, setModals, selectedUser, setSelectedUser, deleteUser };
+  return { loadingPage, loadingUsers, users, fetchUsers, query, setQuery, pages, changeCurrentPage, nextPage, prevPage, processedUsers, modals, setModals, selectedUser, setSelectedUser, deleteUser };
 }
 
 export { useUsers };
