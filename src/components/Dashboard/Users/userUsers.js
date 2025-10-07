@@ -1,3 +1,4 @@
+import { BASE_API_URL } from "../../../../constants";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -99,7 +100,7 @@ function useUsers() {
     try {
       const token = localStorage.getItem("novan-user-token");
       if (!token) throw new Error("No Token Found");
-      const resp = await fetch(`http://localhost:3000/users/${selectedUser.id}`, {
+      const resp = await fetch(`${BASE_API_URL}/users/${selectedUser.id}`, {
         method: "DELETE",
       });
 
@@ -116,7 +117,7 @@ function useUsers() {
   async function fetchUsers() {
     try {
       setLoadingUsers(true);
-      const resp = await fetch("http://localhost:3000/users");
+      const resp = await fetch(`${BASE_API_URL}/users`);
       if (!resp.ok) throw new Error("Failed to get users data");
       const data = await resp.json();
       setUsers(data);

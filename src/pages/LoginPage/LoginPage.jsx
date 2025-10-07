@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useAuthContext } from "../../contexts/AuthContext/useAuthContext";
 import { toast } from "sonner";
+import { EMAIL_REGEX } from "../../../constants";
+
 const intialState = { email: "", password: "" };
 
 export default function LoginPage() {
@@ -17,12 +19,10 @@ export default function LoginPage() {
     const newErrors = {};
     setErrors({});
 
-    const emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
     // Email validation
     if (!form.email) {
       newErrors.email = "Email is required";
-    } else if (!emailRegEx.test(form.email)) {
+    } else if (!EMAIL_REGEX.test(form.email)) {
       newErrors.email = "Email is not valid";
     }
 
@@ -66,6 +66,7 @@ export default function LoginPage() {
         navigate("/");
       }
     } catch (err) {
+      console.log(err.message);
       toast.error("Login failed", {
         classNames: {
           toast: "dark:bg-suface-dark! dark:border-slate-800! dark:text-white!",

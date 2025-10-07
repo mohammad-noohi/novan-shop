@@ -1,3 +1,4 @@
+import { BASE_API_URL } from "../../../../constants";
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -78,7 +79,7 @@ export default function EditUserForm({ users, selectedUser, fetchUsers, onCloseM
 
   async function editUser(newUserData) {
     try {
-      const resp = await fetch(`http://localhost:3000/users/${selectedUser.id}`, {
+      const resp = await fetch(`${BASE_API_URL}/users/${selectedUser.id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

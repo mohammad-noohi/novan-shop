@@ -1,3 +1,4 @@
+import { BASE_API_URL } from "../../../../constants";
 import { useCartContext } from "@/contexts/CartContext/useCartContext";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
@@ -6,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 export default function AddProductForm() {
   const { products, getAllProducts } = useCartContext();
+
   const [form, setForm] = useState({
     loading: false,
     title: "",
@@ -18,6 +20,7 @@ export default function AddProductForm() {
     file: null,
     preview: "",
   });
+
   const [errors, setErrors] = useState({
     title: "",
     category: "",
@@ -161,7 +164,7 @@ export default function AddProductForm() {
 
     try {
       setForm(prev => ({ ...prev, loading: true }));
-      const resp = await fetch(`http://localhost:3000/products`, {
+      const resp = await fetch(`${BASE_API_URL}/products`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

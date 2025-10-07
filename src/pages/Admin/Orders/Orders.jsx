@@ -1,3 +1,4 @@
+import { BASE_API_URL } from "../../../../constants";
 import { useEffect, useState } from "react";
 import { useCartContext } from "@/contexts/CartContext/useCartContext";
 import OrdersTable from "@/components/Dashboard/Orders/OrdersTable";
@@ -113,7 +114,7 @@ export default function Orders() {
 
   async function fetchOrders() {
     try {
-      const resp = await fetch("http://localhost:3000/orders");
+      const resp = await fetch(`${BASE_API_URL}/orders`);
       if (!resp.ok) throw new Error("Failed to fetch users");
       const data = await resp.json();
       setOrders(data);
@@ -124,7 +125,7 @@ export default function Orders() {
 
   async function fetchUsers() {
     try {
-      const resp = await fetch("http://localhost:3000/users");
+      const resp = await fetch(`${BASE_API_URL}/users`);
       if (!resp.ok) throw new Error("Failed to fetch users");
       const data = await resp.json();
       setUsers(data);

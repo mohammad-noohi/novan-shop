@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
+import { BASE_API_URL } from "../../../constants";
 
 const AuthContext = createContext();
 
@@ -15,7 +16,7 @@ function AuthProvider({ children }) {
 
   async function register(userInfo) {
     try {
-      const resp = await fetch("http://localhost:3000/register", {
+      const resp = await fetch(`${BASE_API_URL}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,7 +37,7 @@ function AuthProvider({ children }) {
     // in json-server min credentials are email and pass
     try {
       setLoading(true);
-      const resp = await fetch("http://localhost:3000/login", {
+      const resp = await fetch(`${BASE_API_URL}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -85,7 +86,7 @@ function AuthProvider({ children }) {
     async function fetchUser() {
       try {
         setInitialLoading(true);
-        const resp = await fetch(`http://localhost:3000/users/${userID}`);
+        const resp = await fetch(`${BASE_API_URL}/users/${userID}`);
 
         if (!resp.ok) throw new Error("fetch user info failed");
 

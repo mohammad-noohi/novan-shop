@@ -1,3 +1,4 @@
+import { BASE_API_URL } from "../../../../constants";
 import { useCartContext } from "@/contexts/CartContext/useCartContext";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -66,7 +67,7 @@ function useProducts() {
   async function deleteProduct() {
     if (!selectedProduct) return;
     try {
-      const resp = await fetch(`http://localhost:3000/products/${selectedProduct.id}`, {
+      const resp = await fetch(`${BASE_API_URL}/products/${selectedProduct.id}`, {
         method: "DELETE",
       });
 

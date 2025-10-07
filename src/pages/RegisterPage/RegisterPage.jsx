@@ -1,13 +1,11 @@
-import { useState } from "react";
-import { NavLink, useNavigate } from "react-router";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { useAuthContext } from "../../contexts/AuthContext/useAuthContext";
-import Loader from "../../components/Loader";
 import { toast } from "sonner";
-
-/* Icons */
+import { EMAIL_REGEX, BASE_API_URL } from "../../../constants";
 import { Circle, CircleCheckBig, CircleX } from "lucide-react";
 
-const intialState = {
+const initialForm = {
   firstname: "",
   lastname: "",
   username: "",
@@ -15,13 +13,12 @@ const intialState = {
   password: "",
 };
 
-const emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
 export default function RegisterPage() {
   const navigate = useNavigate();
   const { register, loading, login } = useAuthContext();
-  const [form, setForm] = useState(intialState);
+  const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
+  const [users, setUsers] = useState([]);
   const [passwordRules, setPasswordRules] = useState({
     hasUppercase: null,
     hasLowercase: null,
@@ -29,69 +26,32 @@ export default function RegisterPage() {
     minLength: null,
   });
 
-  /* Functions & Handlers */
+  /*--------- Functions ------------*/
 
-  function validateForm(e) {
-    const { name, value } = e.target;
+  // validate each field on onBlur event
+  function validateField(name, value) {
+    const trimmed = value.trim();
+    let message = "";
 
-    setErrors(prev => {
-      const newErrors = { ...prev };
+    if (name === "firstname" && !trimmed) message = "Firstname is required";
+    if (name === "lastname" && !trimmed) message = "Lastname is required";
 
-      if (name === "firstname") {
-        if (!value.trim()) {
-          newErrors.firstname = "Firstname is required";
-        } else {
-          delete newErrors.firstname;
-        }
-      }
-
-      if (name === "lastname") {
-        if (!value.trim()) {
-          newErrors.lastname = "Lastname is required";
-        } else {
-          delete newErrors.lastname;
-        }
-      }
-
-      if (name === "username") {
-        if (!value.trim()) {
-          newErrors.username = "Username is required";
-        } else {
-          delete newErrors.username;
-        }
-      }
-
-      if (name === "email") {
-        if (!value.trim()) {
-          newErrors.email = "Email is required";
-        } else if (!emailRegEx.test(value)) {
-          newErrors.email = "Email is not valid";
-        } else {
-          delete newErrors.email;
-        }
-      }
-
-      return newErrors;
-    });
-  }
-
-  function isFormValid() {
-    // all inputs must be filled
-    if (!form.firstname || !form.lastname || !form.username || !form.email) {
-      return false;
+    if (name === "username") {
+      if (!trimmed) message = "Username is required";
+      else if (!/^[A-Za-z][A-Za-z0-9_]{2,19}$/.test(trimmed)) message = "Username must start with a letter and be 3-20 characters long";
+      else if (users.some(u => u.username === trimmed)) message = "Username already taken, try another one";
     }
 
-    // email must be valid
-    if (!emailRegEx.test(form.email)) {
-      return false;
+    if (name === "email") {
+      if (!trimmed) message = "Email is required";
+      else if (!EMAIL_REGEX.test(trimmed)) message = "Email is not valid";
+      else if (users.some(u => u.email === trimmed)) message = "Email already taken, try another one";
     }
 
-    const passIsValid = Object.values(passwordRules).every(rule => rule === true);
-    if (!passIsValid) return false;
-
-    return true;
+    setErrors(prev => ({ ...prev, [name]: message }));
   }
 
+  // validate password on typing
   function handlePasswordChange(e) {
     const value = e.target.value;
     setForm(prev => ({ ...prev, password: value }));
@@ -104,8 +64,33 @@ export default function RegisterPage() {
     });
   }
 
+  // validate all fields before sumbit
+  function validateAll() {
+    const newErrors = {};
+    // firstname & lastname
+    if (!form.firstname.trim()) newErrors.firstname = "Firstname is required";
+    if (!form.lastname.trim()) newErrors.lastname = "Lastname is required";
+
+    // username
+    if (!form.username.trim()) newErrors.username = "Username is required";
+    else if (!/^[A-Za-z][A-Za-z0-9_]{2,19}$/.test(form.username)) newErrors.username = "Username must start with a letter and be 3-20 characters long";
+    else if (users.some(u => u.username === form.username)) newErrors.username = "Username already taken, try another one";
+
+    // email
+    if (!form.email.trim()) newErrors.email = "Email is required";
+    else if (!EMAIL_REGEX.test(form.email)) newErrors.email = "Email is not valid";
+    else if (users.some(u => u.email === form.email)) newErrors.email = "Email already taken, try another one";
+
+    setErrors(newErrors);
+
+    // password rules
+    const passIsValid = Object.values(passwordRules).every(rule => rule === true);
+
+    return Object.keys(newErrors).length === 0 && passIsValid;
+  }
+
   function clearForm() {
-    setForm(intialState);
+    setForm(initialForm);
     setPasswordRules({
       hasUppercase: null,
       hasLowercase: null,
@@ -118,11 +103,11 @@ export default function RegisterPage() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if (!isFormValid()) {
-      toast.error("form inputs are not valid", {
+    if (!validateAll()) {
+      toast.error("Please fix the errors in the form", {
         classNames: {
-          toast: "border-red-500! dark:border-red-600! dark:bg-app-dark!",
-          title: "text-red-500! dark:text-red-600!",
+          toast: "border-slate-200! dark:border-slate-800! dark:bg-app-dark!",
+          title: "dark:text-white!",
         },
       });
       return;
@@ -132,10 +117,10 @@ export default function RegisterPage() {
 
     toast.promise(register(userData), {
       success: () => ({
-        message: "register successfully",
+        message: "Registered successfully",
         classNames: {
           toast: "border-green-500! dark:border-green-600! dark:bg-app-dark!",
-          title: "text-green-500! dark:text-green-600!",
+          title: "dark:text-white!",
         },
         onAutoClose: () => {
           clearForm();
@@ -145,15 +130,31 @@ export default function RegisterPage() {
         duration: 1000,
       }),
       error: () => ({
-        message: "login failed",
+        message: "Register failed",
         classNames: {
           toast: "border-red-500! dark:border-red-600! dark:bg-app-dark!",
-          title: "text-red-500! dark:text-red-600!",
+          title: "dark:text-white!",
         },
       }),
     });
   }
 
+  async function fetchUsers() {
+    try {
+      const resp = await fetch(`${BASE_API_URL}/users`);
+      if (!resp.ok) throw new Error("Failed to fetch users");
+      const data = await resp.json();
+      setUsers(data);
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  /*------------- JSX ------------*/
   return (
     <div className="min-h-screen py-6 bg-white dark:bg-app-dark flex justify-center items-center">
       <div className="p-6 bg-slate-50 w-110 border border-slate-200 rounded-lg dark:bg-suface-dark dark:border-slate-800">
@@ -161,119 +162,109 @@ export default function RegisterPage() {
 
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-3.5">
+            {/* Firstname */}
             <label htmlFor="firstname">
               <p className="text-slate-600 capitalize text-sm dark:text-muted-dark">firstname</p>
               <input
-                onChange={e => setForm({ ...form, firstname: e.target.value })}
                 id="firstname"
+                name="firstname"
                 value={form.firstname}
                 type="text"
-                name="firstname"
-                onBlur={validateForm}
-                className="mt-2.5 w-full border border-slate-200 bg-white py-2 px-6 rounded-lg outline-none focus:ring  focus:ring-brand transition-all dark:bg-app-dark dark:border-slate-800 dark:text-white"
+                onChange={e => setForm(prev => ({ ...prev, firstname: e.target.value }))}
+                onBlur={e => validateField("firstname", e.target.value)}
+                className="mt-2.5 w-full border border-slate-200 bg-white py-2 px-6 rounded-lg outline-none focus:ring focus:ring-brand transition-all dark:bg-app-dark dark:border-slate-800 dark:text-white"
               />
             </label>
             {errors.firstname && <p className="text-red-500 dark:text-red-800 text-sm">{errors.firstname}</p>}
 
+            {/* Lastname */}
             <label htmlFor="lastname">
               <p className="text-slate-600 capitalize text-sm dark:text-muted-dark">lastname</p>
               <input
-                value={form.lastname}
-                onChange={e => setForm({ ...form, lastname: e.target.value })}
                 id="lastname"
-                type="text"
                 name="lastname"
-                onBlur={validateForm}
-                className="mt-2.5 w-full border border-slate-200 bg-white py-2 px-6 rounded-lg outline-none focus:ring  focus:ring-brand transition-all  dark:bg-app-dark dark:border-slate-800 dark:text-white"
+                value={form.lastname}
+                type="text"
+                onChange={e => setForm(prev => ({ ...prev, lastname: e.target.value }))}
+                onBlur={e => validateField("lastname", e.target.value)}
+                className="mt-2.5 w-full border border-slate-200 bg-white py-2 px-6 rounded-lg outline-none focus:ring focus:ring-brand transition-all dark:bg-app-dark dark:border-slate-800 dark:text-white"
               />
             </label>
-
             {errors.lastname && <p className="text-red-500 dark:text-red-800 text-sm">{errors.lastname}</p>}
 
+            {/* Username */}
             <label htmlFor="username">
               <p className="text-slate-600 capitalize text-sm dark:text-muted-dark">username</p>
               <input
-                onChange={e => setForm({ ...form, username: e.target.value })}
                 id="username"
+                name="username"
                 value={form.username}
                 type="text"
-                name="username"
-                onBlur={validateForm}
-                className="mt-2.5 w-full border border-slate-200 bg-white py-2 px-6 rounded-lg outline-none focus:ring  focus:ring-brand transition-all  dark:bg-app-dark dark:border-slate-800 dark:text-white"
+                onChange={e => setForm(prev => ({ ...prev, username: e.target.value }))}
+                onBlur={e => validateField("username", e.target.value)}
+                className="mt-2.5 w-full border border-slate-200 bg-white py-2 px-6 rounded-lg outline-none focus:ring focus:ring-brand transition-all dark:bg-app-dark dark:border-slate-800 dark:text-white"
               />
             </label>
-
             {errors.username && <p className="text-red-500 dark:text-red-800 text-sm">{errors.username}</p>}
 
+            {/* Email */}
             <label htmlFor="email">
               <p className="text-slate-600 capitalize text-sm dark:text-muted-dark">email</p>
               <input
-                onChange={e => setForm({ ...form, email: e.target.value })}
                 id="email"
-                type="email"
-                value={form.email}
                 name="email"
-                onBlur={validateForm}
-                className="mt-2.5 w-full border border-slate-200 bg-white py-2 px-6 rounded-lg outline-none focus:ring  focus:ring-brand transition-all  dark:bg-app-dark dark:border-slate-800 dark:text-white"
+                value={form.email}
+                type="email"
+                onChange={e => setForm(prev => ({ ...prev, email: e.target.value }))}
+                onBlur={e => validateField("email", e.target.value)}
+                className="mt-2.5 w-full border border-slate-200 bg-white py-2 px-6 rounded-lg outline-none focus:ring focus:ring-brand transition-all dark:bg-app-dark dark:border-slate-800 dark:text-white"
               />
             </label>
-
             {errors.email && <p className="text-red-500 dark:text-red-800 text-sm">{errors.email}</p>}
 
+            {/* Password */}
             <label htmlFor="password">
               <p className="text-slate-600 capitalize text-sm dark:text-muted-dark">password</p>
               <input
-                onChange={handlePasswordChange}
                 id="password"
                 type="password"
                 value={form.password}
-                autoComplete="true"
-                className="mt-2.5 w-full border border-slate-200 bg-white py-2 px-6 rounded-lg outline-none focus:ring  focus:ring-brand transition-all  dark:bg-app-dark dark:border-slate-800 dark:text-white"
+                onChange={handlePasswordChange}
+                className="mt-2.5 w-full border border-slate-200 bg-white py-2 px-6 rounded-lg outline-none focus:ring focus:ring-brand transition-all dark:bg-app-dark dark:border-slate-800 dark:text-white"
               />
             </label>
-            <ul className="  text-slate-600 dark:text-muted-dark">
-              <li
-                className={`flex items-center gap-2 ${passwordRules.minLength === true && "text-green-500 dark:text-green-600"} ${
-                  passwordRules.minLength === false && "text-red-500 dark:text-red-800"
-                }`}>
-                {passwordRules.minLength === null && <Circle className="size-4" />}
-                {passwordRules.minLength === true && <CircleCheckBig className="size-4" />}
-                {passwordRules.minLength === false && <CircleX className="size-4" />}
-                <span>at least 8 characters long</span>
-              </li>
-              <li
-                className={`flex items-center gap-2 ${passwordRules.hasUppercase === true && "text-green-500 dark:text-green-600"} ${
-                  passwordRules.hasUppercase === false && "text-red-500 dark:text-red-800"
-                }`}>
-                {passwordRules.hasUppercase === null && <Circle className="size-4" />}
-                {passwordRules.hasUppercase === true && <CircleCheckBig className="size-4" />}
-                {passwordRules.hasUppercase === false && <CircleX className="size-4" />}
-                <span>at least one uppercase letter</span>
-              </li>
-              <li
-                className={`flex items-center gap-2 ${passwordRules.hasLowercase === true && "text-green-500 dark:text-green-600"} ${
-                  passwordRules.hasLowercase === false && "text-red-500 dark:text-red-800"
-                }`}>
-                {passwordRules.hasLowercase === null && <Circle className="size-4" />}
-                {passwordRules.hasLowercase === true && <CircleCheckBig className="size-4" />}
-                {passwordRules.hasLowercase === false && <CircleX className="size-4" />}
-                <span>at least one lowercase letter</span>
-              </li>
-              <li
-                className={`flex items-center gap-2 ${passwordRules.hasNumber === true && "text-green-500 dark:text-green-600"} ${
-                  passwordRules.hasNumber === false && "text-red-500 dark:text-red-800"
-                }`}>
-                {passwordRules.hasNumber === null && <Circle className="size-4" />}
-                {passwordRules.hasNumber === true && <CircleCheckBig className="size-4" />}
-                {passwordRules.hasNumber === false && <CircleX className="size-4" />}
-                <span>at least one number</span>
-              </li>
+
+            {/* Password rules */}
+            <ul className="text-slate-600 dark:text-muted-dark">
+              {Object.entries(passwordRules).map(([key, value]) => (
+                <li key={key} className={`flex items-center gap-2 ${value === true ? "text-green-500 dark:text-green-600" : value === false ? "text-red-500 dark:text-red-800" : ""}`}>
+                  {value === null && <Circle className="size-4" />}
+                  {value === true && <CircleCheckBig className="size-4" />}
+                  {value === false && <CircleX className="size-4" />}
+                  <span>
+                    {key === "minLength"
+                      ? "at least 8 characters"
+                      : key === "hasUppercase"
+                      ? "at least one uppercase letter"
+                      : key === "hasLowercase"
+                      ? "at least one lowercase letter"
+                      : "at least one number"}
+                  </span>
+                </li>
+              ))}
             </ul>
           </div>
 
-          <button className="flex items-center justify-center gap-3 w-full mt-8 bg-brand text-white rounded-lg py-3 px-6 cursor-pointer hover:bg-indigo-500 transition-colors" type="submit">
-            {loading && <span className="block size-4 rounded-full border-2 border-white border-t-transparent animate-spin"></span>}
-            {loading ? "loading..." : "sign up"}
+          {/* Submit button */}
+          <button type="submit" className="flex items-center justify-center gap-3 w-full mt-8 bg-brand text-white rounded-lg py-3 px-6 cursor-pointer hover:bg-indigo-500 transition-colors">
+            {loading ? (
+              <>
+                <span className="block size-4 rounded-full border-2 border-white border-t-transparent animate-spin"></span>
+                loading...
+              </>
+            ) : (
+              "Sign Up"
+            )}
           </button>
         </form>
       </div>

@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from "react";
 import { useAuthContext } from "../AuthContext/useAuthContext";
 import { useDiscountContext } from "../DiscountContext/useDiscountContext";
 import { toast } from "sonner";
+import { BASE_API_URL } from "../../../constants";
 
 const CartContext = createContext();
 
@@ -52,7 +53,7 @@ function CartProvider({ children }) {
   async function getAllProducts() {
     try {
       setProductsLoading(true);
-      const resp = await fetch("http://localhost:3000/products");
+      const resp = await fetch(`${BASE_API_URL}/products`);
       const data = await resp.json();
       setProducts(data);
       return data;
@@ -66,7 +67,7 @@ function CartProvider({ children }) {
   async function fetchCart() {
     try {
       setCartLoading(true);
-      const resp = await fetch(`http://localhost:3000/carts?userId=${user.id}`);
+      const resp = await fetch(`${BASE_API_URL}/carts?userId=${user.id}`);
       const data = await resp.json();
 
       setCart(data[0]?.items || []);
@@ -79,7 +80,7 @@ function CartProvider({ children }) {
   }
 
   async function fetchProduct(ID) {
-    const resp = await fetch(`http://localhost:3000/products/${ID}`);
+    const resp = await fetch(`${BASE_API_URL}/products/${ID}`);
     const data = await resp.json();
     return data;
   }
@@ -126,7 +127,7 @@ function CartProvider({ children }) {
       if (!cartId) {
         // اگر کاربر قبلا چیزی به سبد خریدش اضافه نکرده بوده پس سبد خرید نداره و یکی براش میسازیم
 
-        const resp = await fetch(`http://localhost:3000/carts`, {
+        const resp = await fetch(`${BASE_API_URL}/carts`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -200,7 +201,7 @@ function CartProvider({ children }) {
       if (discountsList.length) {
         await Promise.all(
           discountsList.map(async discount => {
-            const resp = await fetch(`http://localhost:3000/discounts/${discount.id}`, {
+            const resp = await fetch(`${BASE_API_URL}/discounts/${discount.id}`, {
               method: "PATCH",
               headers: {
                 "Content-Type": "application/json",
@@ -217,7 +218,7 @@ function CartProvider({ children }) {
       if (discountsList.length) {
         const newUsedDiscounts = discountsList.filter(d => !d.allowMultipleUse).map(item => item.code);
 
-        await fetch(`http://localhost:3000/users/${user.id}`, {
+        await fetch(`${BASE_API_URL}/users/${user.id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -227,7 +228,7 @@ function CartProvider({ children }) {
       }
 
       //  Post New Order
-      await fetch(`http://localhost:3000/orders`, {
+      await fetch(`${BASE_API_URL}/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -243,7 +244,7 @@ function CartProvider({ children }) {
 
           const newStock = product.stock - item.count;
 
-          const resp = await fetch(`http://localhost:3000/products/${item.productId}`, {
+          const resp = await fetch(`${BASE_API_URL}/products/${item.productId}`, {
             method: "PATCH",
             headers: {
               "Content-Type": "application/json",
@@ -290,7 +291,7 @@ function CartProvider({ children }) {
     async function syncCart() {
       if (user && cartId) {
         try {
-          await fetch(`http://localhost:3000/carts/${cartId}`, {
+          await fetch(`${BASE_API_URL}/carts/${cartId}`, {
             method: "PATCH",
             headers: {
               "Content-Type": "application/json",

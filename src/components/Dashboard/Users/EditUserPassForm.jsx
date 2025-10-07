@@ -2,6 +2,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
+import { BASE_API_URL } from "../../../../constants";
 
 export default function EditUserPassForm({ selectedUser, fetchUsers, onCloseModal }) {
   const [password, setPassword] = useState("");
@@ -38,7 +39,7 @@ export default function EditUserPassForm({ selectedUser, fetchUsers, onCloseModa
     }
 
     try {
-      const resp = await fetch(`http://localhost:3000/users/${selectedUser.id}`, {
+      const resp = await fetch(`${BASE_API_URL}/users/${selectedUser.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ password: password.trim() }),

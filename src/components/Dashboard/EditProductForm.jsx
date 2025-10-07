@@ -1,3 +1,4 @@
+import { BASE_API_URL } from "../../../constants";
 import { useCartContext } from "@/contexts/CartContext/useCartContext";
 import { useState, useRef } from "react";
 import { toast } from "sonner";
@@ -157,7 +158,7 @@ export default function EditProductForm({ selectedProduct, setShowEditModal }) {
 
     try {
       setForm(prev => ({ ...prev, loading: true }));
-      const resp = await fetch(`http://localhost:3000/products/${selectedProduct.id}`, {
+      const resp = await fetch(`${BASE_API_URL}/products/${selectedProduct.id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

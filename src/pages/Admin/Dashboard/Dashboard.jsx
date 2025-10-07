@@ -1,3 +1,4 @@
+import { BASE_API_URL } from "../../../../constants";
 import DashboardCardStat from "@/components/Dashboard/DashboardCardStat";
 import DotStatus from "@/components/DotStatus";
 import FallbackImage from "@/components/FallbackImage";
@@ -89,7 +90,7 @@ export default function Dashboard() {
 
   async function fetchOrders() {
     try {
-      const resp = await fetch("http://localhost:3000/orders");
+      const resp = await fetch(`${BASE_API_URL}/orders`);
       if (!resp.ok) throw new Error("can't fetch orders");
       const data = await resp.json();
       setOrders(data);
@@ -100,7 +101,7 @@ export default function Dashboard() {
 
   async function fetchUsers() {
     try {
-      const resp = await fetch("http://localhost:3000/users");
+      const resp = await fetch(`${BASE_API_URL}/users`);
       if (!resp.ok) throw new Error("can't fetch users");
       const data = await resp.json();
       setUsers(data);

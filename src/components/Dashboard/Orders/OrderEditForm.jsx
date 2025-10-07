@@ -1,3 +1,4 @@
+import { BASE_API_URL } from "../../../../constants";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -22,7 +23,7 @@ export default function OrderEditForm({ setModals, fetchOrders, selectedOrder })
 
     try {
       setForm(prev => ({ ...prev, loading: true }));
-      const resp = await fetch(`http://localhost:3000/orders/${selectedOrder.id}`, {
+      const resp = await fetch(`${BASE_API_URL}/orders/${selectedOrder.id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

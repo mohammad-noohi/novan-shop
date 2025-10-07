@@ -1,3 +1,4 @@
+import { BASE_API_URL } from "../../../constants";
 import { createContext, useState } from "react";
 import { useAuthContext } from "../AuthContext/useAuthContext";
 
@@ -13,7 +14,7 @@ function DiscountProvider({ children }) {
     try {
       setDiscountLoading(true);
       setDiscountError("");
-      const resp = await fetch(`http://localhost:3000/discounts?code=${code}`);
+      const resp = await fetch(`${BASE_API_URL}/discounts?code=${code}`);
       const data = await resp.json(); // return an array
 
       // check code exist or not

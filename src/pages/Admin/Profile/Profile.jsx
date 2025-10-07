@@ -1,3 +1,4 @@
+import { BASE_API_URL } from "../../../../constants";
 import DeleteModal from "@/components/DeleteModal";
 import { useAuthContext } from "@/contexts/AuthContext/useAuthContext";
 import { LogOut, Mail, Info, FileInputIcon } from "lucide-react";
@@ -102,7 +103,7 @@ export default function Profile() {
 
     try {
       setEditForm(prev => ({ ...prev, loading: true }));
-      const resp = await fetch(`http://localhost:3000/users/${user.id}`, {
+      const resp = await fetch(`${BASE_API_URL}/users/${user.id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
