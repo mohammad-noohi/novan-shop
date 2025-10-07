@@ -110,6 +110,17 @@
       "usedDicounts": [],
       "createdAt": "2025-10-02T09:01:49.332Z",
       "id": 29
+    },
+    {
+      "email": "test@gmail.com",
+      "password": "$2a$10$Vdt40U4kZknm9sbTohtM3OE4hdG6q8jX5wYYNWaPRJJEPbSANpU7O",
+      "firstname": "test",
+      "lastname": "test",
+      "username": "test",
+      "role": "user",
+      "usedDiscounts": [],
+      "createdAt": "2025-10-04T13:48:29.381Z",
+      "id": 30
     }
   ],
   "products": [
@@ -242,7 +253,7 @@
       "brand": "Asus",
       "price": 949,
       "discount": 10,
-      "stock": 4,
+      "stock": 2,
       "rate": 2,
       "colors": [
         "#2563EB"
@@ -271,7 +282,7 @@
       "brand": "MSI",
       "price": 1059,
       "discount": 7,
-      "stock": 18,
+      "stock": 17,
       "rate": 5,
       "colors": [
         "#E11D48",
@@ -904,22 +915,6 @@
         "os": "Android 14, FuntouchOS"
       },
       "caption": "Zeiss-powered flagship with Dimensity 9300 processor."
-    },
-    {
-      "title": "Ullam laboriosam co",
-      "category": "Sunt non non eiusmod",
-      "brand": "Irure quis laboriosa",
-      "price": "45",
-      "discount": "34",
-      "stock": "46",
-      "rate": 5,
-      "caption": "Quos vitae consequat fadf adf adf adf a df adsf a ds fa sd fa sdf asdf a sdfas df",
-      "createdAt": "2025-09-27T13:13:29.307Z",
-      "mainImage": "",
-      "colors": [],
-      "specs": [],
-      "gallery": [],
-      "id": 222
     }
   ],
   "carts": [
@@ -1002,6 +997,24 @@
       "totalPrice": 1059,
       "finalPrice": 1059,
       "id": 3
+    },
+    {
+      "userId": 30,
+      "items": [
+        {
+          "productId": 105,
+          "count": 2
+        },
+        {
+          "productId": 106,
+          "count": 1
+        }
+      ],
+      "status": "paid",
+      "createdAt": "2025-10-04T13:49:13.443Z",
+      "totalPrice": 2957,
+      "finalPrice": 2957,
+      "id": 4
     }
   ],
   "discounts": [
