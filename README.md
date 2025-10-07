@@ -23,19 +23,19 @@
 #### 🏬 Online Store
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-  <img src="./screenshots/home.png"  alt="" width="300" />
-  <img src="./screenshots/cart.png"  alt="" width="300" />
-  <img src="./screenshots/empty-cart.png"  alt="" width="300" />
-  <img src="./screenshots/cart-drawer.png"  alt="" width="300" />
-  <img src="./screenshots/login.png"  alt="" width="300" />
-  <img src="./screenshots/register.png"  alt="" width="300" />
+  <img src="./screenshots/home.png"  alt="" width="400" />
+  <img src="./screenshots/cart.png"  alt="" width="400" />
+  <img src="./screenshots/empty-cart.png"  alt="" width="400" />
+  <img src="./screenshots/cart-drawer.png"  alt="" width="400" />
+  <img src="./screenshots/login.png"  alt="" width="400" />
+  <img src="./screenshots/register.png"  alt="" width="400" />
 </div>
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px;margin-top : 20px;">
-  <img src="./screenshots/dark/dark-home.png" alt="" width="300" />
-  <img src="./screenshots/dark/dark-cart.png" alt="" width="300" />
-  <img src="./screenshots/dark/dark-empty-cart.png" alt="" width="300" />
-  <img src="./screenshots/dark/dark-cart-drawer.png" alt="" width="300" />
+  <img src="./screenshots/dark/dark-home.png" alt="" width="400" />
+  <img src="./screenshots/dark/dark-cart.png" alt="" width="400" />
+  <img src="./screenshots/dark/dark-empty-cart.png" alt="" width="400" />
+  <img src="./screenshots/dark/dark-cart-drawer.png" alt="" width="400" />
 </div>
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
@@ -45,29 +45,29 @@
 #### 📊 Admin Dashboard
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-  <img src="./screenshots/admin-home.png" alt="" width="300" />
-  <img src="./screenshots/admin-products.png" alt="" width="300" />
-  <img src="./screenshots/admin-orders.png" alt="" width="300" />
-  <img src="./screenshots/admin-users.png" alt="" width="300" />
-  <img src="./screenshots/admin-profile.png" alt="" width="300" />
-  <img src="./screenshots/user-view-modal.png" alt="" width="300" />
-  <img src="./screenshots/user-edit-modal.png" alt="" width="300" />
-  <img src="./screenshots/user-password-modal.png" alt="" width="300" />
-  <img src="./screenshots/product-view-modal.png" alt="" width="300" />
-  <img src="./screenshots/product-edit-modal.png" alt="" width="300" />
+  <img src="./screenshots/admin-home.png" alt="" width="400" />
+  <img src="./screenshots/admin-products.png" alt="" width="400" />
+  <img src="./screenshots/admin-orders.png" alt="" width="400" />
+  <img src="./screenshots/admin-users.png" alt="" width="400" />
+  <img src="./screenshots/admin-profile.png" alt="" width="400" />
+  <img src="./screenshots/user-view-modal.png" alt="" width="400" />
+  <img src="./screenshots/user-edit-modal.png" alt="" width="400" />
+  <img src="./screenshots/user-password-modal.png" alt="" width="400" />
+  <img src="./screenshots/product-view-modal.png" alt="" width="400" />
+  <img src="./screenshots/product-edit-modal.png" alt="" width="400" />
 </div>
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px;margin-top : 20px">
-  <img src="./screenshots/dark/dark-damin-home.png" alt="" width="300" />
-  <img src="./screenshots/dark/dark-admin-products.png" alt="" width="300" />
-  <img src="./screenshots/dark/dark-damin-orders.png" alt="" width="300" />
-  <img src="./screenshots/dark/dark-admin-users.png" alt="" width="300" />
-  <img src="./screenshots/dark/dark-admin-profile.png" alt="" width="300" />
-  <img src="./screenshots/dark/dark-user-view-modal.png" alt="" width="300" />
-  <img src="./screenshots/dark/dark-user-edit-modal.png" alt="" width="300" />
-  <img src="./screenshots/dark/dark-user-password-modal.png" alt="" width="300" />
-  <img src="./screenshots/dark/dark-product-view-modal.png" alt="" width="300" />
-  <img src="./screenshots/dark/dark-product-edit-modal.png" alt="" width="300" />
+  <img src="./screenshots/dark/dark-damin-home.png" alt="" width="400" />
+  <img src="./screenshots/dark/dark-admin-products.png" alt="" width="400" />
+  <img src="./screenshots/dark/dark-damin-orders.png" alt="" width="400" />
+  <img src="./screenshots/dark/dark-admin-users.png" alt="" width="400" />
+  <img src="./screenshots/dark/dark-admin-profile.png" alt="" width="400" />
+  <img src="./screenshots/dark/dark-user-view-modal.png" alt="" width="400" />
+  <img src="./screenshots/dark/dark-user-edit-modal.png" alt="" width="400" />
+  <img src="./screenshots/dark/dark-user-password-modal.png" alt="" width="400" />
+  <img src="./screenshots/dark/dark-product-view-modal.png" alt="" width="400" />
+  <img src="./screenshots/dark/dark-product-edit-modal.png" alt="" width="400" />
 </div>
 
 ---

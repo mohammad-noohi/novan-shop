@@ -221,7 +221,7 @@
       "brand": "Lenovo",
       "price": 849,
       "discount": 8,
-      "stock": 7,
+      "stock": 6,
       "rate": 3,
       "colors": [
         "#6B7280",
@@ -253,7 +253,7 @@
       "brand": "Asus",
       "price": 949,
       "discount": 10,
-      "stock": 2,
+      "stock": 0,
       "rate": 2,
       "colors": [
         "#2563EB"
@@ -1015,6 +1015,24 @@
       "totalPrice": 2957,
       "finalPrice": 2957,
       "id": 4
+    },
+    {
+      "userId": 13,
+      "items": [
+        {
+          "productId": 104,
+          "count": 1
+        },
+        {
+          "productId": 105,
+          "count": 2
+        }
+      ],
+      "status": "paid",
+      "createdAt": "2025-10-07T17:01:14.503Z",
+      "totalPrice": 2747,
+      "finalPrice": 2747,
+      "id": 5
     }
   ],
   "discounts": [
