@@ -58,6 +58,7 @@ function DiscountProvider({ children }) {
         return;
       }
 
+      // check can use this code with anohter or not
       if (d.stackable) {
         setDiscountsList(prev => [...prev, d]);
       } else {

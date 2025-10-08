@@ -1,8 +1,13 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export default function CustomPagination({ pages, currentPage, onPrevPage, onNextPage, onChangePage }) {
+export default function CustomPagination({ pages, currentPage, onPrevPage, onNextPage, onChangePage, classNames = {} }) {
+  // NOTE : the classNames get some properites and apply classes to related element look like shadcn
+
+  let activePageStyle = "bg-slate-500 text-white dark:bg-slate-700";
+  if (classNames.activePage) activePageStyle = classNames.activePage;
+
   return (
-    <div className="flex items-center gap-3">
+    <div className={`flex items-center gap-3 ${classNames.pagination}`}>
       <button
         onClick={onPrevPage}
         disabled={currentPage === 1}
@@ -13,8 +18,8 @@ export default function CustomPagination({ pages, currentPage, onPrevPage, onNex
         <button
           key={i}
           onClick={() => onChangePage(i + 1)}
-          className={`size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 dark:border-slate-800  ${
-            i + 1 === currentPage ? "bg-slate-500 text-white dark:bg-slate-700" : "bg-slate-50 dark:bg-suface-dark"
+          className={`size-9 font-bold flex justify-center items-center rounded-lg border border-slate-200 dark:border-slate-800 ${classNames.pageBtn} ${
+            i + 1 === currentPage ? activePageStyle : "bg-slate-50 dark:bg-suface-dark"
           } cursor-pointer dark:text-white `}>
           {i + 1}
         </button>
@@ -29,9 +34,3 @@ export default function CustomPagination({ pages, currentPage, onPrevPage, onNex
     </div>
   );
 }
-
-/* 
-pages : number ,
-currenPage : number ,
-other : function
-*/

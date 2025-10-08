@@ -1,4 +1,3 @@
-// icons
 import { Star } from "lucide-react";
 import { useCartContext } from "../contexts/CartContext/useCartContext";
 import { useState } from "react";
@@ -62,7 +61,7 @@ export default function ProductCard({ product }) {
         {cartLoading && product.id === loadingProductId ? "loading..." : "Add To Cart"}
       </motion.button>
 
-      {product.stock === 0 ? <span className="absolute rounded-lg border border-red-500 bg-slate-50 px-2 text-red-500">out of stock</span> : null}
+      {product.stock === 0 ? <span className="absolute rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 px-2 text-red-500 dark:bg-suface-dark">out of stock</span> : null}
     </div>
   );
 }

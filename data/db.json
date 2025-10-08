@@ -920,7 +920,12 @@
   "carts": [
     {
       "userId": 13,
-      "items": [],
+      "items": [
+        {
+          "productId": 104,
+          "count": 2
+        }
+      ],
       "id": 1
     },
     {
@@ -930,7 +935,12 @@
     },
     {
       "userId": 2,
-      "items": [],
+      "items": [
+        {
+          "productId": 106,
+          "count": 1
+        }
+      ],
       "id": 3
     },
     {

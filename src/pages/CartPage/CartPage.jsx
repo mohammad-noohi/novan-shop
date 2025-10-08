@@ -1,21 +1,16 @@
-import { useState } from "react";
 import { useCartContext } from "../../contexts/CartContext/useCartContext";
 import CartProduct from "../../components/CartProduct";
 import { Link } from "react-router";
 import ProductCard from "../../components/ProductCard";
-// icons
-import { ArrowRight, TriangleAlert } from "lucide-react";
-import { useDiscountContext } from "../../contexts/DiscountContext/useDiscountContext";
+import RelatedProducts from "@/components/RelatedProducts";
+import CartSummarySideBar from "@/components/CartSummarySideBar";
+import EmptyCart from "@/components/EmptyCart";
 
 export default function CartPage() {
   /*------------- States -------------*/
-  const { products, purchase, cartProducts, totalPrice, finalPrice } = useCartContext();
-  const { applyDiscount, discountError } = useDiscountContext();
-  const [input, setInput] = useState("");
-  const [discountApplied, setDiscountApplied] = useState(false);
+  const { products, cartProducts } = useCartContext();
 
-  // Drived States
-  const isCartValid = cartProducts.every(p => p.count <= p.stock);
+  // Drived States ( calculdate the related products )
   const categoriesSet = new Set(cartProducts.map(p => p.category));
   const categories = Array.from(categoriesSet);
   const relatedProducts = products.filter(p => {
@@ -23,10 +18,6 @@ export default function CartPage() {
       return p;
     }
   });
-  const uniqeItems = cartProducts.length;
-  const totalItems = cartProducts.reduce((acc, p) => {
-    return acc + p.count;
-  }, 0);
 
   /*----------------- UI -----------------*/
   return (
@@ -39,103 +30,14 @@ export default function CartPage() {
               className="w-full lg:w-[70%] grow bg-slate-50 border border-slate-200 rounded-lg p-3 lg:p-5 dark:bg-suface-dark dark:border-slate-800"
               style={{ width: cartProducts.length === 0 && "100%" }}>
               {/* products list */}
-              <div className="flex flex-col gap-y-3 lg:gap-y-6">
-                {cartProducts.length === 0 ? (
-                  <div className="flex flex-col items-center">
-                    <h3 className="dark:text-red-700 text-3xl capitalize ">your cart is empty</h3>
-
-                    <img src="images/Empty-cuate.png" className="max-h-100" alt="empty cart" />
-                    <span className="dark:text-muted-dark mt-3 inline-block">please add some products in to your cart</span>
-                    <Link
-                      to="/"
-                      className=" bg-brand flex items-center gap-2 hover:gap-3 transition-all mt-5 text-white py-3 px-6 rounded-lg cursor-pointer hover:bg-indigo-500   font-semibold dark:bg-indigo-500">
-                      <span>see products</span>
-                      <ArrowRight />
-                    </Link>
-                  </div>
-                ) : (
-                  cartProducts.map(p => <CartProduct key={p.id} product={p} />)
-                )}
-              </div>
+              <div className="flex flex-col gap-y-3 lg:gap-y-6">{cartProducts.length === 0 ? <EmptyCart /> : cartProducts.map(p => <CartProduct key={p.id} product={p} />)}</div>
             </article>
             {/* cart sidebar */}
-            {cartProducts.length !== 0 && (
-              <aside className="w-full lg:w-[30%] bg-slate-50 border border-slate-200 rounded-lg p-3 lg:p-5 dark:bg-suface-dark dark:border-slate-800">
-                <h3 className="text-xl font-bold dark:text-white">Order Summary</h3>
-                <div className="mt-3">
-                  <p className="text-slate-600 dark:text-muted-dark">
-                    <span>uniqe items: </span>
-                    <span>{uniqeItems}</span>
-                  </p>
-
-                  <p className="text-slate-600 dark:text-muted-dark">
-                    <span>total items: </span>
-                    <span>{totalItems}</span>
-                  </p>
-                </div>
-
-                <div className="flex gap-3 mt-2.5">
-                  <input
-                    type="text"
-                    value={input}
-                    onChange={e => setInput(e.target.value)}
-                    placeholder="discount code"
-                    className="border border-slate-200 rounded-lg p-3 w-full outline-none focus:ring focus:ring-brand caret-brand transition-all dark:bg-app-dark dark:border-slate-800"
-                  />
-                  <button
-                    className="capitalize bg-brand text-white py-3 px-6 rounded-lg cursor-pointer hover:bg-indigo-500 dark:bg-indigo-500"
-                    onClick={() => {
-                      applyDiscount(input, totalPrice);
-                      setDiscountApplied(true);
-                    }}>
-                    apply
-                  </button>
-                </div>
-                {input && discountApplied && discountError && (
-                  <p className="text-red-500 mt-2 line-clamp-1 flex items-center gap-2">
-                    <TriangleAlert className="size-4" />
-                    <span>{discountError}</span>
-                  </p>
-                )}
-
-                {input && discountApplied && !discountError && (
-                  <p className="text-green-500 mt-2 line-clamp-1 flex items-center gap-2">
-                    <span>code applied successfully</span>
-                  </p>
-                )}
-
-                <div className="flex flex-col gap-2.5 mt-10">
-                  <p className="flex items-center justify-between">
-                    <span className="text-lg font-bold dark:text-white">sub total:</span>
-                    <span className="text-lg font-bold text-brand dark:text-indigo-500">${totalPrice.toLocaleString()}</span>
-                  </p>
-                  <p className="flex items-center justify-between">
-                    <span className="text-lg font-bold dark:text-white">final price:</span>
-                    <span className="text-lg font-bold text-brand dark:text-indigo-500">${finalPrice.toLocaleString()}</span>
-                  </p>
-
-                  <button
-                    disabled={!isCartValid}
-                    onClick={purchase}
-                    className="bg-brand text-white py-3 px-6 rounded-lg cursor-pointer w-full hover:bg-indigo-500 transition  font-semibold dark:bg-indigo-500 disabled:grayscale-50 disabled:opacity-50 disabled:cursor-not-allowed">
-                    purchase
-                  </button>
-                </div>
-              </aside>
-            )}
+            {cartProducts.length !== 0 && <CartSummarySideBar />}
           </div>
         </section>
 
-        {relatedProducts.length > 0 ? (
-          <section className="mt-10">
-            <h2 className="text-2xl font-bold dark:text-white">Related Products</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-5">
-              {relatedProducts.map(product => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          </section>
-        ) : null}
+        {relatedProducts.length > 0 ? <RelatedProducts products={relatedProducts} /> : null}
       </div>
     </main>
   );
