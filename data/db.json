@@ -10,7 +10,9 @@
       "role": "admin",
       "id": 2,
       "profile": "images/users/person-1.jpg",
-      "usedDiscounts": []
+      "usedDiscounts": [
+        "VIP20"
+      ]
     },
     {
       "createdAt": "2024-11-01T09:44:33.240Z",
@@ -282,7 +284,7 @@
       "brand": "MSI",
       "price": 1059,
       "discount": 7,
-      "stock": 17,
+      "stock": 16,
       "rate": 5,
       "colors": [
         "#E11D48",
@@ -343,7 +345,7 @@
       "brand": "Samsung",
       "price": 14990000,
       "discount": 8,
-      "stock": 28,
+      "stock": 27,
       "rate": 4,
       "colors": [
         "#1E3A8A",
@@ -919,130 +921,40 @@
   ],
   "carts": [
     {
-      "userId": 13,
-      "items": [
-        {
-          "productId": 104,
-          "count": 2
-        }
-      ],
-      "id": 1
-    },
-    {
-      "userId": 3,
-      "items": [],
-      "id": 2
-    },
-    {
       "userId": 2,
-      "items": [
-        {
-          "productId": 106,
-          "count": 1
-        }
-      ],
-      "id": 3
-    },
-    {
-      "userId": 30,
       "items": [],
-      "id": 4
+      "id": 1
     }
   ],
   "orders": [
     {
-      "userId": 3,
-      "items": [
-        {
-          "productId": 102,
-          "count": 1
-        },
-        {
-          "productId": 103,
-          "count": 1
-        },
-        {
-          "productId": 104,
-          "count": 1
-        }
-      ],
-      "status": "paid",
-      "createdAt": "2025-10-02T17:53:56.597Z",
-      "totalPrice": 2948,
-      "finalPrice": 2948,
-      "id": 1
-    },
-    {
-      "userId": 13,
-      "items": [
-        {
-          "productId": 103,
-          "count": 3
-        },
-        {
-          "productId": 211,
-          "count": 1
-        },
-        {
-          "productId": 212,
-          "count": 1
-        }
-      ],
-      "status": "pending",
-      "createdAt": "2025-10-02T17:54:29.069Z",
-      "totalPrice": 32982697,
-      "finalPrice": 32982697,
-      "id": 2
-    },
-    {
       "userId": 2,
       "items": [
         {
-          "productId": 106,
-          "count": 1
-        }
-      ],
-      "status": "canceled",
-      "createdAt": "2025-10-02T17:59:32.666Z",
-      "totalPrice": 1059,
-      "finalPrice": 1059,
-      "id": 3
-    },
-    {
-      "userId": 30,
-      "items": [
-        {
-          "productId": 105,
-          "count": 2
-        },
-        {
-          "productId": 106,
+          "productId": 211,
           "count": 1
         }
       ],
       "status": "paid",
-      "createdAt": "2025-10-04T13:49:13.443Z",
-      "totalPrice": 2957,
-      "finalPrice": 2957,
-      "id": 4
-    },
-    {
-      "userId": 13,
-      "items": [
+      "createdAt": "2025-10-08T12:43:39.133Z",
+      "totalPrice": 14990000,
+      "finalPrice": 11992000,
+      "appliedDiscounts": [
         {
-          "productId": 104,
-          "count": 1
-        },
-        {
-          "productId": 105,
-          "count": 2
+          "id": 5,
+          "code": "VIP20",
+          "type": "percent",
+          "value": 20,
+          "expiresAt": "2025-10-31T23:59:59.000Z",
+          "usageLimit": 50,
+          "usedCount": 3,
+          "minPurchase": 1000,
+          "stackable": false,
+          "userId": 2,
+          "allowMultipleUse": false
         }
       ],
-      "status": "paid",
-      "createdAt": "2025-10-07T17:01:14.503Z",
-      "totalPrice": 2747,
-      "finalPrice": 2747,
-      "id": 5
+      "id": 1
     }
   ],
   "discounts": [
@@ -1089,7 +1001,7 @@
       "value": 20,
       "expiresAt": "2025-10-31T23:59:59.000Z",
       "usageLimit": 50,
-      "usedCount": 3,
+      "usedCount": 4,
       "minPurchase": 1000,
       "stackable": false,
       "userId": 2,

@@ -27,7 +27,7 @@ export default function CartPage() {
           <h2 className="text-2xl font-bold dark:text-white">Shopping Cart</h2>
           <div className="mt-5 flex flex-col lg:flex-row items-start gap-5 ">
             <article
-              className="w-full lg:w-[70%] grow bg-slate-50 border border-slate-200 rounded-lg p-3 lg:p-5 dark:bg-suface-dark dark:border-slate-800"
+              className="w-full lg:w-1/2 grow bg-slate-50 border border-slate-200 rounded-lg p-3 lg:p-5 dark:bg-suface-dark dark:border-slate-800"
               style={{ width: cartProducts.length === 0 && "100%" }}>
               {/* products list */}
               <div className="flex flex-col gap-y-3 lg:gap-y-6">{cartProducts.length === 0 ? <EmptyCart /> : cartProducts.map(p => <CartProduct key={p.id} product={p} />)}</div>
