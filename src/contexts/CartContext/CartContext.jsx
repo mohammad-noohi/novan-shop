@@ -24,7 +24,8 @@ function CartProvider({ children }) {
   const totalPrice = cartProducts.reduce((acc, p) => acc + p.price * p.count, 0);
 
   /*----------------- Fetchers -----------------*/
-  async function getAllProducts() {
+
+  const getAllProducts = useCallback(async () => {
     try {
       setProductsLoading(true);
       const resp = await fetch(`${BASE_API_URL}/products`);
@@ -36,7 +37,7 @@ function CartProvider({ children }) {
     } finally {
       setProductsLoading(false);
     }
-  }
+  }, []);
 
   const fetchCart = useCallback(async () => {
     if (!user) return;

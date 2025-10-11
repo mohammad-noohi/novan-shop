@@ -73,7 +73,6 @@ export default function EditUserForm({ users, selectedUser, fetchUsers, onCloseM
       await editUser(newUserData);
       await fetchUsers();
       onCloseModal();
-      console.log("user edit successfully");
     }
   }
 

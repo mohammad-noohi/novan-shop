@@ -110,7 +110,6 @@ function useUsers() {
       toast.success("user delete successfully");
     } catch (err) {
       toast.error(err.message);
-      console.log(err);
     }
   }
 

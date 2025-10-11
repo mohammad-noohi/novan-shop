@@ -6,7 +6,7 @@ import ProductViewModal from "@/components/Dashboard/Products/ProductViewModal";
 import AddProductForm from "@/components/Dashboard/Products/AddProductForm";
 import DeleteModal from "@/components/DeleteModal";
 import EditModal from "@/components/Dashboard/EditModal";
-import EditProductForm from "@/components/Dashboard/EditProductForm";
+import EditProductForm from "@/components/Dashboard/Products/EditProductForm";
 import { FileText, Sheet } from "lucide-react";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";

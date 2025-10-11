@@ -1,4 +1,4 @@
-import { BASE_API_URL } from "../../../constants";
+import { BASE_API_URL } from "../../../../constants";
 import { useCartContext } from "@/contexts/CartContext/useCartContext";
 import { useState, useRef } from "react";
 import { toast } from "sonner";

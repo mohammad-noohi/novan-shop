@@ -3,7 +3,7 @@
     {
       "createdAt": "2025-07-27T06:18:21.240Z",
       "email": "prolord@gmail.com",
-      "password": "$2a$10$oChO.NBQA7Nqh5D1FwbNjuYolA8k9bQm/PUkeeqk6VHi3KRn7jEwS",
+      "password": "$2a$10$WNF6bG2uNPrU1xmAjx98d.LQUSpKt2pSVcUL7nGlIO321VflFW.ze",
       "firstname": "hatef",
       "lastname": "karimi",
       "username": "prolord",
@@ -123,6 +123,18 @@
       "usedDiscounts": [],
       "createdAt": "2025-10-04T13:48:29.381Z",
       "id": 30
+    },
+    {
+      "email": "pevom@mailinator.com",
+      "password": "$2a$10$WOfTHwyUzvJP0h33OlkyM.p6ufI25pRqBbOol6J0dAB9.TMxRebsK",
+      "firstname": "Natus vel in est ci",
+      "lastname": "Porro molestias est ",
+      "username": "Ut magnam rerum temp",
+      "role": "user",
+      "profile": "",
+      "usedDicounts": [],
+      "createdAt": "2025-10-11T07:28:47.936Z",
+      "id": 31
     }
   ],
   "products": [
@@ -190,7 +202,7 @@
       "title": "HP Spectre x360 16",
       "category": "laptop",
       "brand": "HP",
-      "price": 899,
+      "price": 600,
       "discount": 12,
       "stock": 1,
       "rate": 3,
@@ -221,7 +233,7 @@
       "title": "Lenovo ThinkPad X1 Carbon Gen 11",
       "category": "laptop",
       "brand": "Lenovo",
-      "price": 849,
+      "price": 1500,
       "discount": 8,
       "stock": 6,
       "rate": 3,
@@ -314,7 +326,7 @@
       "brand": "Razer",
       "price": 1249,
       "discount": 12,
-      "stock": 18,
+      "stock": 17,
       "rate": 1,
       "colors": [
         "#D97706",
@@ -343,9 +355,9 @@
       "title": "Samsung Galaxy A54 5G",
       "category": "smartphone",
       "brand": "Samsung",
-      "price": 14990000,
+      "price": 1300,
       "discount": 8,
-      "stock": 27,
+      "stock": 25,
       "rate": 4,
       "colors": [
         "#1E3A8A",
@@ -372,7 +384,7 @@
     },
     {
       "id": 212,
-      "title": "iPhone SE (2022)",
+      "title": "iPhone SE (2024)",
       "category": "smartphone",
       "brand": "Apple",
       "price": 17990000,
@@ -917,6 +929,22 @@
         "os": "Android 14, FuntouchOS"
       },
       "caption": "Zeiss-powered flagship with Dimensity 9300 processor."
+    },
+    {
+      "title": "Ullamco ut ea nesciu",
+      "category": "Nostrud in exercitat",
+      "brand": "Ullamco consectetur",
+      "price": "15",
+      "discount": "89",
+      "stock": "30",
+      "rate": 5,
+      "caption": "Qui totam occaecat v Qui totam occaecat v Qui totam occaecat v",
+      "createdAt": "2025-10-11T07:49:08.351Z",
+      "mainImage": null,
+      "colors": [],
+      "specs": [],
+      "gallery": [],
+      "id": 221
     }
   ],
   "carts": [
@@ -924,6 +952,11 @@
       "userId": 2,
       "items": [],
       "id": 1
+    },
+    {
+      "userId": 13,
+      "items": [],
+      "id": 2
     }
   ],
   "orders": [
@@ -935,7 +968,7 @@
           "count": 1
         }
       ],
-      "status": "paid",
+      "status": "pending",
       "createdAt": "2025-10-08T12:43:39.133Z",
       "totalPrice": 14990000,
       "finalPrice": 11992000,
@@ -955,6 +988,25 @@
         }
       ],
       "id": 1
+    },
+    {
+      "userId": 13,
+      "items": [
+        {
+          "productId": 107,
+          "count": 1
+        },
+        {
+          "productId": 211,
+          "count": 2
+        }
+      ],
+      "status": "canceled",
+      "createdAt": "2025-10-11T07:24:49.725Z",
+      "totalPrice": 29981249,
+      "finalPrice": 29981249,
+      "appliedDiscounts": [],
+      "id": 2
     }
   ],
   "discounts": [

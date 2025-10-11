@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 function useProducts() {
+  console.log("user products mounted");
   // اینجا صرفا چون میخواستم اسکلتون به درستی اعمال بشه از یه استیت لوکال برای محصولات و لودینگ استفاده کردم و اگر از همون محصولات و استیت کانتکس استفاده میکردم چون خیلی سریع این اتفاق می افتاد و اسکلتون دیده نمیشد
-  const { getAllProducts } = useCartContext();
-  const [products, setProducts] = useState([]);
+  const { products, getAllProducts } = useCartContext();
   const [loadingPage, setLoadingPage] = useState(true);
   const [showDeleteProductModal, setShowDeleteProductModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
@@ -154,15 +154,22 @@ function useProducts() {
 
   const processedProducts = visibleProducts();
 
+  // useEffect(() => {
+  //   (async () => {
+  //     const loadedProducts = await getAllProducts();
+  //     setProducts(loadedProducts);
+  //     setTimeout(() => {
+  //       setLoadingPage(false);
+  //     }, 1000);
+  //   })();
+  // }, []);
+
   useEffect(() => {
     (async () => {
-      const loadedProducts = await getAllProducts();
-      setProducts(loadedProducts);
-      setTimeout(() => {
-        setLoadingPage(false);
-      }, 1000);
+      await getAllProducts();
+      setTimeout(() => setLoadingPage(false), 1000);
     })();
-  }, []);
+  }, [getAllProducts]);
 
   return {
     products,

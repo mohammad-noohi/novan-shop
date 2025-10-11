@@ -125,11 +125,12 @@ export default function AddProductForm() {
     reader.readAsDataURL(f);
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     const isFormValid = validateForm();
     if (isFormValid) {
-      addNewProduct();
+      await addNewProduct();
+      await getAllProducts();
     } else {
       toast.error("check form errors");
     }
@@ -171,12 +172,12 @@ export default function AddProductForm() {
         },
         body: JSON.stringify(newProduct),
       });
-      // status ==> 201 ==> create status
-      if (resp.status === 201) {
-        toast.success("product add successfully");
-        resetForm();
-        await getAllProducts();
-      }
+
+      if (!resp.ok) throw new Error("failed to add product");
+
+      toast.success("product add successfully");
+      resetForm();
+      // await getAllProducts();
     } catch (err) {
       toast.error("Something went wrong , Please try again");
       throw err;

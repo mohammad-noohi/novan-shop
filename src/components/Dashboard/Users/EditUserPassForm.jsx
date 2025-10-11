@@ -53,7 +53,6 @@ export default function EditUserPassForm({ selectedUser, fetchUsers, onCloseModa
       onCloseModal();
     } catch (err) {
       toast.error(err.message);
-      console.log(err);
     }
   }
 
